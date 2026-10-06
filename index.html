@@ -76,6 +76,45 @@
       color: var(--primary-color); 
     }
 
+    /* DROPDOWN MENU */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--bg-white);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      list-style: none;
+      padding: 10px 0;
+      min-width: 200px;
+      display: none;
+      border: 1px solid #e2e8f0;
+      z-index: 1001;
+    }
+
+    .dropdown-menu li a {
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      transition: background 0.2s;
+    }
+
+    .dropdown-menu li a:hover {
+      background: #f1f5f9;
+      color: var(--primary-color);
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
     /* HERO SECTION */
     .hero { 
       background: linear-gradient(rgba(0, 77, 64, 0.85), rgba(0, 51, 44, 0.9)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80') center/cover; 
@@ -128,7 +167,7 @@
 
     .section-title { 
       text-align: center; 
-      margin-bottom: 50px; 
+      margin-bottom: 40px; 
     }
 
     .section-title h2 { 
@@ -152,7 +191,40 @@
       text-transform: uppercase; 
     }
 
-    /* GRID CARDS (PROFIL / FASILITAS) */
+    /* PROFIL BOXES */
+    .profile-card {
+      background: var(--bg-white);
+      border-radius: 12px;
+      padding: 35px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+      margin-bottom: 30px;
+    }
+
+    .profile-card h3 {
+      color: var(--primary-color);
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .profile-card p, .profile-card ul {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .profile-card ul {
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+
+    .profile-card ul li {
+      margin-bottom: 8px;
+    }
+
+    /* GRID CARDS (FASILITAS) */
     .grid-cards { 
       display: grid; 
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
@@ -247,6 +319,12 @@
         justify-content: center; 
         gap: 15px;
       }
+      .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        border: none;
+        background: #f1f5f9;
+      }
       .hero h1 { 
         font-size: 1.8rem; 
       }
@@ -266,7 +344,18 @@
     </a>
     <ul class="nav-links">
       <li><a href="#beranda">Beranda</a></li>
-      <li><a href="#profil">Profil Sekolah</a></li>
+      
+      <!-- DROPDOWN PROFIL SEKOLAH -->
+      <li class="dropdown">
+        <a href="#profil"><i class="fas fa-chevron-down" style="font-size: 0.75rem; margin-left: 2px;"></i> Profil Sekolah</a>
+        <ul class="dropdown-menu">
+          <li><a href="#visi"><i class="fas fa-eye"></i> Visi</a></li>
+          <li><a href="#misi"><i class="fas fa-bullseye"></i> Misi</a></li>
+          <li><a href="#sejarah"><i class="fas fa-history"></i> Sejarah</a></li>
+          <li><a href="#struktur"><i class="fas fa-sitemap"></i> Struktur Organisasi</a></li>
+        </ul>
+      </li>
+
       <li><a href="#fasilitas">Fasilitas</a></li>
       <li><a href="#kontak">Kontak</a></li>
     </ul>
@@ -276,43 +365,63 @@
   <section id="beranda" class="hero">
     <h1>Selamat Datang di SMPN 2 Karamat</h1>
     <p>Mewujudkan Generasi Cerdas, Berkarakter, Berbudaya, dan Berdaya Saing Tinggi di Era Digital.</p>
-    <a href="#profil" class="btn btn-primary">
+    <a href="#visi" class="btn btn-primary">
       <i class="fas fa-arrow-down"></i> Jelajahi Profil
     </a>
   </section>
 
-  <!-- PROFIL SEKOLAH -->
+  <!-- SUB-MENU SEKSI PROFIL SEKOLAH -->
   <section id="profil" class="container">
     <div class="section-title">
       <span class="section-badge">TENTANG KAMI</span>
-      <h2>Profil & Keunggulan</h2>
-      <p>Komitmen kami dalam memberikan pendidikan berkualitas bagi seluruh siswa.</p>
+      <h2>Profil Sekolah</h2>
+      <p>Mengenal lebih dekat SMP Negeri 2 Karamat.</p>
     </div>
 
-    <div class="grid-cards">
-      <div class="card">
-        <i class="fas fa-bullseye card-icon"></i>
-        <h3>Visi & Misi</h3>
-        <p>Membentuk insan yang beriman, bertaqwa, unggul dalam prestasi akademik maupun non-akademik, serta berwawasan lingkungan.</p>
-      </div>
+    <!-- 1. VISI -->
+    <div id="visi" class="profile-card">
+      <h3><i class="fas fa-eye"></i> Visi Sekolah</h3>
+      <p>
+        <strong>"Mewujudkan Generasi Unggul, Berkarakter, Menguasai IPTEK, Berwawasan Lingkungan, dan Berlandaskan IMTAK."</strong>
+      </p>
+    </div>
 
-      <div class="card">
-        <i class="fas fa-user-graduate card-icon"></i>
-        <h3>Pendidikan Karakter</h3>
-        <p>Menanamkan nilai-nilai kedisiplinan, kejujuran, dan kebersamaan untuk mencetak generasi pemimpin masa depan.</p>
-      </div>
+    <!-- 2. MISI -->
+    <div id="misi" class="profile-card">
+      <h3><i class="fas fa-bullseye"></i> Misi Sekolah</h3>
+      <ul>
+        <li>Melaksanakan proses pembelajaran dan bimbingan secara efektif dan optimal.</li>
+        <li>Menumbuhkan semangat keunggulan secara intensif kepada seluruh warga sekolah.</li>
+        <li>Mendorong dan membantu siswa untuk mengenali potensi dirinya secara optimal.</li>
+        <li>Menanamkan kedisiplinan dan nilai keagamaan dalam kehidupan sehari-hari.</li>
+      </ul>
+    </div>
 
-      <div class="card">
-        <i class="fas fa-chalkboard-teacher card-icon"></i>
-        <h3>Tenaga Pengajar</h3>
-        <p>Didukung oleh guru-guru profesional dan berpengalaman di bidangnya yang siap membimbing potensi siswa secara optimal.</p>
-      </div>
+    <!-- 3. SEJARAH -->
+    <div id="sejarah" class="profile-card">
+      <h3><i class="fas fa-history"></i> Sejarah Sekolah</h3>
+      <p>
+        SMP Negeri 2 Karamat didirikan untuk memenuhi kebutuhan sarana pendidikan tingkat menengah pertama di wilayah Karamat, Kabupaten Buol. Sejak berdiri, sekolah terus berkembang baik dari segi infrastruktur, kualitas tenaga pendidik, maupun prestasi akademis dan non-akademis siswa.
+      </p>
+    </div>
+
+    <!-- 4. STRUKTUR ORGANISASI -->
+    <div id="struktur" class="profile-card">
+      <h3><i class="fas fa-sitemap"></i> Struktur Organisasi</h3>
+      <ul>
+        <li><strong>Kepala Sekolah:</strong> -</li>
+        <li><strong>Wakil Kepala Sekolah:</strong> -</li>
+        <li><strong>Kepala Tata Usaha:</strong> -</li>
+        <li><strong>Ur. Kurikulum:</strong> -</li>
+        <li><strong>Ur. Kesiswaan:</strong> -</li>
+        <li><strong>Ur. Sarana & Prasarana:</strong> -</li>
+      </ul>
     </div>
   </section>
 
   <!-- FASILITAS -->
-  <section id="fasilitas" style="background-color: #ffffff; padding: 20px 0;">
-    <div class="container">
+  <section id="fasilitas" style="background-color: #ffffff; padding: 60px 0;">
+    <div class="container" style="padding-top:0; padding-bottom:0;">
       <div class="section-title">
         <span class="section-badge">SARANA & PRASARANA</span>
         <h2>Fasilitas Sekolah</h2>
