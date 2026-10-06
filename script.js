@@ -29,7 +29,7 @@ function handlePPDB(event) {
   const nama = document.getElementById('nama').value;
   const nisn = document.getElementById('nisn').value;
   
-  alert(`Terima Kasih, ${nama}!\n\nPendaftaran awal PPDB dengan NISN ${nisn} berhasil dikirim.\nPanitia PPDB SMPN 2 Karamat akan segera menghubungi Anda melalui WhatsApp.`);
+  alert(`Terima Kasih, ${nama}!\n\nPendaftaran awal PPDB dengan NISN ${nisn} berhasil dikirim.\nPanitia PPDB SMPN 2 Karamat akan segera menghubungi Anda.`);
   
   // Reset Form
   document.getElementById('ppdbForm').reset();
