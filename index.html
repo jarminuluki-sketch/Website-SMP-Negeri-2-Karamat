@@ -121,12 +121,34 @@
       color: white; 
       padding: 120px 5% 100px 5%; 
       text-align: center; 
+      overflow: hidden;
     }
 
-    .hero h1 { 
-      font-size: 2.5rem; 
+    /* RUNNING TEXT STYLE */
+    .running-text-container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto 15px auto;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .running-text {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 15s linear infinite;
+      font-size: 2.3rem; 
       font-weight: 700; 
-      margin-bottom: 15px; 
+      color: #ffffff;
+    }
+
+    .running-text-container:hover .running-text {
+      animation-play-state: paused; /* Teks berhenti saat kursor diarahkan ke teks */
+    }
+
+    @keyframes marquee {
+      0%   { transform: translate(0, 0); }
+      100% { transform: translate(-100%, 0); }
     }
 
     .hero p { 
@@ -325,8 +347,8 @@
         border: none;
         background: #f1f5f9;
       }
-      .hero h1 { 
-        font-size: 1.8rem; 
+      .running-text { 
+        font-size: 1.6rem; 
       }
       .container { 
         padding: 50px 20px; 
@@ -363,7 +385,11 @@
 
   <!-- HERO SECTION -->
   <section id="beranda" class="hero">
-    <h1>Selamat Datang di Website Resmi SMPN 2 Karamat</h1>
+    <!-- RUNNING TEXT HEADER -->
+    <div class="running-text-container">
+      <h1 class="running-text">Selamat Datang di Website Resmi SMPN 2 Karamat</h1>
+    </div>
+
     <p>Mewujudkan Generasi Cerdas, Berkarakter, Berbudaya, dan Berdaya Saing Tinggi di Era Digital.</p>
     <a href="#visi" class="btn btn-primary">
       <i class="fas fa-arrow-down"></i> Jelajahi Profil
@@ -409,13 +435,14 @@
     <div id="struktur" class="profile-card">
       <h3><i class="fas fa-sitemap"></i> Struktur Organisasi</h3>
       <ul>
-        <li><strong>Kepala Sekolah:Djainab Baba, S.Pd.,M.Pd</strong> </li>
+        <li><strong>Kepala Sekolah:</strong> DJAINAB BABA, S.Pd.,M.Pd</li>
         <li><strong>Wakil Kepala Sekolah:</strong> -</li>
         <li><strong>Kepala Tata Usaha:</strong> -</li>
         <li><strong>Ur. Kurikulum:</strong> -</li>
         <li><strong>Ur. Kesiswaan:</strong> -</li>
         <li><strong>Ur. Sarana & Prasarana:</strong> -</li>
-        <li><strong>Operator Sekolah:Vita Sriwahyuni Jumadil, S.E</strong> </li>
+        <li><strong>Bendahara:</strong> Salmia Salihin, S.Sos</li>
+        <li><strong>Operator Sekolah:</strong> Vita Sriwahyuni Jumadil, S.E</li>
       </ul>
     </div>
   </section>
@@ -480,7 +507,7 @@
         <i class="fas fa-clock"></i>
         <div>
           <h4>Jam Operasional</h4>
-          <p>Senin - Jumat: 07.15 - 15.30 WITA</p>
+          <p>Senin - Jumat: 07.00 - 15.30 WITA</p>
         </div>
       </div>
     </div>
