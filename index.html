@@ -72,4 +72,173 @@
         <div class="stat-item">
           <i class="fas fa-user-graduate"></i>
           <span class="stat-number">450+</span>
-          <span class="stat-label">Siswa Akt
+          <span class="stat-label">Siswa Aktif</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-chalkboard-teacher"></i>
+          <span class="stat-number">28</span>
+          <span class="stat-label">Guru & Staf</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-trophy"></i>
+          <span class="stat-number">35+</span>
+          <span class="stat-label">Prestasi</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-award"></i>
+          <span class="stat-number">A</span>
+          <span class="stat-label">Akreditasi</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profil & Sambutan -->
+  <section id="profil" class="section">
+    <div class="container grid-2">
+      <div class="profile-img-card">
+        <div class="img-placeholder">
+          <i class="fas fa-user-tie fa-5x"></i>
+          <p>Kepala Sekolah</p>
+        </div>
+        <div class="card-caption">
+          <h3>Kepala SMPN 2 Karamat</h3>
+          <p>NIP. 19780101 200501 1 002</p>
+        </div>
+      </div>
+      <div class="profile-text">
+        <span class="section-badge">Sambutan Kepala Sekolah</span>
+        <h2>Mendidik dengan Hati, Membangun Masa Depan</h2>
+        <p>Assalamu'alaikum Warahmatullahi Wabarakatuh,</p>
+        <p>Selamat datang di website resmi SMP Negeri 2 Karamat. Kami berkomitmen untuk menyediakan lingkungan belajar yang kondusif, inklusif, dan berbasis teknologi guna membentuk siswa yang siap menghadapi tantangan zaman tanpa mengesampingkan nilai moral dan budaya lokal.</p>
+        
+        <div class="vision-mission-tabs">
+          <div class="tab-buttons">
+            <button class="tab-btn active" onclick="openTab(event, 'visi')">Visi Sekolah</button>
+            <button class="tab-btn" onclick="openTab(event, 'misi')">Misi Sekolah</button>
+          </div>
+          <div id="visi" class="tab-content active">
+            <p><strong>"Terwujudnya Peserta Didik yang Berimtaq, Berprestasi, Berwawasan Lingkungan, dan Terampil Berteknologi."</strong></p>
+          </div>
+          <div id="misi" class="tab-content">
+            <ul>
+              <li><i class="fas fa-check-circle"></i> Menanamkan nilai-nilai keagamaan dan budi pekerti luhur.</li>
+              <li><i class="fas fa-check-circle"></i> Mengembangkan pembelajaran aktif, kreatif, dan berbasis IT.</li>
+              <li><i class="fas fa-check-circle"></i> Membina potensi akademik dan non-akademik siswa secara optimal.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fasilitas -->
+  <section id="fasilitas" class="section bg-light">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-badge">Sarana & Prasarana</span>
+        <h2>Fasilitas Penunjang Belajar</h2>
+        <p>Dukungan fasilitas modern untuk menciptakan suasana belajar yang nyaman dan efektif.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card-feature">
+          <i class="fas fa-laptop-code feature-icon"></i>
+          <h3>Laboratorium Komputer</h3>
+          <p>Dilengkapi jaringan internet cepat untuk pembelajaran TIK dan Asesmen Nasional (ANBK).</p>
+        </div>
+        <div class="card-feature">
+          <i class="fas fa-book-reader feature-icon"></i>
+          <h3>Perpustakaan Digital</h3>
+          <p>Koleksi buku cetak dan e-book yang luas untuk menumbuhkan minat baca siswa.</p>
+        </div>
+        <div class="card-feature">
+          <i class="fas fa-flask feature-icon"></i>
+          <h3>Laboratorium IPA</h3>
+          <p>Peralatan praktikum IPA lengkap untuk mendukung pembelajaran empiris dan eksperimen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ekstrakurikuler -->
+  <section id="ekstrakurikuler" class="section">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-badge">Pengembangan Diri</span>
+        <h2>Ekstrakurikuler</h2>
+        <p>Mewadahi minat dan bakat siswa di luar jam akademik.</p>
+      </div>
+      <div class="grid-4">
+        <div class="card-eskul"><i class="fas fa-campground"></i><h3>Pramuka</h3></div>
+        <div class="card-eskul"><i class="fas fa-volleyball-ball"></i><h3>Olahraga</h3></div>
+        <div class="card-eskul"><i class="fas fa-music"></i><h3>Seni Musik</h3></div>
+        <div class="card-eskul"><i class="fas fa-robot"></i><h3>Klub IT</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form PPDB -->
+  <section id="ppdb" class="section bg-light">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-badge">PPDB Online</span>
+        <h2>Formulir Pendaftaran</h2>
+        <p>Isi data diri calon siswa secara lengkap untuk pendaftaran awal.</p>
+      </div>
+      <div class="form-card">
+        <form id="ppdbForm" onsubmit="handlePPDB(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nama"><i class="fas fa-user"></i> Nama Lengkap Siswa</label>
+              <input type="text" id="nama" placeholder="Masukkan nama lengkap" required>
+            </div>
+            <div class="form-group">
+              <label for="nisn"><i class="fas fa-id-card"></i> NISN</label>
+              <input type="text" id="nisn" placeholder="10 Digit NISN" required>
+            </div>
+            <div class="form-group">
+              <label for="asal"><i class="fas fa-school"></i> Asal Sekolah (SD/MI)</label>
+              <input type="text" id="asal" placeholder="Nama SD/MI asal" required>
+            </div>
+            <div class="form-group">
+              <label for="hp"><i class="fas fa-phone"></i> No. WhatsApp / HP</label>
+              <input type="tel" id="hp" placeholder="Contoh: 081234567890" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="alamat"><i class="fas fa-home"></i> Alamat Tempat Tinggal</label>
+              <textarea id="alamat" rows="3" placeholder="Alamat lengkap" required></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> Kirim Formulir Pendaftaran</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontak & Footer -->
+  <section id="kontak" class="section">
+    <div class="container grid-2">
+      <div>
+        <span class="section-badge">Hubungi Kami</span>
+        <h2>Informasi Lokasi & Kontak</h2>
+        <div class="contact-details">
+          <div class="c-item"><i class="fas fa-map-marked-alt"></i><div><h4>Alamat</h4><p>Karamat, Kec. Karamat, Kab. Buol, Sulawesi Tengah</p></div></div>
+          <div class="c-item"><i class="fas fa-envelope-open-text"></i><div><h4>Email</h4><p>info@smpn2karamat.sch.id</p></div></div>
+          <div class="c-item"><i class="fas fa-phone-alt"></i><div><h4>Telepon</h4><p>(0233) 123-4567</p></div></div>
+        </div>
+      </div>
+      <div class="map-box">
+        <iframe src="https://maps.google.com/maps?q=Buol%20Sulawesi%20Tengah&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="300" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-bottom">
+      <p>&copy; 2026 SMP Negeri 2 Karamat. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
