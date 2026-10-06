@@ -99,3 +99,286 @@
     <div class="container">
       <div class="section-title">
         <span class="section-badge">Informasi Akademik</span>
+        <h2>Profil Akademik & Tenaga Pendidik</h2>
+        <p>Temukan informasi lengkap mengenai Pendidik, Struktur Kurikulum, dan Jadwal Pembelajaran SMPN 2 Karamat.</p>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="profil-tab-buttons">
+        <button class="profil-tab-btn active" onclick="switchProfilTab(event, 'tab-guru')">
+          <i class="fas fa-chalkboard-teacher"></i> Guru & Tendik
+        </button>
+        <button class="profil-tab-btn" onclick="switchProfilTab(event, 'tab-mapel')">
+          <i class="fas fa-book-open"></i> Mata Pelajaran
+        </button>
+        <button class="profil-tab-btn" onclick="switchProfilTab(event, 'tab-jadwal')">
+          <i class="fas fa-calendar-alt"></i> Jadwal Pelajaran
+        </button>
+      </div>
+
+      <!-- TAB 1: Guru & Tenaga Kependidikan -->
+      <div id="tab-guru" class="profil-tab-content active">
+        <div class="grid-4">
+          <div class="guru-card">
+            <div class="guru-img-box">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" alt="Foto Kepala Sekolah">
+            </div>
+            <div class="guru-info">
+              <h4>Drs. Ahmad Dahlan, M.Pd.</h4>
+              <span class="guru-role">Kepala Sekolah</span>
+              <p class="guru-nip">NIP. 19780101 200501 1 002</p>
+            </div>
+          </div>
+
+          <div class="guru-card">
+            <div class="guru-img-box">
+              <img src="https://images.unsplash.com/photo-1580894732413-a70d8a571f34?auto=format&fit=crop&w=400&q=80" alt="Guru IPA">
+            </div>
+            <div class="guru-info">
+              <h4>Siti Rahma, S.Pd.</h4>
+              <span class="guru-role">Guru IPA / Wakasekur</span>
+              <p class="guru-nip">NIP. 19820315 200802 2 004</p>
+            </div>
+          </div>
+
+          <div class="guru-card">
+            <div class="guru-img-box">
+              <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80" alt="Guru Matematika">
+            </div>
+            <div class="guru-info">
+              <h4>Budi Santoso, S.Si.</h4>
+              <span class="guru-role">Guru Matematika</span>
+              <p class="guru-nip">NIP. 19850520 201001 1 008</p>
+            </div>
+          </div>
+
+          <div class="guru-card">
+            <div class="guru-img-box">
+              <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80" alt="Guru Bahasa Inggris">
+            </div>
+            <div class="guru-info">
+              <h4>Rina Marlina, S.Pd.</h4>
+              <span class="guru-role">Guru Bahasa Inggris</span>
+              <p class="guru-nip">NIP. 19901112 201503 2 003</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: Mata Pelajaran Kurikulum Merdeka -->
+      <div id="tab-mapel" class="profil-tab-content">
+        <div class="grid-3">
+          <div class="mapel-card">
+            <div class="mapel-icon"><i class="fas fa-quran"></i></div>
+            <h3>Pendidikan Agama & Budi Pekerti</h3>
+            <p>Membentuk karakter spiritual, etika, dan nilai-nilai keagamaan peserta didik.</p>
+          </div>
+
+          <div class="mapel-card">
+            <div class="mapel-icon"><i class="fas fa-calculator"></i></div>
+            <h3>Matematika</h3>
+            <p>Mengembangkan pola pikir logis, analitis, sistematis, dan pemecahan masalah.</p>
+          </div>
+
+          <div class="mapel-card">
+            <div class="mapel-icon"><i class="fas fa-flask"></i></div>
+            <h3>Ilmu Pengetahuan Alam (IPA)</h3>
+            <p>Eksplorasi fenomena alam, biologis, dan eksperimen laboratorium terpadu.</p>
+          </div>
+
+          <div class="mapel-card">
+            <div class="mapel-icon"><i class="fas fa-globe-asia"></i></div>
+            <h3>Ilmu Pengetahuan Sosial (IPS)</h3>
+            <p>Pemahaman sejarah, geografi, ekonomi, dan sosiologi kemasyarakatan.</p>
+          </div>
+
+          <div class="mapel-card">
+            <div class="mapel-icon"><i class="fas fa-language"></i></div>
+            <h3>Bahasa Indonesia & Inggris</h3>
+            <p>Peningkatan literasi, kemampuan komunikasi verbal, tulisan, dan bahasa asing.</p>
+          </div>
+
+          <div class="mapel-card">
+            <div class="mapel-icon"><i class="fas fa-laptop-code"></i></div>
+            <h3>Informatika & Prakarya</h3>
+            <p>Penguasaan teknologi digital, pemrograman dasar, dan keterampilan wirausaha.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: Jadwal Pelajaran -->
+      <div id="tab-jadwal" class="profil-tab-content">
+        <div class="jadwal-filter">
+          <label for="kelasSelect">Pilih Kelas: </label>
+          <select id="kelasSelect" onchange="filterJadwal()">
+            <option value="7a">Kelas VII-A</option>
+            <option value="8a">Kelas VIII-A</option>
+            <option value="9a">Kelas IX-A</option>
+          </select>
+        </div>
+
+        <div class="table-responsive">
+          <table class="jadwal-table">
+            <thead>
+              <tr>
+                <th>Hari</th>
+                <th>Waktu (WITA)</th>
+                <th>Mata Pelajaran</th>
+                <th>Guru Pengampu</th>
+                <th>Ruangan</th>
+              </tr>
+            </thead>
+            <tbody id="jadwalBody">
+              <!-- Data dimasukkan secara dinamis via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Galeri Gedung & Lingkungan Sekolah -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-badge">Lingkungan Sekolah</span>
+        <h2>Gedung & Keadaan Sekolah</h2>
+        <p>Suasana belajar yang asri, kondusif, dan aman untuk para siswa.</p>
+      </div>
+      <div class="grid-3">
+        <div class="school-gallery-card">
+          <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=600&q=80" alt="Gedung Utama Sekolah">
+          <div class="gallery-info">
+            <h4>Gedung Utama</h4>
+            <p>Gedung pembelajaran yang bersih dan nyaman.</p>
+          </div>
+        </div>
+        <div class="school-gallery-card">
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80" alt="Ruang Kelas & Kegiatan Belajar">
+          <div class="gallery-info">
+            <h4>Ruang Kelas</h4>
+            <p>Dilengkapi dengan sarana penunjang interaktif.</p>
+          </div>
+        </div>
+        <div class="school-gallery-card">
+          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80" alt="Halaman Sekolah">
+          <div class="gallery-info">
+            <h4>Halaman & Sarana Olahraga</h4>
+            <p>Tempat kegiatan upacara dan olahraga siswa.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fasilitas -->
+  <section id="fasilitas" class="section">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-badge">Sarana & Prasarana</span>
+        <h2>Fasilitas Penunjang Belajar</h2>
+        <p>Dukungan fasilitas modern untuk menciptakan suasana belajar yang nyaman dan efektif.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card-feature">
+          <i class="fas fa-laptop-code feature-icon"></i>
+          <h3>Laboratorium Komputer</h3>
+          <p>Dilengkapi jaringan internet cepat untuk pembelajaran TIK dan Asesmen Nasional (ANBK).</p>
+        </div>
+        <div class="card-feature">
+          <i class="fas fa-book-reader feature-icon"></i>
+          <h3>Perpustakaan Digital</h3>
+          <p>Koleksi buku cetak dan e-book yang luas untuk menumbuhkan minat baca siswa.</p>
+        </div>
+        <div class="card-feature">
+          <i class="fas fa-flask feature-icon"></i>
+          <h3>Laboratorium IPA</h3>
+          <p>Peralatan praktikum IPA lengkap untuk mendukung pembelajaran empiris dan eksperimen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ekstrakurikuler -->
+  <section id="ekstrakurikuler" class="section bg-light">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-badge">Pengembangan Diri</span>
+        <h2>Ekstrakurikuler</h2>
+        <p>Mewadahi minat dan bakat siswa di luar jam akademik.</p>
+      </div>
+      <div class="grid-4">
+        <div class="card-eskul"><i class="fas fa-campground"></i><h3>Pramuka</h3></div>
+        <div class="card-eskul"><i class="fas fa-volleyball-ball"></i><h3>Olahraga</h3></div>
+        <div class="card-eskul"><i class="fas fa-music"></i><h3>Seni Musik</h3></div>
+        <div class="card-eskul"><i class="fas fa-robot"></i><h3>Klub IT</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form PPDB -->
+  <section id="ppdb" class="section">
+    <div class="container">
+      <div class="section-title">
+        <span class="section-badge">PPDB Online</span>
+        <h2>Formulir Pendaftaran</h2>
+        <p>Isi data diri calon siswa secara lengkap untuk pendaftaran awal.</p>
+      </div>
+      <div class="form-card">
+        <form id="ppdbForm" onsubmit="handlePPDB(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nama"><i class="fas fa-user"></i> Nama Lengkap Siswa</label>
+              <input type="text" id="nama" placeholder="Masukkan nama lengkap" required>
+            </div>
+            <div class="form-group">
+              <label for="nisn"><i class="fas fa-id-card"></i> NISN</label>
+              <input type="text" id="nisn" placeholder="10 Digit NISN" required>
+            </div>
+            <div class="form-group">
+              <label for="asal"><i class="fas fa-school"></i> Asal Sekolah (SD/MI)</label>
+              <input type="text" id="asal" placeholder="Nama SD/MI asal" required>
+            </div>
+            <div class="form-group">
+              <label for="hp"><i class="fas fa-phone"></i> No. WhatsApp / HP</label>
+              <input type="tel" id="hp" placeholder="Contoh: 081234567890" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="alamat"><i class="fas fa-home"></i> Alamat Tempat Tinggal</label>
+              <textarea id="alamat" rows="3" placeholder="Alamat lengkap" required></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> Kirim Formulir Pendaftaran</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontak & Footer -->
+  <section id="kontak" class="section bg-light">
+    <div class="container grid-2">
+      <div>
+        <span class="section-badge">Hubungi Kami</span>
+        <h2>Informasi Lokasi & Kontak</h2>
+        <div class="contact-details">
+          <div class="c-item"><i class="fas fa-map-marked-alt"></i><div><h4>Alamat</h4><p>Karamat, Kec. Karamat, Kab. Buol, Sulawesi Tengah</p></div></div>
+          <div class="c-item"><i class="fas fa-envelope-open-text"></i><div><h4>Email</h4><p>info@smpn2karamat.sch.id</p></div></div>
+          <div class="c-item"><i class="fas fa-phone-alt"></i><div><h4>Telepon</h4><p>(0233) 123-4567</p></div></div>
+        </div>
+      </div>
+      <div class="map-box">
+        <iframe src="https://maps.google.com/maps?q=Buol%20Sulawesi%20Tengah&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="300" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-bottom">
+      <p>&copy; 2026 SMP Negeri 2 Karamat. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
