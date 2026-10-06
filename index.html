@@ -3,370 +3,383 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Website Resmi SMPN 2 Karamat</title>
-  <!-- Google Fonts & Font Awesome Icons -->
+  <title>SMP Negeri 2 Karamat - Official Website</title>
+  
+  <!-- FontAwesome & Google Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #004d40;
+      --primary-light: #00796b;
+      --accent-color: #0284c7;
+      --text-dark: #1e293b;
+      --text-muted: #64748b;
+      --bg-light: #f8fafc;
+      --bg-white: #ffffff;
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      font-family: 'Poppins', sans-serif; 
+      scroll-behavior: smooth; 
+    }
+
+    body { 
+      background-color: var(--bg-light); 
+      color: var(--text-dark); 
+      line-height: 1.6; 
+    }
+
+    /* NAVBAR */
+    .navbar { 
+      background: var(--bg-white); 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      padding: 15px 5%; 
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+      position: sticky; 
+      top: 0; 
+      z-index: 1000; 
+    }
+
+    .logo { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      text-decoration: none; 
+      color: var(--primary-color); 
+      font-weight: 700; 
+      font-size: 1.1rem; 
+    }
+
+    .nav-links { 
+      display: flex; 
+      list-style: none; 
+      gap: 25px; 
+      align-items: center; 
+    }
+
+    .nav-links a { 
+      text-decoration: none; 
+      color: var(--text-dark); 
+      font-weight: 500; 
+      font-size: 0.95rem; 
+      transition: color 0.3s; 
+    }
+
+    .nav-links a:hover { 
+      color: var(--primary-color); 
+    }
+
+    /* HERO SECTION */
+    .hero { 
+      background: linear-gradient(rgba(0, 77, 64, 0.85), rgba(0, 51, 44, 0.9)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80') center/cover; 
+      color: white; 
+      padding: 120px 5% 100px 5%; 
+      text-align: center; 
+    }
+
+    .hero h1 { 
+      font-size: 2.5rem; 
+      font-weight: 700; 
+      margin-bottom: 15px; 
+    }
+
+    .hero p { 
+      font-size: 1.1rem; 
+      max-width: 700px; 
+      margin: 0 auto 30px auto; 
+      opacity: 0.9; 
+    }
+
+    .btn { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 8px; 
+      text-decoration: none; 
+      padding: 12px 28px; 
+      border-radius: 8px; 
+      font-weight: 600; 
+      transition: all 0.3s; 
+      cursor: pointer; 
+    }
+
+    .btn-primary { 
+      background: var(--primary-color); 
+      color: white; 
+    }
+
+    .btn-primary:hover { 
+      background: var(--primary-light); 
+      transform: translateY(-2px); 
+    }
+
+    /* CONTAINER & SECTIONS */
+    .container { 
+      max-width: 1100px; 
+      margin: 0 auto; 
+      padding: 80px 20px; 
+    }
+
+    .section-title { 
+      text-align: center; 
+      margin-bottom: 50px; 
+    }
+
+    .section-title h2 { 
+      color: var(--primary-color); 
+      font-size: 2rem; 
+      margin-top: 5px;
+    }
+
+    .section-title p { 
+      color: var(--text-muted); 
+      font-size: 1rem; 
+    }
+
+    .section-badge { 
+      background: #e0f2fe; 
+      color: var(--accent-color); 
+      padding: 4px 14px; 
+      border-radius: 12px; 
+      font-size: 0.8rem; 
+      font-weight: 600; 
+      text-transform: uppercase; 
+    }
+
+    /* GRID CARDS (PROFIL / FASILITAS) */
+    .grid-cards { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+      gap: 25px; 
+    }
+
+    .card { 
+      background: var(--bg-white); 
+      border-radius: 12px; 
+      padding: 30px 25px; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+      border: 1px solid #e2e8f0; 
+      transition: transform 0.3s, box-shadow 0.3s; 
+      text-align: center;
+    }
+
+    .card:hover { 
+      transform: translateY(-5px); 
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+    }
+
+    .card-icon { 
+      font-size: 2.5rem; 
+      color: var(--primary-color); 
+      margin-bottom: 15px; 
+    }
+
+    .card h3 { 
+      font-size: 1.25rem; 
+      margin-bottom: 10px; 
+      color: var(--text-dark); 
+    }
+
+    .card p { 
+      color: var(--text-muted); 
+      font-size: 0.9rem; 
+    }
+
+    /* KONTAK SECTION */
+    .contact-box { 
+      background: var(--bg-white); 
+      border-radius: 12px; 
+      padding: 40px; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+      border: 1px solid #e2e8f0; 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+      gap: 30px; 
+    }
+
+    .contact-item { 
+      display: flex; 
+      align-items: flex-start; 
+      gap: 15px; 
+    }
+
+    .contact-item i { 
+      font-size: 1.5rem; 
+      color: var(--primary-color); 
+      margin-top: 3px; 
+    }
+
+    .contact-item h4 { 
+      font-size: 1rem; 
+      color: var(--text-dark); 
+      margin-bottom: 3px; 
+    }
+
+    .contact-item p { 
+      color: var(--text-muted); 
+      font-size: 0.9rem; 
+    }
+
+    /* FOOTER */
+    footer { 
+      background: #002520; 
+      color: white; 
+      text-align: center; 
+      padding: 25px 20px; 
+      font-size: 0.85rem; 
+      opacity: 0.95; 
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .navbar { 
+        flex-direction: column; 
+        gap: 15px; 
+      }
+      .nav-links { 
+        flex-wrap: wrap; 
+        justify-content: center; 
+        gap: 15px;
+      }
+      .hero h1 { 
+        font-size: 1.8rem; 
+      }
+      .container { 
+        padding: 50px 20px; 
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <div class="container top-bar-content">
-      <div class="contact-info">
-        <span><i class="fas fa-envelope"></i> info@smpn2karamat.sch.id</span>
-        <span><i class="fas fa-phone"></i> (0233) 123-4567</span>
-        <span><i class="fas fa-clock"></i> Senin - Sabtu: 07:00 - 15:00 WITA</span>
-      </div>
-      <div class="social-links">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Navbar -->
+  <!-- NAVBAR -->
   <nav class="navbar">
-    <div class="container nav-container">
-      <a href="#" class="logo">
-        <div class="logo-icon-box">
-          <i class="fas fa-graduation-cap logo-icon"></i>
-        </div>
-        <div class="logo-text">
-          <span class="school-name">SMPN 2 KARAMAT</span>
-          <span class="tagline">Cerdas, Berkarakter & Berprestasi</span>
-        </div>
-      </a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#beranda">Beranda</a></li>
-        <li><a href="#profil">Profil Sekolah</a></li>
-        <li><a href="#fasilitas">Fasilitas</a></li>
-        <li><a href="#ekstrakurikuler">Eskul</a></li>
-        <li>
-  <li>
-  <a href="#ppdb" class="btn-ppdb-nav">
-    PPDB Online
-  </a>
-</li>
-        <li><a href="#kontak">Kontak</a></li>
-      </ul>
-      <div class="hamburger" id="hamburger">
-        <i class="fas fa-bars"></i>
-      </div>
-    </div>
+    <a href="#" class="logo">
+      <i class="fas fa-school fa-lg"></i>
+      <span>SMPN 2 KARAMAT</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#beranda">Beranda</a></li>
+      <li><a href="#profil">Profil Sekolah</a></li>
+      <li><a href="#fasilitas">Fasilitas</a></li>
+      <li><a href="#kontak">Kontak</a></li>
+    </ul>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- HERO SECTION -->
   <section id="beranda" class="hero">
-    <div class="hero-overlay"></div>
-    <div class="container hero-content">
-      <div class="badge-pill">
-        <span class="dot"></span> Penerimaan Peserta Didik Baru (PPDB) Telah Dibuka!
-      </div>
-      <h1 class="hero-title">Selamat Datang di Website Resmi</h1>
-      <h2 class="hero-subtitle">SMP Negeri 2 Karamat</h2>
-      <p class="hero-description">Mewujudkan generasi yang berakhlak mulia, cerdas, berkarakter, dan menguasai teknologi informasi di Kabupaten Buol.</p>
-      
-      <div class="hero-btns">
-       <a href="https://jarminuluki-sketch.github.io/FORM-PPDB-SMPN-2-KARAMAT/" target="_blank" class="btn btn-primary">
-  <i class="fas fa-user-plus"></i> Daftar PPDB Online
-</a>
+    <h1>Selamat Datang di SMPN 2 Karamat</h1>
+    <p>Mewujudkan Generasi Cerdas, Berkarakter, Berbudaya, dan Berdaya Saing Tinggi di Era Digital.</p>
+    <a href="#profil" class="btn btn-primary">
+      <i class="fas fa-arrow-down"></i> Jelajahi Profil
+    </a>
+  </section>
 
-      <div class="stats-container">
-        <div class="stat-item">
-          <i class="fas fa-user-graduate"></i>
-          <span class="stat-number">450+</span>
-          <span class="stat-label">Siswa Aktif</span>
-        </div>
-        <div class="stat-item">
-          <i class="fas fa-chalkboard-teacher"></i>
-          <span class="stat-number">28</span>
-          <span class="stat-label">Guru & Staf</span>
-        </div>
-        <div class="stat-item">
-          <i class="fas fa-book"></i>
-          <span class="stat-number">10+</span>
-          <span class="stat-label">Mata Pelajaran</span>
-        </div>
-        <div class="stat-item">
-          <i class="fas fa-award"></i>
-          <span class="stat-number">A</span>
-          <span class="stat-label">Akreditasi</span>
-        </div>
+  <!-- PROFIL SEKOLAH -->
+  <section id="profil" class="container">
+    <div class="section-title">
+      <span class="section-badge">TENTANG KAMI</span>
+      <h2>Profil & Keunggulan</h2>
+      <p>Komitmen kami dalam memberikan pendidikan berkualitas bagi seluruh siswa.</p>
+    </div>
+
+    <div class="grid-cards">
+      <div class="card">
+        <i class="fas fa-bullseye card-icon"></i>
+        <h3>Visi & Misi</h3>
+        <p>Membentuk insan yang beriman, bertaqwa, unggul dalam prestasi akademik maupun non-akademik, serta berwawasan lingkungan.</p>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-user-graduate card-icon"></i>
+        <h3>Pendidikan Karakter</h3>
+        <p>Menanamkan nilai-nilai kedisiplinan, kejujuran, dan kebersamaan untuk mencetak generasi pemimpin masa depan.</p>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-chalkboard-teacher card-icon"></i>
+        <h3>Tenaga Pengajar</h3>
+        <p>Didukung oleh guru-guru profesional dan berpengalaman di bidangnya yang siap membimbing potensi siswa secara optimal.</p>
       </div>
     </div>
   </section>
 
-  <!-- MENU PROFIL SEKOLAH (GURU, MAPEL, JADWAL) -->
-  <section id="profil" class="section">
+  <!-- FASILITAS -->
+  <section id="fasilitas" style="background-color: #ffffff; padding: 20px 0;">
     <div class="container">
       <div class="section-title">
-        <span class="section-badge">Informasi Akademik</span>
-        <h2>Profil Akademik & Tenaga Pendidik</h2>
-        <p>Temukan informasi lengkap mengenai Pendidik, Struktur Kurikulum, dan Jadwal Pembelajaran SMPN 2 Karamat.</p>
+        <span class="section-badge">SARANA & PRASARANA</span>
+        <h2>Fasilitas Sekolah</h2>
+        <p>Dukungan fasilitas terbaik untuk menunjang kegiatan belajar mengajar.</p>
       </div>
 
-      <!-- Tab Buttons -->
-      <div class="profil-tab-buttons">
-        <button class="profil-tab-btn active" onclick="switchProfilTab(event, 'tab-guru')">
-          <i class="fas fa-chalkboard-teacher"></i> Guru & Tendik
-        </button>
-        <button class="profil-tab-btn" onclick="switchProfilTab(event, 'tab-mapel')">
-          <i class="fas fa-book-open"></i> Mata Pelajaran
-        </button>
-        <button class="profil-tab-btn" onclick="switchProfilTab(event, 'tab-jadwal')">
-          <i class="fas fa-calendar-alt"></i> Jadwal Pelajaran
-        </button>
-      </div>
-
-      <!-- TAB 1: Guru & Tenaga Kependidikan -->
-      <div id="tab-guru" class="profil-tab-content active">
-        <div class="grid-4">
-          <div class="guru-card">
-            <div class="guru-img-box">
-              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" alt="Foto Kepala Sekolah">
-            </div>
-            <div class="guru-info">
-              <h4>Drs. Ahmad Dahlan, M.Pd.</h4>
-              <span class="guru-role">Kepala Sekolah</span>
-              <p class="guru-nip">NIP. 19780101 200501 1 002</p>
-            </div>
-          </div>
-
-          <div class="guru-card">
-            <div class="guru-img-box">
-              <img src="https://images.unsplash.com/photo-1580894732413-a70d8a571f34?auto=format&fit=crop&w=400&q=80" alt="Guru IPA">
-            </div>
-            <div class="guru-info">
-              <h4>Siti Rahma, S.Pd.</h4>
-              <span class="guru-role">Guru IPA / Wakasekur</span>
-              <p class="guru-nip">NIP. 19820315 200802 2 004</p>
-            </div>
-          </div>
-
-          <div class="guru-card">
-            <div class="guru-img-box">
-              <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80" alt="Guru Matematika">
-            </div>
-            <div class="guru-info">
-              <h4>Budi Santoso, S.Si.</h4>
-              <span class="guru-role">Guru Matematika</span>
-              <p class="guru-nip">NIP. 19850520 201001 1 008</p>
-            </div>
-          </div>
-
-          <div class="guru-card">
-            <div class="guru-img-box">
-              <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80" alt="Guru Bahasa Inggris">
-            </div>
-            <div class="guru-info">
-              <h4>Rina Marlina, S.Pd.</h4>
-              <span class="guru-role">Guru Bahasa Inggris</span>
-              <p class="guru-nip">NIP. 19901112 201503 2 003</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 2: Mata Pelajaran Kurikulum Merdeka -->
-      <div id="tab-mapel" class="profil-tab-content">
-        <div class="grid-3">
-          <div class="mapel-card">
-            <div class="mapel-icon"><i class="fas fa-quran"></i></div>
-            <h3>Pendidikan Agama & Budi Pekerti</h3>
-            <p>Membentuk karakter spiritual, etika, dan nilai-nilai keagamaan peserta didik.</p>
-          </div>
-
-          <div class="mapel-card">
-            <div class="mapel-icon"><i class="fas fa-calculator"></i></div>
-            <h3>Matematika</h3>
-            <p>Mengembangkan pola pikir logis, analitis, sistematis, dan pemecahan masalah.</p>
-          </div>
-
-          <div class="mapel-card">
-            <div class="mapel-icon"><i class="fas fa-flask"></i></div>
-            <h3>Ilmu Pengetahuan Alam (IPA)</h3>
-            <p>Eksplorasi fenomena alam, biologis, dan eksperimen laboratorium terpadu.</p>
-          </div>
-
-          <div class="mapel-card">
-            <div class="mapel-icon"><i class="fas fa-globe-asia"></i></div>
-            <h3>Ilmu Pengetahuan Sosial (IPS)</h3>
-            <p>Pemahaman sejarah, geografi, ekonomi, dan sosiologi kemasyarakatan.</p>
-          </div>
-
-          <div class="mapel-card">
-            <div class="mapel-icon"><i class="fas fa-language"></i></div>
-            <h3>Bahasa Indonesia & Inggris</h3>
-            <p>Peningkatan literasi, kemampuan komunikasi verbal, tulisan, dan bahasa asing.</p>
-          </div>
-
-          <div class="mapel-card">
-            <div class="mapel-icon"><i class="fas fa-laptop-code"></i></div>
-            <h3>Informatika & Prakarya</h3>
-            <p>Penguasaan teknologi digital, pemrograman dasar, dan keterampilan wirausaha.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 3: Jadwal Pelajaran -->
-      <div id="tab-jadwal" class="profil-tab-content">
-        <div class="jadwal-filter">
-          <label for="kelasSelect">Pilih Kelas: </label>
-          <select id="kelasSelect" onchange="filterJadwal()">
-            <option value="7a">Kelas VII-A</option>
-            <option value="8a">Kelas VIII-A</option>
-            <option value="9a">Kelas IX-A</option>
-          </select>
-        </div>
-
-        <div class="table-responsive">
-          <table class="jadwal-table">
-            <thead>
-              <tr>
-                <th>Hari</th>
-                <th>Waktu (WITA)</th>
-                <th>Mata Pelajaran</th>
-                <th>Guru Pengampu</th>
-                <th>Ruangan</th>
-              </tr>
-            </thead>
-            <tbody id="jadwalBody">
-              <!-- Data dimasukkan via JavaScript -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Galeri Gedung & Lingkungan Sekolah -->
-  <section class="section bg-light">
-    <div class="container">
-      <div class="section-title">
-        <span class="section-badge">Lingkungan Sekolah</span>
-        <h2>Gedung & Keadaan Sekolah</h2>
-        <p>Suasana belajar yang asri, kondusif, dan aman untuk para siswa.</p>
-      </div>
-      <div class="grid-3">
-        <div class="school-gallery-card">
-          <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=600&q=80" alt="Gedung Utama Sekolah">
-          <div class="gallery-info">
-            <h4>Gedung Utama</h4>
-            <p>Gedung pembelajaran yang bersih dan nyaman.</p>
-          </div>
-        </div>
-        <div class="school-gallery-card">
-          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80" alt="Ruang Kelas & Kegiatan Belajar">
-          <div class="gallery-info">
-            <h4>Ruang Kelas</h4>
-            <p>Dilengkapi dengan sarana penunjang interaktif.</p>
-          </div>
-        </div>
-        <div class="school-gallery-card">
-          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80" alt="Halaman Sekolah">
-          <div class="gallery-info">
-            <h4>Halaman & Sarana Olahraga</h4>
-            <p>Tempat kegiatan upacara dan olahraga siswa.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Fasilitas -->
-  <section id="fasilitas" class="section">
-    <div class="container">
-      <div class="section-title">
-        <span class="section-badge">Sarana & Prasarana</span>
-        <h2>Fasilitas Penunjang Belajar</h2>
-        <p>Dukungan fasilitas modern untuk menciptakan suasana belajar yang nyaman dan efektif.</p>
-      </div>
-      <div class="grid-3">
-        <div class="card-feature">
-          <i class="fas fa-laptop-code feature-icon"></i>
+      <div class="grid-cards">
+        <div class="card">
+          <i class="fas fa-laptop-code card-icon"></i>
           <h3>Laboratorium Komputer</h3>
-          <p>Dilengkapi jaringan internet cepat untuk pembelajaran TIK dan Asesmen Nasional (ANBK).</p>
+          <p>Fasilitas komputer modern dan jaringan internet terhubung untuk mendukung pembelajaran berbasis IT.</p>
         </div>
-        <div class="card-feature">
-          <i class="fas fa-book-reader feature-icon"></i>
-          <h3>Perpustakaan Digital</h3>
-          <p>Koleksi buku cetak dan e-book yang luas untuk menumbuhkan minat baca siswa.</p>
+
+        <div class="card">
+          <i class="fas fa-book-reader card-icon"></i>
+          <h3>Perpustakaan</h3>
+          <p>Koleksi buku pembelajaran, literatur, dan ruang baca yang nyaman bagi seluruh siswa.</p>
         </div>
-        <div class="card-feature">
-          <i class="fas fa-flask feature-icon"></i>
-          <h3>Laboratorium IPA</h3>
-          <p>Peralatan praktikum IPA lengkap untuk mendukung pembelajaran empiris dan eksperimen.</p>
+
+        <div class="card">
+          <i class="fas fa-running card-icon"></i>
+          <h3>Lap. Olahraga & Ekstrakurikuler</h3>
+          <p>Sarana olahraga lengkap untuk mendukung pengembangan minat dan bakat di bidang non-akademik.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Ekstrakurikuler -->
-  <section id="ekstrakurikuler" class="section bg-light">
-    <div class="container">
-      <div class="section-title">
-        <span class="section-badge">Pengembangan Diri</span>
-        <h2>Ekstrakurikuler</h2>
-        <p>Mewadahi minat dan bakat siswa di luar jam akademik.</p>
-      </div>
-      <div class="grid-4">
-        <div class="card-eskul"><i class="fas fa-campground"></i><h3>Pramuka</h3></div>
-        <div class="card-eskul"><i class="fas fa-volleyball-ball"></i><h3>Olahraga</h3></div>
-        <div class="card-eskul"><i class="fas fa-music"></i><h3>Seni Musik</h3></div>
-        <div class="card-eskul"><i class="fas fa-robot"></i><h3>Klub IT</h3></div>
-      </div>
-    </div>
-  </section>
-
- <!-- SEKSI PPDB ONLINE (EMBEDDED AUTOMATIC DISPLAY) -->
-<section id="ppdb" class="section" style="padding: 40px 0; background-color: #f8fafc;">
-  <div class="container" style="max-width: 1000px; margin: 0 auto; padding: 0 15px;">
-    <div class="section-title" style="text-align: center; margin-bottom: 25px;">
-      <span class="section-badge" style="background: #e0f2fe; color: #0284c7; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600;">PORTAL RESMI</span>
-      <h2 style="color: #004d40; font-size: 1.8rem; margin-top: 8px;">PPDB Online SMPN 2 Karamat</h2>
-      <p style="color: #64748b; font-size: 0.95rem;">Silakan isi formulir pendaftaran di bawah ini secara langsung.</p>
+  <!-- KONTAK -->
+  <section id="kontak" class="container">
+    <div class="section-title">
+      <span class="section-badge">HUBUNGI KAMI</span>
+      <h2>Informasi Kontak</h2>
+      <p>Silakan hubungi kami untuk informasi selengkapnya mengenai SMPN 2 Karamat.</p>
     </div>
 
-    <!-- WADAH IFRAME APLIKASI PPDB -->
-    <div style="width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.08); background: #ffffff;">
-      <iframe 
-        src="https://jarminuluki-sketch.github.io/FORM-PPDB-SMPN-2-KARAMAT/" 
-        style="width: 100%; height: 850px; border: none; display: block;"
-        title="Aplikasi PPDB Online SMPN 2 Karamat"
-        loading="lazy">
-      </iframe>
-    </div>
-  </div>
-</section>
-
-  <!-- Kontak & Footer -->
-  <section id="kontak" class="section bg-light">
-    <div class="container grid-2">
-      <div>
-        <span class="section-badge">Hubungi Kami</span>
-        <h2>Informasi Lokasi & Kontak</h2>
-        <div class="contact-details">
-          <div class="c-item"><i class="fas fa-map-marked-alt"></i><div><h4>Alamat</h4><p>Karamat, Kec. Karamat, Kab. Buol, Sulawesi Tengah</p></div></div>
-          <div class="c-item"><i class="fas fa-envelope-open-text"></i><div><h4>Email</h4><p>info@smpn2karamat.sch.id</p></div></div>
-          <div class="c-item"><i class="fas fa-phone-alt"></i><div><h4>Telepon</h4><p>(0233) 123-4567</p></div></div>
+    <div class="contact-box">
+      <div class="contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <h4>Alamat Sekolah</h4>
+          <p>Karamat, Kabupaten Buol, Sulawesi Tengah</p>
         </div>
       </div>
-      <div class="map-box">
-        <iframe src="https://maps.google.com/maps?q=Buol%20Sulawesi%20Tengah&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="300" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy"></iframe>
+
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <div>
+          <h4>Email Resmi</h4>
+          <p>info@smpn2karamat.sch.id</p>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <i class="fas fa-clock"></i>
+        <div>
+          <h4>Jam Operasional</h4>
+          <p>Senin - Sabtu: 07.00 - 14.00 WITA</p>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
-    <div class="container footer-bottom">
-      <p>&copy; 2026 SMP Negeri 2 Karamat. All Rights Reserved.</p>
-    </div>
+    &copy; SMP Negeri 2 Karamat - Hak Cipta Dilindungi Undang-Undang.
   </footer>
 
-  <script src="script.js"></script>
 </body>
 </html>
