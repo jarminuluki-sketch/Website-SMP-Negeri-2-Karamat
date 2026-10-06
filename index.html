@@ -41,10 +41,10 @@
       </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#beranda">Beranda</a></li>
-        <li><a href="#profil" class="active">Profil Sekolah</a></li>
+        <li><a href="#profil">Profil Sekolah</a></li>
         <li><a href="#fasilitas">Fasilitas</a></li>
         <li><a href="#ekstrakurikuler">Eskul</a></li>
-        <li><a href="#ppdb" class="btn-ppdb-nav">PPDB Online</a></li>
+        <li><a href="https://jarminuluki-sketch.github.io/FORM-PPDB-SMPN-2-KARAMAT/" target="_blank" class="btn-ppdb-nav">PPDB Online</a></li>
         <li><a href="#kontak">Kontak</a></li>
       </ul>
       <div class="hamburger" id="hamburger">
@@ -65,7 +65,7 @@
       <p class="hero-description">Mewujudkan generasi yang berakhlak mulia, cerdas, berkarakter, dan menguasai teknologi informasi di Kabupaten Buol.</p>
       
       <div class="hero-btns">
-        <a href="#ppdb" class="btn btn-primary"><i class="fas fa-user-plus"></i> Daftar PPDB Online</a>
+        <a href="https://jarminuluki-sketch.github.io/FORM-PPDB-SMPN-2-KARAMAT/" target="_blank" class="btn btn-primary"><i class="fas fa-user-plus"></i> Daftar PPDB Online</a>
         <a href="#profil" class="btn btn-secondary"><i class="fas fa-compass"></i> Jelajahi Profil</a>
       </div>
 
@@ -94,7 +94,7 @@
     </div>
   </section>
 
-  <!-- MENU PROFIL SEKOLAH (DENGAN 3 TAB: GURU, MAPEL, JADWAL) -->
+  <!-- MENU PROFIL SEKOLAH (GURU, MAPEL, JADWAL) -->
   <section id="profil" class="section">
     <div class="container">
       <div class="section-title">
@@ -229,7 +229,7 @@
               </tr>
             </thead>
             <tbody id="jadwalBody">
-              <!-- Data dimasukkan secara dinamis via JavaScript -->
+              <!-- Data dimasukkan via JavaScript -->
             </tbody>
           </table>
         </div>
@@ -317,40 +317,23 @@
     </div>
   </section>
 
-  <!-- Form PPDB -->
+  <!-- SEKSI PPDB ONLINE INTEGRASI LANGSUNG -->
   <section id="ppdb" class="section">
     <div class="container">
       <div class="section-title">
-        <span class="section-badge">PPDB Online</span>
-        <h2>Formulir Pendaftaran</h2>
-        <p>Isi data diri calon siswa secara lengkap untuk pendaftaran awal.</p>
+        <span class="section-badge">Pendaftaran Resmi</span>
+        <h2>PPDB Online SMPN 2 Karamat</h2>
+        <p>Silakan klik tombol di bawah untuk langsung menuju aplikasi resmi formulir pendaftaran PPDB Online.</p>
       </div>
-      <div class="form-card">
-        <form id="ppdbForm" onsubmit="handlePPDB(event)">
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="nama"><i class="fas fa-user"></i> Nama Lengkap Siswa</label>
-              <input type="text" id="nama" placeholder="Masukkan nama lengkap" required>
-            </div>
-            <div class="form-group">
-              <label for="nisn"><i class="fas fa-id-card"></i> NISN</label>
-              <input type="text" id="nisn" placeholder="10 Digit NISN" required>
-            </div>
-            <div class="form-group">
-              <label for="asal"><i class="fas fa-school"></i> Asal Sekolah (SD/MI)</label>
-              <input type="text" id="asal" placeholder="Nama SD/MI asal" required>
-            </div>
-            <div class="form-group">
-              <label for="hp"><i class="fas fa-phone"></i> No. WhatsApp / HP</label>
-              <input type="tel" id="hp" placeholder="Contoh: 081234567890" required>
-            </div>
-            <div class="form-group full-width">
-              <label for="alamat"><i class="fas fa-home"></i> Alamat Tempat Tinggal</label>
-              <textarea id="alamat" rows="3" placeholder="Alamat lengkap" required></textarea>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> Kirim Formulir Pendaftaran</button>
-        </form>
+      <div class="form-card text-center" style="text-align: center; padding: 50px 20px;">
+        <i class="fas fa-file-signature" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <h3 style="margin-bottom: 15px; color: var(--dark);">Aplikasi Pendaftaran Siswa Baru</h3>
+        <p style="max-width: 600px; margin: 0 auto 30px auto; color: var(--gray);">
+          Sistem pendaftaran telah terintegrasi penuh secara terpusat. Anda akan diarahkan langsung ke portal formulir resmi untuk mengisi data pendaftaran calon siswa.
+        </p>
+        <a href="https://jarminuluki-sketch.github.io/FORM-PPDB-SMPN-2-KARAMAT/" target="_blank" class="btn btn-primary" style="font-size: 1.1rem; padding: 15px 35px;">
+          <i class="fas fa-external-link-alt"></i> Buka Aplikasi Formulir PPDB
+        </a>
       </div>
     </div>
   </section>
