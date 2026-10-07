@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SMP Negeri 2 Karamat - Tim Official Website</title>
+  <title>SMP Negeri 2 Karamat - Official Website</title>
 
-  <!-- FontAwesome & Google Fonts -->
+  <!-- FontAwesome Icons & Google Fonts (Poppins) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -30,181 +30,343 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    /* Efek Scroll Halus & Jarak Header */
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 80px;
-    }
-
     body {
       background-color: var(--bg-light);
       color: var(--text-dark);
       line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
-    /* CSS Header & Navbar */
+    /* HEADER & NAVBAR PORTAL RESMI (SEPERTI FOTO CONTOH) */
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       background-color: var(--bg-white);
-      padding: 15px 50px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 12px 40px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
       position: sticky;
       top: 0;
       z-index: 1000;
     }
 
-    .logo a {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--primary-color);
-      text-decoration: none;
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
     }
 
-    .nav-links {
+    .brand-logo i {
+      font-size: 32px;
+      color: var(--primary-color);
+    }
+
+    .brand-text h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-color);
+      line-height: 1.2;
+    }
+
+    .brand-text p {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    /* NAV MENU & DROPDOWN MELAYANG */
+    .nav-menu {
       list-style: none;
       display: flex;
-      gap: 20px;
+      gap: 10px;
       align-items: center;
     }
 
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 500;
-      padding: 8px 12px;
-      transition: all 0.3s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary-color);
-    }
-
-    /* Styling Dropdown Sub Menu */
-    .dropdown {
+    .nav-item {
       position: relative;
     }
 
-    .dropdown-content {
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 10px 14px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary-color);
+      background-color: #f1f5f9;
+    }
+
+    /* DROPDOWN MENU CARD STYLE */
+    .dropdown-menu {
       display: none;
       position: absolute;
       top: 100%;
       left: 0;
       background-color: var(--bg-white);
-      min-width: 200px;
-      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
-      border-radius: 6px;
-      padding: 10px 0;
+      min-width: 220px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+      border-radius: 8px;
+      padding: 8px 0;
       list-style: none;
       z-index: 1001;
+      border: 1px solid #e2e8f0;
+      animation: dropdownFade 0.2s ease;
     }
 
-    .dropdown-content li a {
+    @keyframes dropdownFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown-menu li a {
       display: block;
-      padding: 10px 20px;
+      padding: 10px 18px;
       color: var(--text-dark);
-      font-size: 14px;
-      white-space: nowrap;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 0.2s ease;
+      cursor: pointer;
     }
 
-    .dropdown-content li a:hover {
+    .dropdown-menu li a:hover {
       background-color: var(--bg-light);
       color: var(--primary-color);
     }
 
-    .dropdown:hover .dropdown-content {
+    .nav-item:hover .dropdown-menu {
       display: block;
     }
 
-    /* Layout Container & Section */
+    /* RUNNING TEXT BANNER */
+    .running-text-container {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      padding: 8px 0;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* KONTEN SINGLE PAGE VIEW (FULL LAYAR) */
+    .page-view {
+      display: none;
+      flex: 1;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .page-view.active-view {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HERO BANNER BERANDA */
+    .hero-banner {
+      width: 100%;
+      height: 75vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 77, 64, 0.55);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero-overlay h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    }
+
+    /* CONTAINER UTAMA SUB-MENU */
     .container {
       max-width: 1100px;
       margin: 0 auto;
       padding: 40px 20px;
+      min-height: 70vh;
     }
 
-    .section-title {
-      text-align: center;
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 30px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 15px;
     }
 
-    .section-badge {
-      background-color: var(--primary-light);
-      color: var(--bg-white);
-      font-size: 12px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      text-transform: uppercase;
-      font-weight: 600;
+    .page-header h2 {
+      color: var(--primary-color);
+      font-size: 26px;
     }
 
-    .hero {
-      background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-      color: white;
-      text-align: center;
-      padding: 100px 20px;
-    }
-
-    .hero h1 {
-      font-size: 36px;
-      margin-bottom: 15px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 10px 24px;
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       background-color: var(--accent-color);
       color: white;
+      padding: 8px 16px;
       border-radius: 6px;
       text-decoration: none;
-      margin-top: 20px;
+      font-size: 14px;
       font-weight: 500;
-      border: none;
       cursor: pointer;
+      border: none;
+      transition: background 0.3s ease;
     }
 
-    /* Kartu Profil & Grid Guru */
-    .profile-card {
+    .btn-back:hover {
+      background-color: #0369a1;
+    }
+
+    .card-content {
       background: white;
-      padding: 25px;
+      padding: 30px;
       border-radius: 10px;
-      margin-bottom: 25px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     }
 
-    .guru-grid {
+    /* GRID UNTUK FASILITAS, GURU, KARTU & EKSKUL */
+    .grid-4 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
       margin-top: 20px;
     }
 
-    .guru-card {
-      background-color: var(--bg-light);
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .profile-card {
+      background-color: var(--bg-white);
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       text-align: center;
+      transition: transform 0.3s ease;
     }
 
-    .guru-avatar {
-      font-size: 50px;
+    .profile-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .profile-card img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+    }
+
+    .profile-card-body {
+      padding: 18px;
+    }
+
+    .profile-card-body h4 {
       color: var(--primary-color);
-      margin-bottom: 10px;
+      font-size: 17px;
+      margin-bottom: 5px;
     }
 
-    /* Form Kontak */
+    .badge-role {
+      display: inline-block;
+      background-color: #e0f2fe;
+      color: #0369a1;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    /* KONTAK & MAPS */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .info-item i {
+      font-size: 20px;
+      color: var(--primary-color);
+      margin-top: 4px;
+    }
+
+    .maps-container {
+      width: 100%;
+      height: 240px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 15px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .maps-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     .contact-form {
       display: flex;
       flex-direction: column;
       gap: 15px;
-      max-width: 600px;
-      margin: 0 auto;
     }
 
-    .contact-form input,
-    .contact-form textarea {
+    .contact-form input, .contact-form textarea {
       width: 100%;
       padding: 12px;
       border: 1px solid #cbd5e1;
@@ -216,130 +378,428 @@
       height: 120px;
       resize: vertical;
     }
+
+    .btn-submit {
+      padding: 10px 24px;
+      background-color: var(--accent-color);
+      color: white;
+      border-radius: 6px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: #0369a1;
+    }
+
+    footer {
+      background-color: var(--primary-color);
+      color: var(--bg-white);
+      text-align: center;
+      padding: 20px 10px;
+      margin-top: auto;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="logo">
-      <a href="#beranda">SMPN 2 KARAMAT</a>
+  <!-- HEADER / NAVBAR UTAMA PORTAL RESMI -->
+  <header class="navbar">
+    <div class="brand-logo" onclick="showPage('view-beranda')">
+      <i class="fas fa-school"></i>
+      <div class="brand-text">
+        <h3>PEMERINTAH KABUPATEN BUOL</h3>
+        <p>SMP NEGERI 2 KARAMAT</p>
+      </div>
     </div>
 
-    <ul class="nav-links">
-      <li><a href="#beranda">Beranda</a></li>
+    <ul class="nav-menu">
+      <!-- 1. BERANDA -->
+      <li class="nav-item">
+        <a class="nav-link active" id="btn-view-beranda" onclick="showPage('view-beranda')">Beranda</a>
+      </li>
 
-      <!-- DROPDOWN PROFIL SEKOLAH -->
-      <li class="dropdown">
-        <a href="#profil">Profil Sekolah <i class="fas fa-chevron-down"></i></a>
-        <ul class="dropdown-content">
-          <li><a href="#sejarah">Sejarah Sekolah</a></li>
-          <li><a href="#visi-misi">Visi & Misi</a></li>
-          <li><a href="#struktur">Struktur Organisasi</a></li>
-          <li><a href="#guru">Data Guru & Staf</a></li>
+      <!-- 2. PROFIL (DROPDOWN HOVER) -->
+      <li class="nav-item">
+        <a class="nav-link">Profil <i class="fas fa-chevron-down" style="font-size: 11px;"></i></a>
+        <ul class="dropdown-menu">
+          <li><a onclick="showPage('view-sejarah')">Sejarah</a></li>
+          <li><a onclick="showPage('view-visi-misi')">Visi dan Misi</a></li>
+          <li><a onclick="showPage('view-guru')">Data Guru & Staf</a></li>
+          <li><a onclick="showPage('view-struktur')">Struktur Organisasi</a></li>
         </ul>
       </li>
 
-      <li><a href="#fasilitas">Fasilitas</a></li>
-      <li><a href="#kontak">Kontak</a></li>
+      <!-- 3. SARANA & PRASARANA -->
+      <li class="nav-item">
+        <a class="nav-link" id="btn-view-fasilitas" onclick="showPage('view-fasilitas')">Sarana & Prasarana</a>
+      </li>
+
+      <!-- 4. EKSTRAKULIKULER (DROPDOWN HOVER) -->
+      <li class="nav-item">
+        <a class="nav-link">Ekstrakulikuler <i class="fas fa-chevron-down" style="font-size: 11px;"></i></a>
+        <ul class="dropdown-menu">
+          <li><a onclick="showPage('view-silat')">Pencak Silat</a></li>
+          <li><a onclick="showPage('view-pramuka')">Pramuka</a></li>
+        </ul>
+      </li>
+
+      <!-- 5. KONTAK -->
+      <li class="nav-item">
+        <a class="nav-link" id="btn-view-kontak" onclick="showPage('view-kontak')">Kontak</a>
+      </li>
     </ul>
-  </nav>
+  </header>
 
-  <!-- HERO / BERANDA -->
-  <section id="beranda" class="hero">
-    <h1>Selamat Datang di Website Resmi SMPN 2 Karamat</h1>
-    <p>Mewujudkan Generasi Cerdas, Berkarakter, Berbudaya, dan Berdaya Saing Tinggi di Era Digital.</p>
-    <a href="#visi-misi" class="btn"><i class="fas fa-arrow-down"></i> Jelajahi Profil</a>
-  </section>
+  <!-- RUNNING TEXT BANNER -->
+  <div class="running-text-container">
+    <marquee behavior="scroll" direction="left" scrollamount="7">
+      Selamat datang di Website Resmi SMP Negeri 2 Karamat - Mewujudkan Generasi Cerdas, Berkarakter, dan Berbudaya di Kabupaten Buol.
+    </marquee>
+  </div>
 
-  <!-- SEKSI PROFIL SEKOLAH -->
-  <section id="profil" class="container">
-    <div class="section-title">
-      <span class="section-badge">TENTANG KAMI</span>
-      <h2>Profil Sekolah</h2>
-      <p>Mengenal lebih dekat SMP Negeri 2 Karamat.</p>
+  <!-- ==================== 1. BERANDA ==================== -->
+  <div id="view-beranda" class="page-view active-view">
+    <section class="hero-banner">
+      <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=1200" alt="Gedung SMPN 2 Karamat">
+      <div class="hero-overlay">
+        <h1>SMP NEGERI 2 KARAMAT</h1>
+        <p>Pusat Pendidikan & Pembentukan Karakter Siswa Kabupaten Buol</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== 2. PROFIL: SEJARAH ==================== -->
+  <div id="view-sejarah" class="page-view">
+    <div class="container">
+      <div class="page-header">
+        <h2>Sejarah Sekolah</h2>
+        <button class="btn-back" onclick="showPage('view-beranda')"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+      </div>
+      <div class="card-content">
+        <p>SMP Negeri 2 Karamat didirikan untuk memberikan akses pendidikan menengah pertama yang berkualitas bagi masyarakat di wilayah Desa Baruga, Kecamatan Karamat, Kabupaten Buol, Sulawesi Tengah.</p>
+        <p style="margin-top: 15px;">Sejak berdirinya, sekolah ini terus berkomitmen meningkatkan kualitas sarana, prasarana, serta sumber daya pendidik untuk mencetak generasi yang cerdas, mandiri, dan berakhlak mulia.</p>
+      </div>
     </div>
+  </div>
 
-    <!-- 1. SEJARAH -->
-    <div id="sejarah" class="profile-card">
-      <h3><i class="fas fa-history"></i> Sejarah Sekolah</h3>
-      <p>SMP Negeri 2 Karamat didirikan untuk memberikan pendidikan berkualitas bagi masyarakat sekitar dengan mengedepankan nilai akademik dan budi pekerti.</p>
+  <!-- ==================== 3. PROFIL: VISI & MISI ==================== -->
+  <div id="view-visi-misi" class="page-view">
+    <div class="container">
+      <div class="page-header">
+        <h2>Visi dan Misi</h2>
+        <button class="btn-back" onclick="showPage('view-beranda')"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+      </div>
+      <div class="card-content">
+        <h3 style="color: var(--primary-color); margin-bottom: 10px;">Visi</h3>
+        <p style="margin-bottom: 25px; font-size: 16px;">"Terwujudnya sekolah unggul dalam prestasi, berkarakter mulia, dan berwawasan lingkungan."</p>
+        
+        <h3 style="color: var(--primary-color); margin-bottom: 10px;">Misi</h3>
+        <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+          <li>Melaksanakan pembelajaran dan bimbingan secara efektif dan berkelanjutan.</li>
+          <li>Menumbuhkan semangat keunggulan secara intensif kepada seluruh warga sekolah.</li>
+          <li>Mendorong dan membantu setiap siswa untuk mengenali potensi dirinya.</li>
+          <li>Menanamkan nilai-nilai keagamaan dan budi pekerti luhur dalam kehidupan sehari-hari.</li>
+        </ul>
+      </div>
     </div>
+  </div>
 
-    <!-- 2. VISI & MISI -->
-    <div id="visi-misi" class="profile-card">
-      <h3><i class="fas fa-bullseye"></i> Visi & Misi</h3>
-      <p><strong>Visi:</strong> Terwujudnya sekolah unggul dalam prestasi, berkarakter mulia, dan berwawasan lingkungan.</p>
-      <p style="margin-top: 10px;"><strong>Misi:</strong></p>
-      <ul>
-        <li>Melaksanakan pembelajaran dan bimbingan secara efektif.</li>
-        <li>Menumbuhkan semangat keunggulan kepada seluruh warga sekolah.</li>
-      </ul>
-    </div>
-
-    <!-- 3. STRUKTUR ORGANISASI -->
-    <div id="struktur" class="profile-card">
-      <h3><i class="fas fa-sitemap"></i> Struktur Organisasi</h3>
-      <p>Bagan kepemimpinan dan manajemen operasional di SMP Negeri 2 Karamat terstruktur untuk mendukung proses belajar mengajar yang optimal.</p>
-    </div>
-
-    <!-- 4. DATA GURU & STAF -->
-    <div id="guru" class="profile-card">
-      <h3><i class="fas fa-user-tie"></i> Data Guru & Staf Pengajar</h3>
-      <div class="guru-grid">
-        <div class="guru-card">
-          <div class="guru-avatar"><i class="fas fa-user-circle"></i></div>
-          <h4>Kepala Sekolah</h4>
-          <p>Kepala SMPN 2 Karamat</p>
-        </div>
-        <div class="guru-card">
-          <div class="guru-avatar"><i class="fas fa-user-circle"></i></div>
-          <h4>Guru Mata Pelajaran</h4>
-          <p>Tenaga Pendidik</p>
-        </div>
-        <div class="guru-card">
-          <div class="guru-avatar"><i class="fas fa-user-circle"></i></div>
-          <h4>Staf Tata Usaha</h4>
-          <p>Tenaga Kependidikan</p>
+  <!-- ==================== 4. PROFIL: DATA GURU & STAF ==================== -->
+  <div id="view-guru" class="page-view">
+    <div class="container">
+      <div class="page-header">
+        <h2>Data Guru dan Staf Pengajar</h2>
+        <button class="btn-back" onclick="showPage('view-beranda')"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+      </div>
+      <div class="card-content">
+        <div class="grid-3">
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500" alt="Guru 1">
+            <div class="profile-card-body">
+              <h4>Guru Mata Pelajaran</h4>
+              <p>Tenaga Pendidik Matematika</p>
+            </div>
+          </div>
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500" alt="Guru 2">
+            <div class="profile-card-body">
+              <h4>Guru Mata Pelajaran</h4>
+              <p>Tenaga Pendidik Bahasa Indonesia</p>
+            </div>
+          </div>
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1580894732413-a70d2a233303?w=500" alt="Staf TU">
+            <div class="profile-card-body">
+              <h4>Staf Tata Usaha</h4>
+              <p>Tenaga Kependidikan / Administrasi</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- SEKSI FASILITAS -->
-  <section id="fasilitas" class="container">
-    <div class="section-title">
-      <span class="section-badge">SARANA</span>
-      <h2>Fasilitas Sekolah</h2>
+  <!-- ==================== 5. PROFIL: STRUKTUR ORGANISASI ==================== -->
+  <div id="view-struktur" class="page-view">
+    <div class="container">
+      <div class="page-header">
+        <h2>Struktur Organisasi Sekolah</h2>
+        <button class="btn-back" onclick="showPage('view-beranda')"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+      </div>
+      <div class="card-content">
+        <div class="grid-3">
+          <!-- Kepala Sekolah -->
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500" alt="Kepala Sekolah">
+            <div class="profile-card-body">
+              <h4>Kepala Sekolah</h4>
+              <span class="badge-role">Pimpinan Sekolah</span>
+            </div>
+          </div>
+
+          <!-- Wakil Kepala Sekolah -->
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500" alt="Wakil Kepala Sekolah">
+            <div class="profile-card-body">
+              <h4>Wakil Kepala Sekolah</h4>
+              <span class="badge-role">Wakil Pimpinan</span>
+            </div>
+          </div>
+
+          <!-- Urusan Kurikulum -->
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=500" alt="Urusan Kurikulum">
+            <div class="profile-card-body">
+              <h4>Urusan Kurikulum</h4>
+              <span class="badge-role">Pengembang Pembelajaran</span>
+            </div>
+          </div>
+
+          <!-- Urusan Kesiswaan -->
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500" alt="Urusan Kesiswaan">
+            <div class="profile-card-body">
+              <h4>Urusan Kesiswaan</h4>
+              <span class="badge-role">Pembina Siswa</span>
+            </div>
+          </div>
+
+          <!-- Operator Sekolah -->
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500" alt="Operator Sekolah">
+            <div class="profile-card-body">
+              <h4>Operator Sekolah</h4>
+              <span class="badge-role">Data & Informasi (Dapodik)</span>
+            </div>
+          </div>
+
+          <!-- Bendahara BOS -->
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500" alt="Bendahara BOS">
+            <div class="profile-card-body">
+              <h4>Bendahara BOS</h4>
+              <span class="badge-role">Pengelola Keuangan</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="profile-card">
-      <p>Ruang Kelas Nyaman, Laboratorium Komputer, Perpustakaan, dan Lapangan Olahraga.</p>
+  </div>
+
+  <!-- ==================== 6. SARANA & PRASARANA ==================== -->
+  <div id="view-fasilitas" class="page-view">
+    <div class="container">
+      <div class="page-header">
+        <h2>Sarana & Prasarana Sekolah</h2>
+        <button class="btn-back" onclick="showPage('view-beranda')"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+      </div>
+      <div class="card-content">
+        <div class="grid-4">
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500" alt="Ruang Kelas">
+            <div class="profile-card-body">
+              <h4>Ruang Kelas</h4>
+            </div>
+          </div>
+
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=500" alt="Ruang Kepsek">
+            <div class="profile-card-body">
+              <h4>Ruang Kepala Sekolah</h4>
+            </div>
+          </div>
+
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=500" alt="Ruang Lab">
+            <div class="profile-card-body">
+              <h4>Ruang Laboratorium</h4>
+            </div>
+          </div>
+
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=500" alt="Ruang Perpustakaan">
+            <div class="profile-card-body">
+              <h4>Ruang Perpustakaan</h4>
+            </div>
+          </div>
+
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500" alt="Lapangan Olahraga">
+            <div class="profile-card-body">
+              <h4>Lapangan Olahraga</h4>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <!-- SEKSI KONTAK -->
-  <section id="kontak" class="container">
-    <div class="section-title">
-      <span class="section-badge">HUBUNGI KAMI</span>
-      <h2>Pesan & Saran</h2>
+  <!-- ==================== 7. EKSTRAKULIKULER: PENCAK SILAT ==================== -->
+  <div id="view-silat" class="page-view">
+    <div class="container">
+      <div class="page-header">
+        <h2>Ekstrakulikuler Pencak Silat</h2>
+        <button class="btn-back" onclick="showPage('view-beranda')"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+      </div>
+      <div class="card-content">
+        <p style="margin-bottom: 20px; color: var(--text-muted);">Dokumentasi gambar kegiatan peragaan dan latihan rutin Pencak Silat SMPN 2 Karamat.</p>
+        <div class="grid-2">
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=600" alt="Latihan Pencak Silat">
+            <div class="profile-card-body">
+              <h4>Latihan Rutin</h4>
+              <p>Penggemblengan fisik dan teknik dasar bela diri.</p>
+            </div>
+          </div>
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600" alt="Seni Bela Diri">
+            <div class="profile-card-body">
+              <h4>Peragaan Seni Silat</h4>
+              <p>Unjuk kebolehan seni bela diri tradisional pada acara sekolah.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <form id="contactForm" class="contact-form">
-      <input type="text" id="inputNama" placeholder="Nama Lengkap" required>
-      <input type="email" id="inputEmail" placeholder="Email Anda" required>
-      <textarea id="inputPesan" placeholder="Tuliskan pesan Anda..." required></textarea>
-      <button type="submit" id="btnKirim" class="btn">Kirim Pesan</button>
-    </form>
-  </section>
+  <!-- ==================== 8. EKSTRAKULIKULER: PRAMUKA ==================== -->
+  <div id="view-pramuka" class="page-view">
+    <div class="container">
+      <div class="page-header">
+        <h2>Ekstrakulikuler Pramuka</h2>
+        <button class="btn-back" onclick="showPage('view-beranda')"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+      </div>
+      <div class="card-content">
+        <p style="margin-bottom: 20px; color: var(--text-muted);">Dokumentasi kegiatan perkemahan dan penjelajahan Kepramukaan SMPN 2 Karamat.</p>
+        <div class="grid-2">
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=600" alt="Kemah Pramuka">
+            <div class="profile-card-body">
+              <h4>Kegiatan Perkemahan</h4>
+              <p>Membentuk jiwa kepemimpinan, kemandirian, dan gotong royong.</p>
+            </div>
+          </div>
+          <div class="profile-card">
+            <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=600" alt="Penjelajahan Alam">
+            <div class="profile-card-body">
+              <h4>Penjelajahan Alam</h4>
+              <p>Kegiatan outbond dan penjelajahan alam untuk melatih kedisiplinan.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- JAVASCRIPT & SUPABASE INTEGRATION -->
+  <!-- ==================== 9. KONTAK ==================== -->
+  <div id="view-kontak" class="page-view">
+    <div class="container">
+      <div class="page-header">
+        <h2>Kontak & Lokasi Sekolah</h2>
+        <button class="btn-back" onclick="showPage('view-beranda')"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+      </div>
+      <div class="card-content">
+        <div class="contact-wrapper">
+          <!-- Info Alamat & Maps -->
+          <div>
+            <h3 style="margin-bottom: 15px; color: var(--primary-color);"><i class="fas fa-map-marker-alt"></i> Alamat Sekolah</h3>
+            <div class="info-item">
+              <i class="fas fa-location-dot"></i>
+              <p><strong>Alamat:</strong> Jl. Trans Sulawesi No. 25, Desa Baruga, Kec. Karamat, Kab. Buol, Sulawesi Tengah</p>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-envelope"></i>
+              <p><strong>Email:</strong> smpn2kbuol@gmail.com</p>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-phone"></i>
+              <p><strong>Telepon:</strong> (0451) 1234567</p>
+            </div>
+
+            <div class="maps-container">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127600.0000000000!2d121.3500000!3d1.1500000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMcKwMDknMDAuMCJOIDEyMcKwMjEnMDAuMCJF!5e0!3m2!1sid!2sid!4v1600000000000!5m2!1sid!2sid" 
+                allowfullscreen="" 
+                loading="lazy">
+              </iframe>
+            </div>
+          </div>
+
+          <!-- Form Kirim Pesan (Supabase) -->
+          <div>
+            <h3 style="margin-bottom: 10px; color: var(--primary-color);"><i class="fas fa-paper-plane"></i> Kirim Pesan</h3>
+            <p style="margin-bottom: 15px; font-size: 14px; color: var(--text-muted);">Sampaikan pertanyaan atau saran Anda langsung ke tim administrasi kami.</p>
+            
+            <form id="contactForm" class="contact-form">
+              <input type="text" id="inputNama" placeholder="Nama Lengkap" required>
+              <input type="email" id="inputEmail" placeholder="Email Anda" required>
+              <textarea id="inputPesan" placeholder="Tuliskan pesan Anda..." required></textarea>
+              <button type="submit" id="btnKirim" class="btn-submit">Kirim Pesan</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER COPYRIGHT -->
+  <footer>
+    <p>&copy; 2026 SMP Negeri 2 Karamat. All Rights Reserved. | Tim Official Website</p>
+  </footer>
+
+  <!-- SCRIPT SWITCHER HALAMAN & INTEGRASI SUPABASE -->
   <script>
-    // 1. Inisialisasi Supabase
+    // Fungsi Switcher Halaman
+    function showPage(pageId) {
+      const pages = document.querySelectorAll('.page-view');
+      pages.forEach(page => page.classList.remove('active-view'));
+
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => link.classList.remove('active'));
+
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.classList.add('active-view');
+      }
+
+      const activeBtn = document.getElementById('btn-' + pageId);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Integrasi Supabase
     const SUPABASE_URL = 'https://lnspkgaiycmesydzvxaa.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxuc3BrZ2FpeWNtZXN5ZHp2eGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzMTE1NDgsImV4cCI6MjEwNjg4NzU0OH0.ZCC9Wp0zOKrU1Wn7R24IJGiHNM-IPwijMzjeDLG0rUM'; // Pastikan ganti dengan API Anon Key kamu yang utuh
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxuc3BrZ2FpeWNtZXN5ZHp2eGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzMTE1NDgsImV4cCI6MjEwNjg4NzU0OH0.ZCC9Wp0zOKrU1Wn7R24IJGiHNM-IPwijMzjeDLG0rUM'; // Ganti dengan Supabase Anon Key milikmu
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // 2. Handler Form Kontak Aman (Menghindari Error Null)
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('contactForm');
       const btnKirim = document.getElementById('btnKirim');
@@ -364,7 +824,7 @@
           if (error) {
             alert('Gagal mengirim pesan: ' + error.message);
           } else {
-            alert('Terima kasih! Pesan kamu berhasil terkirim.');
+            alert('Terima kasih! Pesan Anda berhasil terkirim.');
             form.reset();
           }
         } catch (err) {
@@ -377,47 +837,5 @@
       });
     });
   </script>
-</body>
-</html>
-<!-- KONTAK -->
-  <section id="kontak" class="container">
-    <div class="section-title">
-      <span class="section-badge">HUBUNGI KAMI</span>
-      <h2>Informasi Kontak</h2>
-      <p>Silakan hubungi kami untuk informasi selengkapnya mengenai SMPN 2 Karamat.</p>
-    </div>
-
-    <div class="contact-box">
-      <div class="contact-item">
-        <i class="fas fa-map-marker-alt"></i>
-        <div>
-          <h4>Alamat Sekolah</h4>
-          <p>Desa Baruga, Kecamatan Karamat, Kabupaten Buol, Sulawesi Tengah</p>
-        </div>
-      </div>
-
-      <div class="contact-item">
-        <i class="fas fa-envelope"></i>
-        <div>
-          <h4>Email Resmi</h4>
-          <p>smpn2karamat@gmail.com</p>
-        </div>
-      </div>
-
-      <div class="contact-item">
-        <i class="fas fa-clock"></i>
-        <div>
-          <h4>Jam Operasional</h4>
-          <p>Senin - Jumat: 07.00 - 15.30 WITA</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    &copy; SMP Negeri 2 Karamat - Hak Cipta Dilindungi Undang-Undang.
-  </footer>
-
 </body>
 </html>
