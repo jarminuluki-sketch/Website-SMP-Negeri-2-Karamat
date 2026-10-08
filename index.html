@@ -222,7 +222,42 @@
       color: var(--primary-color);
       background-color: #f1f5f9;
     }
+   /* Styling Dropdown Peserta Didik */
+.nav-item {
+  position: relative;
+}
 
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  list-style: none;
+  padding: 8px 0;
+  min-width: 160px;
+  border-radius: 6px;
+  z-index: 1000;
+}
+
+.nav-item:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li a {
+  color: #1e293b !important;
+  padding: 8px 16px;
+  display: block;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #f1f5f9;
+  color: #004d40 !important;
+}
     /* DROPDOWN MENU CARD STYLE */
     .dropdown-menu {
       display: none;
