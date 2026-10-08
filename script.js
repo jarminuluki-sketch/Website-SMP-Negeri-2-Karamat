@@ -84,3 +84,67 @@ function filterJadwal() {
     tbody.appendChild(tr);
   });
 }
+// --- FITUR DINAMIS PESERTA DIDIK & MENU PETUGAS (LOCALSTORAGE) ---
+const defaultStudentData = {
+  '7a': { L: 15, P: 17 },
+  '7b': { L: 14, P: 18 },
+  '8a': { L: 16, P: 16 },
+  '8b': { L: 15, P: 15 },
+  '9a': { L: 13, P: 17 },
+  '9b': { L: 14, P: 16 }
+};
+
+// Ambil data dari localStorage
+function getStudentData() {
+  const data = localStorage.getItem('smpn2_data_peserta_didik');
+  return data ? JSON.parse(data) : defaultStudentData;
+}
+
+// Tampilkan data ke halaman website & form input
+function renderStudentData() {
+  const data = getStudentData();
+  const classes = ['7a', '7b', '8a', '8b', '9a', '9b'];
+
+  classes.forEach(cls => {
+    const l = data[cls].L;
+    const p = data[cls].P;
+    const total = l + p;
+
+    // Update kartu tampilan di halaman Peserta Didik
+    const spanL = document.getElementById(`val-${cls}-L`);
+    const spanP = document.getElementById(`val-${cls}-P`);
+    const spanTotal = document.getElementById(`val-${cls}-total`);
+    if (spanL) spanL.innerText = `${l} Siswa`;
+    if (spanP) spanP.innerText = `${p} Siswa`;
+    if (spanTotal) spanTotal.innerText = `Total: ${total} Siswa`;
+
+    // Update nilai pada form input di Menu Petugas
+    const inputL = document.getElementById(`input-${cls}-L`);
+    const inputP = document.getElementById(`input-${cls}-P`);
+    if (inputL) inputL.value = l;
+    if (inputP) inputP.value = p;
+  });
+}
+
+// Simpan data dari form input ke localStorage
+function saveStudentData(event) {
+  event.preventDefault();
+  const classes = ['7a', '7b', '8a', '8b', '9a', '9b'];
+  let newData = {};
+
+  classes.forEach(cls => {
+    const lVal = parseInt(document.getElementById(`input-${cls}-L`).value) || 0;
+    const pVal = parseInt(document.getElementById(`input-${cls}-P`).value) || 0;
+    newData[cls] = { L: lVal, P: pVal };
+  });
+
+  localStorage.setItem('smpn2_data_peserta_didik', JSON.stringify(newData));
+  renderStudentData();
+  alert('Data peserta didik berhasil diperbarui dan disimpan!');
+  showPage('view-peserta-didik');
+}
+
+// Jalankan otomatis saat halaman dimuat
+window.addEventListener('DOMContentLoaded', () => {
+  renderStudentData();
+});
