@@ -1,71 +1,20 @@
 // ==========================================
-// 1. NAVIGASI MENU MOBILE (HAMBURGER MENU)
+// SCRIPT UTUH DAN LENGKAP - WEBSITE SMPN 2 KARAMAT
 // ==========================================
-document.addEventListener("DOMContentLoaded", () => {
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
 
-  if (hamburger && navLinks) {
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
-  }
-
-  // Inisialisasi awal tabel jadwal pelajaran
-  filterJadwal();
-});
-
-// ==========================================
-// 2. SWITCH TAB PROFIL (GURU, MAPEL, JADWAL)
-// ==========================================
-function switchProfilTab(evt, tabId) {
-  const contents = document.getElementsByClassName("profil-tab-content");
-  for (let i = 0; i < contents.length; i++) {
-    contents[i].classList.remove("active");
-  }
-
-  const buttons = document.getElementsByClassName("profil-tab-btn");
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].classList.remove("active");
-  }
-
-  const selectedTab = document.getElementById(tabId);
-  if (selectedTab) {
-    selectedTab.classList.add("active");
-  }
-
-  if (evt && evt.currentTarget) {
-    evt.currentTarget.classList.add("active");
-  }
-}
-
-// ==========================================
-// 3. DATA & FILTER JADWAL PELAJARAN
-// ==========================================
+// --- 1. FITUR FILTER JADWAL PELAJARAN ---
 const dataJadwal = {
-  "7a": [
-    { hari: "Senin", waktu: "07:30 - 09:00", mapel: "Upacara & PAI", guru: "Drs. Ahmad Dahlan", ruang: "R. VII-A" },
-    { hari: "Senin", waktu: "09:15 - 11:30", mapel: "Matematika", guru: "Budi Santoso, S.Si.", ruang: "R. VII-A" },
-    { hari: "Selasa", waktu: "07:30 - 09:30", mapel: "IPA Terpadu", guru: "Siti Rahma, S.Pd.", ruang: "Lab IPA" },
-    { hari: "Rabu", waktu: "07:30 - 09:30", mapel: "Bahasa Inggris", guru: "Rina Marlina, S.Pd.", ruang: "R. VII-A" },
-    { hari: "Kamis", waktu: "07:30 - 09:30", mapel: "Informatika", guru: "Tim IT", ruang: "Lab Komputer" }
-  ],
-  "8a": [
-    { hari: "Senin", waktu: "07:30 - 09:00", mapel: "Upacara & B. Indo", guru: "Rina Marlina, S.Pd.", ruang: "R. VIII-A" },
-    { hari: "Selasa", waktu: "07:30 - 09:30", mapel: "Matematika", guru: "Budi Santoso, S.Si.", ruang: "R. VIII-A" },
-    { hari: "Rabu", waktu: "07:30 - 09:30", mapel: "IPA Terpadu", guru: "Siti Rahma, S.Pd.", ruang: "Lab IPA" }
-  ],
-  "9a": [
+  '7a': [
     { hari: "Senin", waktu: "07:30 - 09:00", mapel: "Upacara & IPS", guru: "Siti Rahma, S.Pd.", ruang: "R. IX-A" },
-    { hari: "Selasa", waktu: "07:30 - 09:30", mapel: "Bahasa Inggris", guru: "Rina Marlina, S.Pd.", ruang: "R. IX-A" },
-    { hari: "Kamis", waktu: "07:30 - 09:30", mapel: "Matematika", guru: "Budi Santoso, S.Si.", ruang: "R. IX-A" }
+    { hari: "Selasa", waktu: "07:30 - 09:00", mapel: "Bahasa Inggris", guru: "Rina Marlina, S.Pd.", ruang: "R. IX-A" },
+    { hari: "Kamis", waktu: "07:30 - 09:00", mapel: "Matematika", guru: "Budi Santoso, S.Si.", ruang: "R. IX-A" }
   ]
 };
 
 function filterJadwal() {
   const kelasSelect = document.getElementById("kelasSelect");
   const tbody = document.getElementById("jadwalBody");
-  
+
   if (!kelasSelect || !tbody) return;
 
   const kelas = kelasSelect.value;
@@ -84,7 +33,24 @@ function filterJadwal() {
     tbody.appendChild(tr);
   });
 }
-// --- FITUR DINAMIS PESERTA DIDIK & MENU PETUGAS (LOCALSTORAGE) ---
+
+
+// --- 2. FITUR NAVIGASI HALAMAN (SHOW PAGE) ---
+function showPage(pageId) {
+  const views = document.querySelectorAll('.page-view');
+  views.forEach(v => {
+    v.style.display = 'none';
+  });
+
+  const target = document.getElementById(pageId);
+  if (target) {
+    target.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+
+// --- 3. FITUR DINAMIS PESERTA DIDIK & MENU PETUGAS (LOCALSTORAGE) ---
 const defaultStudentData = {
   '7a': { L: 15, P: 17 },
   '7b': { L: 14, P: 18 },
@@ -144,13 +110,9 @@ function saveStudentData(event) {
   showPage('view-peserta-didik');
 }
 
-// Jalankan otomatis saat halaman dimuat
-window.addEventListener('DOMContentLoaded', () => {
-  renderStudentData();
-});
-// --- SISTEM KEAMANAN LOGIN PETUGAS ---
 
-// Cek apakah petugas sudah login saat mengklik menu
+// --- 4. SISTEM KEAMANAN LOGIN PETUGAS ---
+
 function checkLoginAndOpenMenu() {
   const isAuth = localStorage.getItem('smpn2_petugas_logged_in');
   if (isAuth === 'true') {
@@ -160,20 +122,18 @@ function checkLoginAndOpenMenu() {
   }
 }
 
-// Proses verifikasi login
 function handleLogin(event) {
   event.preventDefault();
   const user = document.getElementById('login-user').value;
   const pass = document.getElementById('login-pass').value;
 
-  // --- ATUR USERNAME & PASSWORD DI SINI ---
+  // Kredensial Petugas (bisa disesuaikan kapan saja)
   const validUser = 'admin';
   const validPass = 'smpn2karamat';
 
   if (user === validUser && pass === validPass) {
     localStorage.setItem('smpn2_petugas_logged_in', 'true');
     alert('Login Berhasil! Selamat datang petugas.');
-    // Bersihkan form input login
     document.getElementById('login-user').value = '';
     document.getElementById('login-pass').value = '';
     showPage('view-menu-petugas');
@@ -182,9 +142,14 @@ function handleLogin(event) {
   }
 }
 
-// Tombol Logout (opsional, bisa ditaruh di dalam halaman menu petugas jika ingin keluar sesi)
 function handleLogout() {
   localStorage.removeItem('smpn2_petugas_logged_in');
-  alert('Anda telah keluar (Logout) dari Menu Petugas.');
+  alert('Anda telah keluar dari Menu Petugas.');
   showPage('view-beranda');
 }
+
+
+// --- 5. EKSEKUSI AWAL SAAT HALAMAN DIMUAT ---
+window.addEventListener('DOMContentLoaded', () => {
+  renderStudentData();
+});
