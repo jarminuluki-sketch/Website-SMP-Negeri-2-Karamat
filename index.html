@@ -99,11 +99,13 @@
 .hero-official img {
   width: 130px;
   height: 160px;
-  object-fit: cover;
-  border-radius: 10px;
-  border: 2px solid #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  background-color: #ffffff;
+  object-fit: contain; /* Menyesuaikan agar foto utuh tidak terpotong */
+  border-radius: 0px; /* Hapus border-radius agar kotak profil tidak kaku, jika perlu */
+  border: none !important; /* Hapus border putih */
+  box-shadow: none !important; /* Hapus bayangan jika membuat foto terlihat tidak natural dengan background */
+  background-color: transparent !important; /* Penting: Jadikan latar belakangnya transparan */
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); /* Opsional: Tambahkan sedikit drop-shadow agar foto tetap menonjol di atas background gedung */
+}
 }
 
 .official-caption {
