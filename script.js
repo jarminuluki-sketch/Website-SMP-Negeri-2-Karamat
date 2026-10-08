@@ -148,3 +148,43 @@ function saveStudentData(event) {
 window.addEventListener('DOMContentLoaded', () => {
   renderStudentData();
 });
+// --- SISTEM KEAMANAN LOGIN PETUGAS ---
+
+// Cek apakah petugas sudah login saat mengklik menu
+function checkLoginAndOpenMenu() {
+  const isAuth = localStorage.getItem('smpn2_petugas_logged_in');
+  if (isAuth === 'true') {
+    showPage('view-menu-petugas');
+  } else {
+    showPage('view-login-petugas');
+  }
+}
+
+// Proses verifikasi login
+function handleLogin(event) {
+  event.preventDefault();
+  const user = document.getElementById('login-user').value;
+  const pass = document.getElementById('login-pass').value;
+
+  // --- ATUR USERNAME & PASSWORD DI SINI ---
+  const validUser = 'admin';
+  const validPass = 'smpn2karamat';
+
+  if (user === validUser && pass === validPass) {
+    localStorage.setItem('smpn2_petugas_logged_in', 'true');
+    alert('Login Berhasil! Selamat datang petugas.');
+    // Bersihkan form input login
+    document.getElementById('login-user').value = '';
+    document.getElementById('login-pass').value = '';
+    showPage('view-menu-petugas');
+  } else {
+    alert('Username atau Password salah! Silakan coba lagi.');
+  }
+}
+
+// Tombol Logout (opsional, bisa ditaruh di dalam halaman menu petugas jika ingin keluar sesi)
+function handleLogout() {
+  localStorage.removeItem('smpn2_petugas_logged_in');
+  alert('Anda telah keluar (Logout) dari Menu Petugas.');
+  showPage('view-beranda');
+}
