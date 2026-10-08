@@ -29,7 +29,64 @@
       padding: 0;
       font-family: 'Poppins', sans-serif;
     }
+    /* Styling Foto Pejabat di Hero Banner */
+.hero-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 20px;
+}
 
+.hero-content {
+  flex: 1;
+  text-align: center;
+}
+
+.hero-official {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  width: 150px;
+}
+
+.hero-official img {
+  width: 120px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.official-caption {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
+.official-caption strong {
+  display: block;
+  font-size: 0.85rem;
+}
+
+/* Penyesuaian Tampilan HP / Mobile */
+@media (max-width: 768px) {
+  .hero-overlay {
+    flex-direction: column;
+  }
+  .hero-official {
+    width: 100%;
+  }
+  .hero-official img {
+    width: 100px;
+    height: 130px;
+  }
+}
     body {
       background-color: var(--bg-light);
       color: var(--text-dark);
@@ -465,12 +522,35 @@
   <!-- ==================== 1. BERANDA ==================== -->
   <div id="view-beranda" class="page-view active-view">
     <section class="hero-banner">
-      <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=1200" alt="Gedung SMPN 2 Karamat">
-      <div class="hero-overlay">
-        <h1>SMP NEGERI 2 KARAMAT</h1>
-        <p>Pusat Pendidikan & Pembentukan Karakter Siswa Kabupaten Buol</p>
+  <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=1200" alt="Gedung SMPN 2 Karamat">
+  <div class="hero-overlay">
+    
+    <!-- Foto Kepala Dinas (Kiri) -->
+    <div class="hero-official">
+      <img src="images/kadis.png" alt="Kepala Dinas Pendidikan">
+      <div class="official-caption">
+        <strong>Nama Kadis, M.Pd.</strong>
+        <span>Kadis Pendidikan</span>
       </div>
-    </section>
+    </div>
+
+    <!-- Teks Utama (Tengah) -->
+    <div class="hero-content">
+      <h1>SMP NEGERI 2 KARAMAT</h1>
+      <p>Pusat Pendidikan & Pembentukan Karakter Siswa Kabupaten Buol</p>
+    </div>
+
+    <!-- Foto Kepala Sekolah (Kanan) -->
+    <div class="hero-official">
+      <img src="images/kepsek.png" alt="Kepala Sekolah">
+      <div class="official-caption">
+        <strong>Nama Kepsek, S.Pd.</strong>
+        <span>Kepala Sekolah</span>
+      </div>
+    </div>
+
+  </div>
+</section>
   </div>
 
   <!-- ==================== 2. PROFIL: SEJARAH ==================== -->
