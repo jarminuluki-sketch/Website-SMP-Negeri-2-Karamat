@@ -222,6 +222,76 @@ function renderBerandaData() {
     if (document.getElementById('input-beranda-kadis')) document.getElementById('input-beranda-kadis').value = data.kadis;
   }
 }
+// --- KELOLA DAFTAR KEGIATAN DINAMIS ---
+function getKegiatanList() {
+  const data = localStorage.getItem('smpn2_content_kegiatan_list');
+  return data ? JSON.parse(data) : [];
+}
+
+function tambahKegiatan() {
+  const judul = document.getElementById('input-kegiatan-judul').value;
+  const tanggal = document.getElementById('input-kegiatan-tanggal').value;
+  const deskripsi = document.getElementById('input-kegiatan-deskripsi').value;
+
+  if (!judul || !deskripsi) {
+    alert('Judul dan Deskripsi kegiatan wajib diisi!');
+    return;
+  }
+
+  let list = getKegiatanList();
+  list.push({ judul, tanggal, deskripsi });
+  localStorage.setItem('smpn2_content_kegiatan_list', JSON.stringify(list));
+
+  document.getElementById('input-kegiatan-judul').value = '';
+  document.getElementById('input-kegiatan-tanggal').value = '';
+  document.getElementById('input-kegiatan-deskripsi').value = '';
+
+  renderKegiatanList();
+  alert('Kegiatan berhasil ditambahkan ke daftar!');
+}
+
+function hapusKegiatan(index) {
+  let list = getKegiatanList();
+  list.splice(index, 1);
+  localStorage.setItem('smpn2_content_kegiatan_list', JSON.stringify(list));
+  renderKegiatanList();
+}
+
+function renderKegiatanList() {
+  const list = getKegiatanList();
+  
+  const adminListEl = document.getElementById('admin-kegiatan-list');
+  if (adminListEl) {
+    if (list.length === 0) {
+      adminListEl.innerHTML = '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada kegiatan yang ditambahkan.</p>';
+    } else {
+      adminListEl.innerHTML = list.map((item, idx) => `
+        <div style="background: #f8fafc; padding: 12px 15px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <strong style="color: var(--primary-color);">${item.judul}</strong> <span style="font-size: 0.8rem; color: var(--text-muted);">(${item.tanggal || 'Tanpa Tanggal'})</span>
+            <p style="font-size: 0.85rem; color: var(--text-dark); margin-top: 3px;">${item.deskripsi}</p>
+          </div>
+          <button type="button" onclick="hapusKegiatan(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;"><i class="fas fa-trash"></i> Hapus</button>
+        </div>
+      `).join('');
+    }
+  }
+
+  const publicListEl = document.getElementById('display-beranda-kegiatan-list');
+  if (publicListEl) {
+    if (list.length === 0) {
+      publicListEl.innerHTML = '<p style="color: var(--text-muted);">Belum ada informasi kegiatan terbaru.</p>';
+    } else {
+      publicListEl.innerHTML = list.map(item => `
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
+          <span style="font-size: 0.75rem; background: #e0f2fe; color: #0369a1; padding: 3px 8px; border-radius: 4px; font-weight: 600;"><i class="fas fa-calendar-alt"></i> ${item.tanggal || 'Agenda Sekolah'}</span>
+          <h4 style="color: var(--primary-color); margin: 10px 0 6px 0; font-size: 1.05rem;">${item.judul}</h4>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">${item.deskripsi}</p>
+        </div>
+      `).join('');
+    }
+  }
+}
 
 // --- 6. EKSEKUSI AWAL SAAT HALAMAN DIMUAT ---
 window.addEventListener('DOMContentLoaded', () => {
