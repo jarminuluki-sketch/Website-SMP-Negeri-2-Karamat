@@ -181,6 +181,15 @@ function renderPageContent() {
   }
 }
 
+// Render Sarana & Prasarana
+  const saranaData = JSON.parse(localStorage.getItem('smpn2_content_sarana'));
+  if (saranaData) {
+    const el = document.getElementById('display-sarana');
+    if (el) el.innerHTML = `<p>${saranaData.text}</p>`;
+    const inputEl = document.getElementById('input-content-sarana');
+    if (inputEl) inputEl.value = saranaData.text;
+  }
+
 // --- 6. EKSEKUSI AWAL SAAT HALAMAN DIMUAT ---
 window.addEventListener('DOMContentLoaded', () => {
   renderStudentData();
