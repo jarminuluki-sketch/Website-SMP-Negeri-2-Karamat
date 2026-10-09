@@ -1029,7 +1029,7 @@
   </div>
 </div>
 
-<!-- ==================== PANEL DASHBOARD PETUGAS ==================== -->
+<!-- ==================== PANEL DASHBOARD PETUGAS (DENGAN TAB KELOLA LENGKAP) ==================== -->
 <div id="view-panel-petugas" class="page-view" style="display: none;">
   <div style="display: flex; min-height: calc(100vh - 80px); background: #f1f5f9;">
     
@@ -1040,8 +1040,8 @@
           <i class="fas fa-user-shield"></i> Panel Petugas
         </div>
         <ul style="list-style: none; padding: 15px 0; margin: 0;">
-          <li style="padding: 12px 20px; background: #334155; border-left: 4px solid var(--primary-color); font-weight: 600;"><i class="fas fa-tachometer-alt" style="margin-right: 10px;"></i> Dashboard</li>
-          <li style="padding: 12px 20px; color: #94a3b8; cursor: pointer;" onclick="showPage('view-peserta-didik')"><i class="fas fa-users" style="margin-right: 10px;"></i> Lihat Data Siswa</li>
+          <li style="padding: 12px 20px; background: #334155; border-left: 4px solid var(--primary-color); font-weight: 600;"><i class="fas fa-tachometer-alt" style="margin-right: 10px;"></i> Dashboard Admin</li>
+          <li style="padding: 12px 20px; color: #94a3b8; cursor: pointer;" onclick="showPage('view-peserta-didik')"><i class="fas fa-users" style="margin-right: 10px;"></i> Lihat Web Utama</li>
         </ul>
       </div>
       <div style="padding: 20px; border-top: 1px solid #334155;">
@@ -1049,59 +1049,146 @@
       </div>
     </aside>
 
-    <!-- Main Content Area Panel -->
+    <!-- Main Content Area Panel dengan Tab Editor -->
     <main style="flex: 1; padding: 30px; overflow-y: auto;">
       <div style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 25px;">
         <h2 style="color: #1e293b; margin-bottom: 5px;">Selamat Datang, Petugas!</h2>
-        <p style="color: #64748b; font-size: 0.95rem;">Silakan kelola jumlah siswa Laki-laki dan Perempuan untuk masing-masing kelas di bawah ini tanpa perlu mengubah kode program.</p>
+        <p style="color: #64748b; font-size: 0.95rem;">Pilih menu di bawah ini untuk memperbarui data website secara instan tanpa ubah kode.</p>
+        
+        <!-- Tab Navigasi Editor -->
+        <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
+          <button onclick="switchTab('tab-siswa')" id="btn-tab-siswa" style="padding: 8px 16px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Data Siswa (7A-9B)</button>
+          <button onclick="switchTab('tab-sejarah')" id="btn-tab-sejarah" style="padding: 8px 16px; background: #cbd5e1; color: var(--text-dark); border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Sejarah</button>
+          <button onclick="switchTab('tab-visimisi')" id="btn-tab-visimisi" style="padding: 8px 16px; background: #cbd5e1; color: var(--text-dark); border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Visi & Misi</button>
+          <button onclick="switchTab('tab-struktur')" id="btn-tab-struktur" style="padding: 8px 16px; background: #cbd5e1; color: var(--text-dark); border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Struktur Organisasi</button>
+          <button onclick="switchTab('tab-guru')" id="btn-tab-guru" style="padding: 8px 16px; background: #cbd5e1; color: var(--text-dark); border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Guru & Staf</button>
+          <button onclick="switchTab('tab-pramuka')" id="btn-tab-pramuka" style="padding: 8px 16px; background: #cbd5e1; color: var(--text-dark); border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Pramuka</button>
+          <button onclick="switchTab('tab-pencaksilat')" id="btn-tab-pencaksilat" style="padding: 8px 16px; background: #cbd5e1; color: var(--text-dark); border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Pencak Silat</button>
+        </div>
       </div>
 
-      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-        <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-edit"></i> Form Kelola Data Peserta Didik (Kelas 7A - 9B)</h3>
-        
-        <form id="form-update-siswa" onsubmit="saveStudentData(event)">
+      <!-- 1. TAB KELOLA SISWA -->
+      <div id="tab-siswa" class="admin-tab-content" style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-users"></i> Kelola Data Peserta Didik (Kelas 7A - 9B)</h3>
+        <form onsubmit="saveStudentData(event)">
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 25px;">
-            <!-- Input 7A -->
+            <!-- 7A -->
             <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
               <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 7A</h4>
               <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-7a-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
               <div><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-7a-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
             </div>
-            <!-- Input 7B -->
+            <!-- 7B -->
             <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
               <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 7B</h4>
               <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-7b-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
               <div><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-7b-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
             </div>
-            <!-- Input 8A -->
+            <!-- 8A -->
             <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
               <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 8A</h4>
               <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-8a-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
               <div><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-8a-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
             </div>
-            <!-- Input 8B -->
+            <!-- 8B -->
             <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
               <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 8B</h4>
               <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-8b-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
               <div><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-8b-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
             </div>
-            <!-- Input 9A -->
+            <!-- 9A -->
             <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
               <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 9A</h4>
               <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-9a-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
               <div><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-9a-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
             </div>
-            <!-- Input 9B -->
+            <!-- 9B -->
             <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
               <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 9B</h4>
               <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-9b-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
               <div><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-9b-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
             </div>
           </div>
-
-          <button type="submit" style="background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 1rem;"><i class="fas fa-save"></i> Simpan Perubahan Data</button>
+          <button type="submit" style="background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Data Siswa</button>
         </form>
       </div>
+
+      <!-- 2. TAB KELOLA SEJARAH -->
+      <div id="tab-sejarah" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-history"></i> Kelola Sejarah Sekolah</h3>
+        <form onsubmit="savePageContent(event, 'sejarah')">
+          <div style="margin-bottom: 15px;">
+            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Isi Teks Sejarah:</label>
+            <textarea id="input-content-sejarah" rows="8" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+          </div>
+          <button type="submit" style="background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Sejarah</button>
+        </form>
+      </div>
+
+      <!-- 3. TAB KELOLA VISI & MISI -->
+      <div id="tab-visimisi" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-bullseye"></i> Kelola Visi & Misi</h3>
+        <form onsubmit="savePageContent(event, 'visimisi')">
+          <div style="margin-bottom: 15px;">
+            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Visi:</label>
+            <textarea id="input-content-visi" rows="3" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+          </div>
+          <div style="margin-bottom: 15px;">
+            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Misi:</label>
+            <textarea id="input-content-misi" rows="6" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+          </div>
+          <button type="submit" style="background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Visi & Misi</button>
+        </form>
+      </div>
+
+      <!-- 4. TAB KELOLA STRUKTUR ORGANISASI -->
+      <div id="tab-struktur" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-sitemap"></i> Kelola Struktur Organisasi</h3>
+        <form onsubmit="savePageContent(event, 'struktur')">
+          <div style="margin-bottom: 15px;">
+            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Keterangan / URL Gambar Bagan Struktur:</label>
+            <textarea id="input-content-struktur" rows="4" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+          </div>
+          <button type="submit" style="background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Struktur</button>
+        </form>
+      </div>
+
+      <!-- 5. TAB KELOLA GURU & STAF -->
+      <div id="tab-guru" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-chalkboard-teacher"></i> Kelola Guru & Tenaga Kependidikan</h3>
+        <form onsubmit="savePageContent(event, 'guru')">
+          <div style="margin-bottom: 15px;">
+            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Daftar Guru & Staf:</label>
+            <textarea id="input-content-guru" rows="6" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+          </div>
+          <button type="submit" style="background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Data Guru</button>
+        </form>
+      </div>
+
+      <!-- 6. TAB KELOLA PRAMUKA -->
+      <div id="tab-pramuka" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-campground"></i> Kelola Ekstrakulikuler Pramuka</h3>
+        <form onsubmit="savePageContent(event, 'pramuka')">
+          <div style="margin-bottom: 15px;">
+            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Deskripsi / Kegiatan Pramuka:</label>
+            <textarea id="input-content-pramuka" rows="6" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+          </div>
+          <button type="submit" style="background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Pramuka</button>
+        </form>
+      </div>
+
+      <!-- 7. TAB KELOLA PENCAK SILAT -->
+      <div id="tab-pencaksilat" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-fist-raised"></i> Kelola Ekstrakulikuler Pencak Silat</h3>
+        <form onsubmit="savePageContent(event, 'pencaksilat')">
+          <div style="margin-bottom: 15px;">
+            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Deskripsi / Kegiatan Pencak Silat:</label>
+            <textarea id="input-content-pencaksilat" rows="6" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+          </div>
+          <button type="submit" style="background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Pencak Silat</button>
+        </form>
+      </div>
+
     </main>
   </div>
 </div>
