@@ -253,8 +253,60 @@ function renderPageContent() {
   }
 }
 
-// Perbarui event listener di bagian paling bawah untuk memuat semuanya saat halaman dibuka
+// Perbarui event listener di bagian bawah untuk memuat semuanya saat halaman dibuka
 window.addEventListener('DOMContentLoaded', () => {
   renderStudentData();
   renderPageContent();
+  renderStrukturData(); // <--- Tambahkan baris ini di dalam sini
 });
+// --- FITUR DINAMIS STRUKTUR ORGANISASI ---
+const defaultStrukturData = {
+  kepala: { nama: 'Kepala Sekolah', foto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500' },
+  wakil: { nama: 'Wakil Kepala Sekolah', foto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228d7w=500' },
+  kurikulum: { nama: 'Urusan Kurikulum', foto: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=500' },
+  kesiswaan: { nama: 'Urusan Kesiswaan', foto: 'https://images.unsplash.com/photo-1500648767791-00dcc994a3e7?w=500' },
+  operator: { nama: 'Vita Sriwahyuni Jumadil, S.I.Kom', foto: 'images/vita2.png' },
+  bendahara: { nama: 'Bendahara BOS', foto: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500' }
+};
+
+function getStrukturData() {
+  const data = localStorage.getItem('smpn2_data_struktur');
+  return data ? JSON.parse(data) : defaultStrukturData;
+}
+
+function renderStrukturData() {
+  const data = getStrukturData();
+  const roles = ['kepala', 'wakil', 'kurikulum', 'kesiswaan', 'operator', 'bendahara'];
+
+  roles.forEach(role => {
+    const item = data[role] || {};
+    
+    // Update ke halaman publik
+    const elNama = document.getElementById(`display-struktur-${role}-nama`);
+    const elFoto = document.getElementById(`display-struktur-${role}-foto`);
+    if (elNama) elNama.innerText = item.nama;
+    if (elFoto && item.foto) elFoto.src = item.foto;
+
+    // Update ke form input di Panel Petugas
+    const inputNama = document.getElementById(`input-struktur-${role}-nama`);
+    const inputFoto = document.getElementById(`input-struktur-${role}-foto`);
+    if (inputNama) inputNama.value = item.nama || '';
+    if (inputFoto) inputFoto.value = item.foto || '';
+  });
+}
+
+function saveStrukturData(event) {
+  event.preventDefault();
+  const roles = ['kepala', 'wakil', 'kurikulum', 'kesiswaan', 'operator', 'bendahara'];
+  let newdata = {};
+
+  roles.forEach(role => {
+    const namaVal = document.getElementById(`input-struktur-${role}-nama`).value;
+    const fotoVal = document.getElementById(`input-struktur-${role}-foto`).value;
+    newdata[role] = { nama: namaVal, foto: fotoVal };
+  });
+
+  localStorage.setItem('smpn2_data_struktur', JSON.stringify(newdata));
+  renderStrukturData();
+  alert('Data Struktur Organisasi berhasil diperbarui dan disimpan!');
+}
