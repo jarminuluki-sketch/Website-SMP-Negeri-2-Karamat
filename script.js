@@ -190,8 +190,42 @@ function renderPageContent() {
     if (inputEl) inputEl.value = saranaData.text;
   }
 
+// --- KELOLA HALAMAN BERANDA ---
+function saveBerandaData(event) {
+  event.preventDefault();
+  const berandaData = {
+    sambutan: document.getElementById('input-beranda-sambutan').value,
+    kegiatan: document.getElementById('input-beranda-kegiatan').value,
+    banner: document.getElementById('input-beranda-banner').value,
+    kepsek: document.getElementById('input-beranda-kepsek').value,
+    kadis: document.getElementById('input-beranda-kadis').value
+  };
+
+  localStorage.setItem('smpn2_content_beranda', JSON.stringify(berandaData));
+  renderBerandaData();
+  alert('Data Halaman Beranda berhasil diperbarui dan disimpan!');
+}
+
+function renderBerandaData() {
+  const data = JSON.parse(localStorage.getItem('smpn2_content_beranda'));
+  if (data) {
+    if (document.getElementById('display-beranda-sambutan')) document.getElementById('display-beranda-sambutan').innerText = data.sambutan;
+    if (document.getElementById('display-beranda-kegiatan')) document.getElementById('display-beranda-kegiatan').innerText = data.kegiatan;
+    if (document.getElementById('display-beranda-banner')) document.getElementById('display-beranda-banner').src = data.banner;
+    if (document.getElementById('display-beranda-kepsek')) document.getElementById('display-beranda-kepsek').src = data.kepsek;
+    if (document.getElementById('display-beranda-kadis')) document.getElementById('display-beranda-kadis').src = data.kadis;
+
+    if (document.getElementById('input-beranda-sambutan')) document.getElementById('input-beranda-sambutan').value = data.sambutan;
+    if (document.getElementById('input-beranda-kegiatan')) document.getElementById('input-beranda-kegiatan').value = data.kegiatan;
+    if (document.getElementById('input-beranda-banner')) document.getElementById('input-beranda-banner').value = data.banner;
+    if (document.getElementById('input-beranda-kepsek')) document.getElementById('input-beranda-kepsek').value = data.kepsek;
+    if (document.getElementById('input-beranda-kadis')) document.getElementById('input-beranda-kadis').value = data.kadis;
+  }
+}
+
 // --- 6. EKSEKUSI AWAL SAAT HALAMAN DIMUAT ---
 window.addEventListener('DOMContentLoaded', () => {
   renderStudentData();
   renderPageContent();
+  renderBerandaData(); // <--- Pastikan baris ini ditambahkan di sini
 });
