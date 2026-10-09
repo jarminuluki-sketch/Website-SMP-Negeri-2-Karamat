@@ -31,48 +31,56 @@ function getStudentData() {
 
 function renderStudentData() {
   const data = getStudentData();
-  const cls = '7a'; // Default fokus form admin
-  const clsData = data[cls] || { l: 0, p: 0, wali: '', foto: '' };
-  
-  // Update tampilan publik
-  const elL = document.getElementById('display-7a-l');
-  const elP = document.getElementById('display-7a-p');
-  const elTot = document.getElementById('display-7a-total');
-  const elWali = document.getElementById('display-7a-wali');
-  const elFoto = document.getElementById('display-7a-foto');
+  const classes = ['7a', '7b', '8a', '8b', '9a', '9b'];
 
-  if (elL) elL.innerText = clsData.l;
-  if (elP) elP.innerText = clsData.p;
-  if (elTot) elTot.innerText = `Total: ${clsData.l + clsData.p} Siswa`;
-  if (elWali) elWali.innerText = clsData.wali;
-  if (elFoto) elFoto.src = clsData.foto;
+  classes.forEach(cls => {
+    const clsData = data[cls] || { l: 0, p: 0, wali: '', foto: '' };
+    
+    // Update tampilan publik
+    const elL = document.getElementById(`display-${cls}-l`);
+    const elP = document.getElementById(`display-${cls}-p`);
+    const elTot = document.getElementById(`display-${cls}-total`);
+    const elWali = document.getElementById(`display-${cls}-wali`);
+    const elFoto = document.getElementById(`display-${cls}-foto`);
 
-  // Update form input di Panel Petugas
-  const inputL = document.getElementById('input-7a-l');
-  const inputP = document.getElementById('input-7a-p');
-  const inputWali = document.getElementById('input-7a-wali');
-  const inputFoto = document.getElementById('input-7a-foto');
+    if (elL) elL.innerText = clsData.l;
+    if (elP) elP.innerText = clsData.p;
+    if (elTot) elTot.innerText = `Total: ${clsData.l + clsData.p} Siswa`;
+    if (elWali) elWali.innerText = clsData.wali;
+    if (elFoto) elFoto.src = clsData.foto;
 
-  if (inputL) inputL.value = clsData.l;
-  if (inputP) inputP.value = clsData.p;
-  if (inputWali) inputWali.value = clsData.wali;
-  if (inputFoto) inputFoto.value = clsData.foto;
+    // Update form input di Panel Petugas
+    const inputL = document.getElementById(`input-${cls}-l`);
+    const inputP = document.getElementById(`input-${cls}-p`);
+    const inputWali = document.getElementById(`input-${cls}-wali`);
+    const inputFoto = document.getElementById(`input-${cls}-foto`);
+
+    if (inputL) inputL.value = clsData.l;
+    if (inputP) inputP.value = clsData.p;
+    if (inputWali) inputWali.value = clsData.wali;
+    if (inputFoto) inputFoto.value = clsData.foto;
+  });
 }
 
 function saveStudentData(event) {
   event.preventDefault();
-  let data = getStudentData();
+  const classes = ['7a', '7b', '8a', '8b', '9a', '9b'];
+  let newdata = {};
 
-  data['7a'] = {
-    l: parseInt(document.getElementById('input-7a-l').value) || 0,
-    p: parseInt(document.getElementById('input-7a-p').value) || 0,
-    wali: document.getElementById('input-7a-wali').value,
-    foto: document.getElementById('input-7a-foto').value
-  };
+  classes.forEach(cls => {
+    newdata[cls] = {
+      l: parseInt(document.getElementById(`input-${cls}-l`).value) || 0,
+      p: parseInt(document.getElementById(`input-%s-p`.replace('%s', cls)).value) || 0, // atau langsung template literal:
+      // l: parseInt(document.getElementById(`input-${cls}-l`).value) || 0,
+      p: parseInt(document.getElementById(`input-${cls}-p`).value) || 0,
+      wali: document.getElementById(`input-${cls}-wali`).value,
+      foto: document.getElementById(`input-${cls}-foto`).value
+    };
+  });
 
-  localStorage.setItem('smpn2_data_peserta_didik', JSON.stringify(data));
+  localStorage.setItem('smpn2_data_peserta_didik', JSON.stringify(newdata));
   renderStudentData();
-  alert('Data peserta didik berhasil diperbarui dan disimpan!');
+  alert('Data peserta didik dari kelas 7A sampai 9B berhasil diperbarui dan disimpan!');
 }
 
 // --- 3. KONTROL AKSES & LOGIN PETUGAS ---
