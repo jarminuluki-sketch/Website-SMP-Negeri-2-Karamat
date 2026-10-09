@@ -187,7 +187,6 @@ function saveBerandaData(event) {
   event.preventDefault();
   const berandaData = {
     sambutan: document.getElementById('input-beranda-sambutan').value,
-    kegiatan: document.getElementById('input-beranda-kegiatan')?.value || '',
     banner: document.getElementById('input-beranda-banner').value,
     kepsek: document.getElementById('input-beranda-kepsek').value,
     kadis: document.getElementById('input-beranda-kadis').value
