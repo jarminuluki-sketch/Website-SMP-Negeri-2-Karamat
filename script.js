@@ -50,17 +50,17 @@ function showPage(pageId) {
 }
 
 
-// --- 3. FITUR DINAMIS PESERTA DIDIK & MENU PETUGAS (LOCALSTORAGE) ---
+// --- 2. FITUR DINAMIS PESERTA DIDIK & WALI KELAS (LOCALSTORAGE) ---
 const defaultStudentData = {
-  '7a': { L: 15, P: 17 },
-  '7b': { L: 14, P: 18 },
-  '8a': { L: 16, P: 16 },
-  '8b': { L: 15, P: 15 },
-  '9a': { L: 13, P: 17 },
-  '9b': { L: 14, P: 16 }
+  '7a': { L: 15, P: 17, wali: 'Dra. Hj. Nurain, M.Pd', foto: 'https://via.placeholder.com/150' },
+  '7b': { L: 14, P: 18, wali: 'Moh. Rifai, S.Pd', foto: 'https://via.placeholder.com/150' },
+  '8a': { L: 16, P: 16, wali: 'Siti Aminah, S.Pd', foto: 'https://via.placeholder.com/150' },
+  '8b': { L: 15, P: 15, wali: 'Ahmad Yada, S.Sos', foto: 'https://via.placeholder.com/150' },
+  '9a': { L: 13, P: 17, wali: 'Irawati Sigi, S.Pd', foto: 'https://via.placeholder.com/150' },
+  '9b': { L: 14, P: 16, wali: 'Supratman, S.Pd', foto: 'https://via.placeholder.com/150' }
 };
 
-// Ambil data dari localStorage
+// Ambil data dari localstorage
 function getStudentData() {
   const data = localStorage.getItem('smpn2_data_peserta_didik');
   return data ? JSON.parse(data) : defaultStudentData;
@@ -72,44 +72,54 @@ function renderStudentData() {
   const classes = ['7a', '7b', '8a', '8b', '9a', '9b'];
 
   classes.forEach(cls => {
-    const l = data[cls].L;
-    const p = data[cls].P;
-    const total = l + p;
+    const clsData = data[cls] || { L: 0, P: 0, wali: '', foto: '' };
+    const total = clsData.L + clsData.P;
 
-    // Update kartu tampilan di halaman Peserta Didik
-    const spanL = document.getElementById(`val-${cls}-L`);
-    const spanP = document.getElementById(`val-${cls}-P`);
-    const spanTotal = document.getElementById(`val-${cls}-total`);
-    if (spanL) spanL.innerText = `${l} Siswa`;
-    if (spanP) spanP.innerText = `${p} Siswa`;
-    if (spanTotal) spanTotal.innerText = `Total: ${total} Siswa`;
+    // Update kartu tampilan di halaman khusus Kelas (misal: #display-7a-L, dll)
+    const elL = document.getElementById(`display-${cls}-L`);
+    const elP = document.getElementById(`display-${cls}-P`);
+    const elTot = document.getElementById(`display-${cls}-total`);
+    const elWali = document.getElementById(`display-${cls}-wali`);
+    const elFoto = document.getElementById(`display-${cls}-foto`);
+
+    if (elL) elL.innerText = `${clsData.L} Siswa`;
+    if (elP) elP.innerText = `${clsData.P} Siswa`;
+    if (elTot) elTot.innerText = `Total: ${total} Siswa`;
+    if (elWali) elWali.innerText = clsData.wali || 'Wali Kelas';
+    if (elFoto && clsData.foto) elFoto.src = clsData.foto;
 
     // Update nilai pada form input di Menu Petugas
     const inputL = document.getElementById(`input-${cls}-L`);
     const inputP = document.getElementById(`input-${cls}-P`);
-    if (inputL) inputL.value = l;
-    if (inputP) inputP.value = p;
+    const inputWali = document.getElementById(`input-${cls}-wali`);
+    const inputFoto = document.getElementById(`input-${cls}-foto`);
+
+    if (inputL) inputL.value = clsData.L;
+    if (inputP) inputP.value = clsData.P;
+    if (inputWali) inputWali.value = clsData.wali || '';
+    if (inputFoto) inputFoto.value = clsData.foto || '';
   });
 }
 
-// Simpan data dari form input ke localStorage
+// Simpan data dari form input ke localstorage
 function saveStudentData(event) {
   event.preventDefault();
   const classes = ['7a', '7b', '8a', '8b', '9a', '9b'];
-  let newData = {};
+  let newdata = {};
 
   classes.forEach(cls => {
     const lVal = parseInt(document.getElementById(`input-${cls}-L`).value) || 0;
     const pVal = parseInt(document.getElementById(`input-${cls}-P`).value) || 0;
-    newData[cls] = { L: lVal, P: pVal };
+    const waliVal = document.getElementById(`input-${cls}-wali`).value;
+    const fotoVal = document.getElementById(`input-${cls}-foto`).value;
+
+    newdata[cls] = { L: lVal, P: pVal, wali: waliVal, foto: fotoVal };
   });
 
-  localStorage.setItem('smpn2_data_peserta_didik', JSON.stringify(newData));
+  localStorage.setItem('smpn2_data_peserta_didik', JSON.stringify(newdata));
   renderStudentData();
-  alert('Data peserta didik berhasil diperbarui dan disimpan!');
-  showPage('view-peserta-didik');
+  alert('Data peserta didik dan wali kelas berhasil diperbarui dan disimpan!');
 }
-
 
 function checkLoginAndOpenMenu() {
   const isAuth = localStorage.getItem('smpn2_petugas_logged_in');
