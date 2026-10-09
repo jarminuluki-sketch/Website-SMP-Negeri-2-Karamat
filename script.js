@@ -134,9 +134,9 @@ function checkLoginAndOpenMenu() {
 function checkLoginAndOpenMenu() {
   const isAuth = localStorage.getItem('smpn2_petugas_logged_in');
   if (isAuth === 'true') {
-    showPage('view-panel-petugas'); // Tampilkan panel jika sudah login
+    showPage('view-panel-petugas');
   } else {
-    showPage('view-login-petugas'); // Tampilkan form login jika belum
+    showPage('view-login-petugas');
   }
 }
 
@@ -145,7 +145,7 @@ function handleLogin(event) {
   const user = document.getElementById('login-user').value;
   const pass = document.getElementById('login-pass').value;
 
-  // Kredensial default petugas (dapat disesuaikan)
+  // Kredensial default admin
   const validUser = 'admin';
   const validPass = 'smpn2karamat';
 
