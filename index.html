@@ -101,8 +101,10 @@
         <!-- 4. HALAMAN SARANA & PRASARANA -->
         <section id="view-sarana" class="page-view" style="display: none;">
             <div class="card-content">
-                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-building"></i> Sarana & Prasarana</h2>
-                <div id="display-sarana"><p>Memuat sarana prasarana...</p></div>
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-building"></i> Sarana & Prasarana Sekolah</h2>
+                <div id="display-sarana-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <p style="color: var(--text-muted);">Belum ada data sarana dan prasarana.</p>
+                </div>
             </div>
         </section>
 
@@ -129,16 +131,20 @@
         <!-- 7. HALAMAN PRAMUKA -->
         <section id="view-pramuka" class="page-view" style="display: none;">
             <div class="card-content">
-                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-campground"></i> Ekstrakurikuler Pramuka</h2>
-                <p>Kegiatan Kepramukaan Gugus Depan SMP Negeri 2 Karamat.</p>
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-campground"></i> Ekstrakurikuler Pramuka</h2>
+                <div id="display-pramuka-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <p style="color: var(--text-muted);">Belum ada dokumentasi kegiatan pramuka.</p>
+                </div>
             </div>
         </section>
 
         <!-- 8. HALAMAN PENCAK SILAT -->
         <section id="view-pencaksilat" class="page-view" style="display: none;">
             <div class="card-content">
-                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-fist-raised"></i> Ekstrakurikuler Pencak Silat</h2>
-                <p>Pengembangan bakat seni bela diri siswa.</p>
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-fist-raised"></i> Ekstrakurikuler Pencak Silat</h2>
+                <div id="display-pencaksilat-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <p style="color: var(--text-muted);">Belum ada dokumentasi kegiatan pencak silat.</p>
+                </div>
             </div>
         </section>
 
@@ -187,11 +193,23 @@
             </div>
         </section>
 
-        <!-- 10. HALAMAN KONTAK -->
+        <!-- 10. HALAMAN KONTAK (DENGAN TELEPON, EMAIL, ALAMAT, & MAPS) -->
         <section id="view-kontak" class="page-view" style="display: none;">
             <div class="card-content">
-                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-address-book"></i> Kontak Kami</h2>
-                <p>Alamat: Desa Karamat, Kecamatan Lampasio / Buol, Sulawesi Tengah.</p>
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-address-book"></i> Kontak Kami</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start;">
+                    <div>
+                        <p style="margin-bottom: 15px; font-size: 1.05rem;"><i class="fas fa-map-marker-alt" style="color: var(--primary-color); width: 25px;"></i> <strong>Alamat:</strong> <span id="display-kontak-alamat">Desa Karamat, Kecamatan Lampasio / Buol, Sulawesi Tengah</span></p>
+                        <p style="margin-bottom: 15px; font-size: 1.05rem;"><i class="fas fa-phone-alt" style="color: var(--primary-color); width: 25px;"></i> <strong>Nomor Telepon:</strong> <span id="display-kontak-telp">+62 822-0000-0000</span></p>
+                        <p style="margin-bottom: 15px; font-size: 1.05rem;"><i class="fas fa-envelope" style="color: var(--primary-color); width: 25px;"></i> <strong>Email Resmi:</strong> <span id="display-kontak-email">smpn2karamat@sch.id</span></p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;"><i class="fas fa-map"></i> Lokasi Sekolah di Maps</h4>
+                        <div id="display-kontak-maps-container" style="width: 100%; height: 280px; border-radius: 8px; overflow: hidden; border: 1px solid #cbd5e1;">
+                            <iframe id="display-kontak-maps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.814!2d121.3!3d0.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNDgnNDguMCJOIDEyMcKwMTgnMDAuMCJF!5e0!3m2!1sid!2sid!4v1600000000000!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -229,6 +247,9 @@
                 <button id="btn-tab-visimisi" onclick="switchTab('tab-visimisi')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Visi & Misi</button>
                 <button id="btn-tab-struktur" onclick="switchTab('tab-struktur')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Struktur Organisasi</button>
                 <button id="btn-tab-guru" onclick="switchTab('tab-guru')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Guru & Staf</button>
+                <button id="btn-tab-pramuka" onclick="switchTab('tab-pramuka')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Pramuka</button>
+                <button id="btn-tab-pencaksilat" onclick="switchTab('tab-pencaksilat')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Pencak Silat</button>
+                <button id="btn-tab-kontak" onclick="switchTab('tab-kontak')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Kontak</button>
             </div>
 
             <!-- TAB 1: KELOLA DATA SISWA -->
@@ -333,16 +354,17 @@
                 </form>
             </div>
 
-            <!-- TAB 3: KELOLA SARANA & PRASARANA -->
+            <!-- TAB 3: KELOLA SARANA & PRASARANA (DENGAN TOMBOL TAMBAH GAMBAR & KETERANGAN) -->
             <div id="tab-sarana" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                 <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-building"></i> Kelola Sarana & Prasarana</h3>
-                <form onsubmit="savePageContent(event, 'sarana')">
-                    <div style="margin-bottom: 20px;">
-                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Deskripsi Sarana & Prasarana:</label>
-                        <textarea id="input-content-sarana" rows="6" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
-                    </div>
-                    <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Sarana</button>
-                </form>
+                <div style="display: grid; grid-template-columns: 2fr 2fr; gap: 15px; margin-bottom: 12px;">
+                    <input type="text" id="input-sarana-nama" placeholder="Nama Sarana (Cth: Ruang Kelas / Perpustakaan)" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <input type="text" id="input-sarana-foto" placeholder="URL Gambar Sarana" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
+                <textarea id="input-sarana-ket" rows="3" placeholder="Keterangan lengkap mengenai sarana dan prasarana..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 12px;"></textarea>
+                <button type="button" onclick="tambahSarana()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah Sarana & Prasarana</button>
+
+                <div id="admin-sarana-list" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;"></div>
             </div>
 
             <!-- TAB 4: KELOLA SEJARAH -->
@@ -373,7 +395,7 @@
                 </form>
             </div>
 
-            <!-- TAB 6: KELOLA STRUKTUR ORGANISASI (BARU - BERBENTUK GAMBAR) -->
+            <!-- TAB 6: KELOLA STRUKTUR ORGANISASI -->
             <div id="tab-struktur" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                 <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-sitemap"></i> Kelola Struktur Organisasi</h3>
                 <form onsubmit="saveStrukturGambar(event)">
@@ -385,7 +407,7 @@
                 </form>
             </div>
 
-            <!-- TAB 7: KELOLA GURU & STAF (BARU - TAMBAH & HAPUS OTOMATIS) -->
+            <!-- TAB 7: KELOLA GURU & STAF -->
             <div id="tab-guru" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                 <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-chalkboard-teacher"></i> Kelola Dewan Guru & Staf</h3>
                 <div style="display: grid; grid-template-columns: 2fr 2fr 2fr; gap: 10px; margin-bottom: 12px;">
@@ -396,6 +418,56 @@
                 <button type="button" onclick="tambahGuru()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah Guru ke Daftar</button>
 
                 <div id="admin-guru-list" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;"></div>
+            </div>
+
+            <!-- TAB 8: KELOLA PRAMUKA (GAMBAR & KEGIATAN) -->
+            <div id="tab-pramuka" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-campground"></i> Kelola Kegiatan Pramuka</h3>
+                <div style="display: grid; grid-template-columns: 2fr 2fr; gap: 15px; margin-bottom: 12px;">
+                    <input type="text" id="input-pramuka-judul" placeholder="Judul Kegiatan Pramuka" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <input type="text" id="input-pramuka-foto" placeholder="URL Gambar Kegiatan" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
+                <textarea id="input-pramuka-ket" rows="3" placeholder="Keterangan / Deskripsi kegiatan pramuka..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 12px;"></textarea>
+                <button type="button" onclick="tambahPramuka()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah Kegiatan Pramuka</button>
+
+                <div id="admin-pramuka-list" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;"></div>
+            </div>
+
+            <!-- TAB 9: KELOLA PENCAK SILAT (GAMBAR & KEGIATAN) -->
+            <div id="tab-pencaksilat" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-fist-raised"></i> Kelola Kegiatan Pencak Silat</h3>
+                <div style="display: grid; grid-template-columns: 2fr 2fr; gap: 15px; margin-bottom: 12px;">
+                    <input type="text" id="input-silat-judul" placeholder="Judul Kegiatan Pencak Silat" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <input type="text" id="input-silat-foto" placeholder="URL Gambar Kegiatan" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
+                <textarea id="input-silat-ket" rows="3" placeholder="Keterangan / Deskripsi kegiatan pencak silat..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 12px;"></textarea>
+                <button type="button" onclick="tambahSilat()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah Kegiatan Pencak Silat</button>
+
+                <div id="admin-silat-list" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;"></div>
+            </div>
+
+            <!-- TAB 10: KELOLA KONTAK (TELEPON, EMAIL, ALAMAT, MAPS) -->
+            <div id="tab-kontak" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-address-book"></i> Kelola Informasi Kontak & Maps</h3>
+                <form onsubmit="saveKontakData(event)">
+                    <div style="margin-bottom: 15px;">
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Alamat Sekolah:</label>
+                        <textarea id="input-kontak-alamat" rows="2" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Nomor Telepon:</label>
+                        <input type="text" id="input-kontak-telp" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Email Resmi:</label>
+                        <input type="email" id="input-kontak-email" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Link Embed Google Maps (URL `src="..."` dari iframe):</label>
+                        <textarea id="input-kontak-maps" rows="3" placeholder="https://www.google.com/maps/embed?..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+                    </div>
+                    <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Informasi Kontak</button>
+                </form>
             </div>
         </section>
 
