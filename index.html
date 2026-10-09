@@ -1,392 +1,389 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SMP Negeri 2 Karamat - Pemerintah Kabupaten Buol</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMP Negeri 2 Karamat - Pemerintah Kabupaten Buol</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- NAVBAR UTAMA -->
-  <header>
-    <nav class="navbar">
-      <div class="logo-container">
-        <i class="fas fa-school" style="font-size: 1.8rem; color: var(--primary-color);"></i>
-        <div>
-          <span class="logo-title">PEMERINTAH KABUPATEN BUOL</span>
-          <span class="logo-sub">SMP NEGERI 2 KARAMAT</span>
-        </div>
-      </div>
-      <ul class="nav-menu">
-        <li class="nav-item"><a class="nav-link active" onclick="showPage('view-beranda')">Beranda</a></li>
-        <li class="nav-item">
-          <a class="nav-link">Profil <i class="fas fa-chevron-down" style="font-size: 10px;"></i></a>
-          <ul class="dropdown-menu">
-            <li><a onclick="showPage('view-sejarah')">Sejarah Sekolah</a></li>
-            <li><a onclick="showPage('view-visimisi')">Visi & Misi</a></li>
-            <li><a onclick="showPage('view-struktur')">Struktur Organisasi</a></li>
-            <li><a onclick="showPage('view-guru')">Guru & Staf</a></li>
-          </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" onclick="showPage('view-sarana')">Sarana & Prasarana</a></li>
-        <li class="nav-item">
-          <a class="nav-link">Ekstrakurikuler <i class="fas fa-chevron-down" style="font-size: 10px;"></i></a>
-          <ul class="dropdown-menu">
-            <li><a onclick="showPage('view-pramuka')">Pramuka</a></li>
-            <li><a onclick="showPage('view-pencaksilat')">Pencak Silat</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Peserta Didik <i class="fas fa-chevron-down" style="font-size: 10px;"></i></a>
-          <ul class="dropdown-menu">
-            <li><a onclick="showPage('view-peserta-didik')">Data Siswa per Kelas</a></li>
-          </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" onclick="checkLoginAndOpenMenu()"><i class="fas fa-user-shield"></i> Menu Petugas</a></li>
-        <li class="nav-item"><a class="nav-link" onclick="showPage('view-kontak')">Kontak</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- KONTEN UTAMA HALAMAN -->
-  <main class="container" style="padding: 30px 20px; min-height: 80vh;">
-
-    <!-- 1. HALAMAN BERANDA -->
-    <section id="view-beranda" class="page-view active-view">
-      <div style="background: #e2e8f0; border-radius: 10px; height: 350px; overflow: hidden; margin-bottom: 30px; display: flex; align-items: center; justify-content: center;">
-        <img id="display-beranda-banner" src="https://via.placeholder.com/1200x400" alt="Banner Sekolah" style="width: 100%; height: 100%; object-fit: cover;">
-      </div>
-
-      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-bottom: 30px;">
-        <div class="card-content" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-          <h3 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-user-tie"></i> Sambutan Kepala Sekolah</h3>
-          <p id="display-beranda-sambutan" style="line-height: 1.6; color: var(--text-dark);">Puji syukur kami panjatkan ke Tuhan Yang Maha Esa atas rilisnya portal resmi sekolah ini...</p>
-        </div>
-        <div class="card-content" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: center;">
-          <img id="display-beranda-kepsek" src="https://via.placeholder.com/150" alt="Kepala Sekolah" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 3px solid var(--primary-color);">
-          <h5 style="color: var(--primary-color);">Kepala Sekolah</h5>
-        </div>
-      </div>
-
-      <!-- Informasi Kegiatan Terbaru Dinamis -->
-      <div class="card-content" style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-        <h3 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-bullhorn"></i> Informasi & Kegiatan Terbaru</h3>
-        <div id="display-beranda-kegiatan-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-          <p style="color: var(--text-muted);">Belum ada informasi kegiatan terbaru.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. HALAMAN SEJARAH -->
-    <section id="view-sejarah" class="page-view" style="display: none;">
-      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-history"></i> Sejarah Sekolah</h2>
-        <div id="display-sejarah"><p>Memuat sejarah sekolah...</p></div>
-      </div>
-    </section>
-
-    <!-- 3. HALAMAN VISI & MISI -->
-    <section id="view-visimisi" class="page-view" style="display: none;">
-      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-eye"></i> Visi & Misi</h2>
-        <h4 style="color: var(--primary-color);">Visi:</h4>
-        <p id="display-visi" style="margin-bottom: 20px; font-style: italic;">Memuat visi...</p>
-        <h4 style="color: var(--primary-color);">Misi:</h4>
-        <div id="display-misi"><p>Memuat misi...</p></div>
-      </div>
-    </section>
-
-    <!-- 4. HALAMAN SARANA & PRASARANA -->
-    <section id="view-sarana" class="page-view" style="display: none;">
-      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-building"></i> Sarana & Prasarana</h2>
-        <div id="display-sarana"><p>Memuat sarana prasarana...</p></div>
-      </div>
-    </section>
-
-    <!-- 5. HALAMAN STRUKTUR ORGANISASI -->
-    <section id="view-struktur" class="page-view" style="display: none;">
-      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-sitemap"></i> Struktur Organisasi</h2>
-        <p>Struktur Organisasi SMP Negeri 2 Karamat.</p>
-      </div>
-    </section>
-
-    <!-- 6. HALAMAN GURU & STAF -->
-    <section id="view-guru" class="page-view" style="display: none;">
-      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-chalkboard-teacher"></i> Guru & Staf</h2>
-        <p>Daftar Dewan Guru dan Staf Pengajar.</p>
-      </div>
-    </section>
-
-    <!-- 7. HALAMAN PRAMUKA -->
-    <section id="view-pramuka" class="page-view" style="display: none;">
-      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-campground"></i> Ekstrakurikuler Pramuka</h2>
-        <p>Kegiatan Kepramukaan Gugus Depan SMP Negeri 2 Karamat.</p>
-      </div>
-    </section>
-
-    <!-- 8. HALAMAN PENCAK SILAT -->
-    <section id="view-pencaksilat" class="page-view" style="display: none;">
-      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-fist-raised"></i> Ekstrakurikuler Pencak Silat</h2>
-        <p>Pengembangan bakat seni bela diri siswa.</p>
-      </div>
-    </section>
-
-    <!-- 9. HALAMAN PESERTA DIDIK -->
-    <section id="view-peserta-didik" class="page-view" style="display: none;">
-      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-users"></i> Data Peserta Didik per Kelas</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-          <!-- Kartu Kelas 7A -->
-          <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background: #f8fafc;">
-            <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 7A</h4>
-            <p><strong>Wali Kelas:</strong> <span id="display-7a-wali">-</span></p>
-            <p>Laki-laki: <span id="display-7a-l">0</span> | Perempuan: <span id="display-7a-p">0</span></p>
-            <p><strong>Total Siswa:</strong> <span id="display-7a-total">0</span></p>
-          </div>
-          <!-- Kartu Kelas 7B -->
-          <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background: #f8fafc;">
-            <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 7B</h4>
-            <p><strong>Wali Kelas:</strong> <span id="display-7b-wali">-</span></p>
-            <p>Laki-laki: <span id="display-7b-l">0</span> | Perempuan: <span id="display-7b-p">0</span></p>
-            <p><strong>Total Siswa:</strong> <span id="display-7b-total">0</span></p>
-          </div>
-          <!-- Kartu Kelas 8A -->
-          <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background: #f8fafc;">
-            <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 8A</h4>
-            <p><strong>Wali Kelas:</strong> <span id="display-8a-wali">-</span></p>
-            <p>Laki-laki: <span id="display-8a-l">0</span> | Perempuan: <span id="display-8a-p">0</span></p>
-            <p><strong>Total Siswa:</strong> <span id="display-8a-total">0</span></p>
-          </div>
-          <!-- Kartu Kelas 8B -->
-          <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background: #f8fafc;">
-            <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 8B</h4>
-            <p><strong>Wali Kelas:</strong> <span id="display-8b-wali">-</span></p>
-            <p>Laki-laki: <span id="display-8b-l">0</span> | Perempuan: <span id="display-8b-p">0</span></p>
-            <p><strong>Total Siswa:</strong> <span id="display-8b-total">0</span></p>
-          </div>
-          <!-- Kartu Kelas 9A -->
-          <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background: #f8fafc;">
-            <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 9A</h4>
-            <p><strong>Wali Kelas:</strong> <span id="display-9a-wali">-</span></p>
-            <p>Laki-laki: <span id="display-9a-l">0</span> | Perempuan: <span id="display-9a-p">0</span></p>
-            <p><strong>Total Siswa:</strong> <span id="display-9a-total">0</span></p>
-          </div>
-          <!-- Kartu Kelas 9B -->
-          <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background: #f8fafc;">
-            <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 9B</h4>
-            <p><strong>Wali Kelas:</strong> <span id="display-9b-wali">-</span></p>
-            <p>Laki-laki: <span id="display-9b-l">0</span> | Perempuan: <span id="display-9b-p">0</span></p>
-            <p><strong>Total Siswa:</strong> <span id="display-9b-total">0</span></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 10. HALAMAN KONTAK -->
-    <section id="view-kontak" class="page-view" style="display: none;">
-      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-address-book"></i> Kontak Kami</h2>
-        <p>Alamat: Desa Karamat, Kecamatan Lampasio / Buol, Sulawesi Tengah.</p>
-      </div>
-    </section>
-
-    <!-- 11. HALAMAN LOGIN PETUGAS -->
-    <section id="view-login-petugas" class="page-view" style="display: none;">
-      <div style="max-width: 400px; margin: 40px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-        <h3 style="color: var(--primary-color); text-align: center; margin-bottom: 20px;"><i class="fas fa-lock"></i> Login Panel Petugas</h3>
-        <form onsubmit="handleLogin(event)">
-          <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Username:</label>
-            <input type="text" id="login-user" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-          </div>
-          <div style="margin-bottom: 20px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Password:</label>
-            <input type="password" id="login-pass" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-          </div>
-          <button type="submit" style="width: 100%; background: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer;">Masuk</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- 12. HALAMAN PANEL PETUGAS (ADMIN) -->
-    <section id="view-panel-petugas" class="page-view" style="display: none;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px;">
-        <h2 style="color: var(--primary-color);"><i class="fas fa-cogs"></i> Panel Petugas / Admin Sekolah</h2>
-        <button onclick="handleLogout()" style="background: #dc2626; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-sign-out-alt"></i> Keluar</button>
-      </div>
-
-      <!-- Menu Navigasi Tab Admin -->
-      <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
-        <button id="btn-tab-siswa" onclick="switchTab('tab-siswa')" style="padding: 10px 18px; border: none; border-radius: 6px; background: var(--primary-color); color: white; cursor: pointer; font-weight: 600;">Data Siswa</button>
-        <button id="btn-tab-beranda" onclick="switchTab('tab-beranda')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Kelola Beranda</button>
-        <button id="btn-tab-sarana" onclick="switchTab('tab-sarana')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Sarana & Prasarana</button>
-        <button id="btn-tab-sejarah" onclick="switchTab('tab-sejarah')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Sejarah</button>
-        <button id="btn-tab-visimisi" onclick="switchTab('tab-visimisi')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Visi & Misi</button>
-      </div>
-
-      <!-- TAB 1: KELOLA DATA SISWA -->
-      <div id="tab-siswa" class="admin-tab-content" style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-        <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-users"></i> Edit Data Peserta Didik per Kelas</h3>
-        <form onsubmit="saveStudentData(event)">
-          <!-- Kelas 7A -->
-          <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0;">
-            <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 7A</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 2fr 2fr; gap: 10px;">
-              <input type="number" id="input-7a-l" placeholder="Jumlah L" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="number" id="input-7a-p" placeholder="Jumlah P" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="text" id="input-7a-wali" placeholder="Nama Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="text" id="input-7a-foto" placeholder="URL Foto Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+    <!-- NAVBAR UTAMA -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo-container">
+                <i class="fas fa-school logo-icon"></i>
+                <div class="logo-text">
+                    <span class="logo-title">PEMERINTAH KABUPATEN BUOL</span>
+                    <span class="logo-subtitle">SMP NEGERI 2 KARAMAT</span>
+                </div>
             </div>
-          </div>
-          <!-- Kelas 7B -->
-          <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0;">
-            <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 7B</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 2fr 2fr; gap: 10px;">
-              <input type="number" id="input-7b-l" placeholder="Jumlah L" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="number" id="input-7b-p" placeholder="Jumlah P" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="text" id="input-7b-wali" placeholder="Nama Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="text" id="input-7b-foto" placeholder="URL Foto Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+            <ul class="nav-menu">
+                <li><a class="nav-link active" onclick="showPage('view-beranda')">Beranda</a></li>
+                <li class="dropdown">
+                    <a class="nav-link">Profil <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a onclick="showPage('view-sejarah')">Sejarah Sekolah</a></li>
+                        <li><a onclick="showPage('view-visimisi')">Visi & Misi</a></li>
+                        <li><a onclick="showPage('view-struktur')">Struktur Organisasi</a></li>
+                        <li><a onclick="showPage('view-guru')">Guru & Staf</a></li>
+                    </ul>
+                </li>
+                <li><a class="nav-link" onclick="showPage('view-sarana')">Sarana & Prasarana</a></li>
+                <li class="dropdown">
+                    <a class="nav-link">Ekstrakurikuler <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a onclick="showPage('view-pramuka')">Pramuka</a></li>
+                        <li><a onclick="showPage('view-pencaksilat')">Pencak Silat</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="nav-link">Peserta Didik <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a onclick="showPage('view-peserta-didik')">Data Siswa per Kelas</a></li>
+                    </ul>
+                </li>
+                <li><a class="nav-link" onclick="checkLoginAndOpenMenu()"><i class="fas fa-user-shield"></i> Menu Petugas</a></li>
+                <li><a class="nav-link" onclick="showPage('view-kontak')">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- KONTEN UTAMA HALAMAN -->
+    <main class="main-content">
+
+        <!-- 1. HALAMAN BERANDA -->
+        <section id="view-beranda" class="page-view active-view">
+            <div class="hero-banner">
+                <img id="display-beranda-banner" src="" alt="Banner Sekolah">
             </div>
-          </div>
-          <!-- Kelas 8A -->
-          <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0;">
-            <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 8A</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 2fr 2fr; gap: 10px;">
-              <input type="number" id="input-8a-l" placeholder="Jumlah L" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="number" id="input-8a-p" placeholder="Jumlah P" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="text" id="input-8a-wali" placeholder="Nama Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="text" id="input-8a-foto" placeholder="URL Foto Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+
+            <div class="beranda-grid">
+                <div class="card-content">
+                    <h3 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-user-tie"></i> Sambutan Kepala Sekolah</h3>
+                    <p id="display-beranda-sambutan" style="line-height: 1.6; color: var(--text-dark);"></p>
+                </div>
+                <div class="card-content" style="text-align: center;">
+                    <img id="display-beranda-kepsek" src="" alt="Kepala Sekolah" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 3px solid var(--primary-color);">
+                    <h5 style="color: var(--primary-color);">Kepala Sekolah</h5>
+                </div>
             </div>
-          </div>
-          <!-- Kelas 8B -->
-          <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0;">
-            <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 8B</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 2fr 2fr; gap: 10px;">
-              <input type="number" id="input-8b-l" placeholder="Jumlah L" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="number" id="input-8b-p" placeholder="Jumlah P" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="text" id="input-8b-wali" placeholder="Nama Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="text" id="input-8b-foto" placeholder="URL Foto Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+
+            <!-- Informasi Kegiatan Terbaru Dinamis -->
+            <div class="card-content" style="margin-top: 30px;">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-bullhorn"></i> Informasi & Kegiatan Terbaru</h3>
+                <div id="display-beranda-kegiatan-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <p style="color: var(--text-muted);">Belum ada informasi kegiatan terbaru.</p>
+                </div>
             </div>
-          </div>
-          <!-- Kelas 9A -->
-          <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0;">
-            <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 9A</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 2fr 2fr; gap: 10px;">
-              <input type="number" id="input-9a-l" placeholder="Jumlah L" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="number" id="input-9a-p" placeholder="Jumlah P" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="text" id="input-9a-wali" placeholder="Nama Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="text" id="input-9a-foto" placeholder="URL Foto Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+        </section>
+
+        <!-- 2. HALAMAN SEJARAH -->
+        <section id="view-sejarah" class="page-view" style="display: none;">
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-history"></i> Sejarah Sekolah</h2>
+                <div id="display-sejarah"></div>
             </div>
-          </div>
-          <!-- Kelas 9B -->
-          <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
-            <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 9B</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 2fr 2fr; gap: 10px;">
-              <input type="number" id="input-9b-l" placeholder="Jumlah L" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="number" id="input-9b-p" placeholder="Jumlah P" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="text" id="input-9b-wali" placeholder="Nama Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-              <input type="text" id="input-9b-foto" placeholder="URL Foto Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+        </section>
+
+        <!-- 3. HALAMAN VISI & MISI -->
+        <section id="view-visimisi" class="page-view" style="display: none;">
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-eye"></i> Visi & Misi</h2>
+                <h4 style="color: var(--primary-color);">Visi:</h4>
+                <p id="display-visi" style="margin-bottom: 20px; font-style: italic;"></p>
+                <h4 style="color: var(--primary-color);">Misi:</h4>
+                <div id="display-misi"></div>
             </div>
-          </div>
-          <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Data Peserta Didik</button>
-        </form>
-      </div>
+        </section>
 
-      <!-- TAB 2: KELOLA BERANDA (LENGKAP DENGAN KELOLA KEGIATAN DINAMIS) -->
-      <div id="tab-beranda" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-        <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-home"></i> Kelola Halaman Beranda</h3>
-        <form onsubmit="saveBerandaData(event)">
-          <div style="margin-bottom: 20px;">
-            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Kata Sambutan Kepala Sekolah:</label>
-            <textarea id="input-beranda-sambutan" rows="4" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
-          </div>
-          <div style="margin-bottom: 20px;">
-            <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Foto Tampilan Depan (Banner Hero):</label>
-            <input type="text" id="input-beranda-banner" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-          </div>
-          <div style="margin-bottom: 20px;">
-            <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Foto Kepala Sekolah:</label>
-            <input type="text" id="input-beranda-kepsek" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-          </div>
-          <div style="margin-bottom: 20px;">
-            <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Foto Kepala Dinas Pendidikan:</label>
-            <input type="text" id="input-beranda-kadis" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-          </div>
-
-          <!-- KELOLA DAFTAR KEGIATAN / PENGUMUMAN DINAMIS -->
-          <div style="margin-top: 25px; border-top: 2px solid #f1f5f9; padding-top: 20px;">
-            <h4 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-bullhorn"></i> Kelola Daftar Kegiatan Sekolah</h4>
-            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-bottom: 12px;">
-              <input type="text" id="input-kegiatan-judul" placeholder="Judul Kegiatan (Cth: Perkemahan Pramuka / Jumat Bersih)" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
-              <input type="date" id="input-kegiatan-tanggal" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+        <!-- 4. HALAMAN SARANA & PRASARANA -->
+        <section id="view-sarana" class="page-view" style="display: none;">
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-building"></i> Sarana & Prasarana</h2>
+                <div id="display-sarana"></div>
             </div>
-            <textarea id="input-kegiatan-deskripsi" rows="3" placeholder="Deskripsi singkat mengenai kegiatan..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 12px;"></textarea>
-            <button type="button" onclick="tambahKegiatan()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah ke Daftar Kegiatan</button>
+        </section>
 
-            <!-- Daftar list kegiatan yang sedang aktif di admin -->
-            <div id="admin-kegiatan-list" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;"></div>
-          </div>
+        <!-- 5. HALAMAN STRUKTUR ORGANISASI -->
+        <section id="view-struktur" class="page-view" style="display: none;">
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-sitemap"></i> Struktur Organisasi</h2>
+                <p>Struktur Organisasi SMP Negeri 2 Karamat.</p>
+            </div>
+        </section>
 
-          <button type="submit" style="margin-top: 25px; background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Perubahan Beranda</button>
-        </form>
-      </div>
+        <!-- 6. HALAMAN GURU & STAF -->
+        <section id="view-guru" class="page-view" style="display: none;">
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-chalkboard-teacher"></i> Guru & Staf</h2>
+                <p>Daftar Dewan Guru dan Staf Pengajar.</p>
+            </div>
+        </section>
 
-      <!-- TAB 3: KELOLA SARANA & PRASARANA -->
-      <div id="tab-sarana" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-        <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-building"></i> Kelola Sarana & Prasarana</h3>
-        <form onsubmit="savePageContent(event, 'sarana')">
-          <div style="margin-bottom: 20px;">
-            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Deskripsi / Daftar Sarana & Prasarana Sekolah:</label>
-            <textarea id="input-content-sarana" rows="6" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
-          </div>
-          <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Sarana & Prasarana</button>
-        </form>
-      </div>
+        <!-- 7. HALAMAN PRAMUKA -->
+        <section id="view-pramuka" class="page-view" style="display: none;">
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-campground"></i> Ekstrakurikuler Pramuka</h2>
+                <p>Kegiatan Kepramukaan Gugus Depan SMP Negeri 2 Karamat.</p>
+            </div>
+        </section>
 
-      <!-- TAB 4: KELOLA SEJARAH -->
-      <div id="tab-sejarah" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-        <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-history"></i> Kelola Sejarah Sekolah</h3>
-        <form onsubmit="savePageContent(event, 'sejarah')">
-          <div style="margin-bottom: 20px;">
-            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Sejarah Sekolah:</label>
-            <textarea id="input-content-sejarah" rows="6" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
-          </div>
-          <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Sejarah</button>
-        </form>
-      </div>
+        <!-- 8. HALAMAN PENCAK SILAT -->
+        <section id="view-pencaksilat" class="page-view" style="display: none;">
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-fist-raised"></i> Ekstrakurikuler Pencak Silat</h2>
+                <p>Pengembangan bakat seni bela diri siswa.</p>
+            </div>
+        </section>
 
-      <!-- TAB 5: KELOLA VISI & MISI -->
-      <div id="tab-visimisi" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-        <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-eye"></i> Kelola Visi & Misi</h3>
-        <form onsubmit="savePageContent(event, 'visimisi')">
-          <div style="margin-bottom: 20px;">
-            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Visi:</label>
-            <input type="text" id="input-content-visi" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-          </div>
-          <div style="margin-bottom: 20px;">
-            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Misi:</label>
-            <textarea id="input-content-misi" rows="5" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
-          </div>
-          <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Visi & Misi</button>
-        </form>
-      </div>
-    </section>
+        <!-- 9. HALAMAN PESERTA DIDIK -->
+        <section id="view-peserta-didik" class="page-view" style="display: none;">
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-users"></i> Data Peserta Didik per Kelas</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background: #f8fafc;">
+                        <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 7A</h4>
+                        <p><strong>Wali Kelas:</strong> <span id="display-7a-wali">-</span></p>
+                        <p>Laki-laki: <span id="display-7a-l">0</span> | Perempuan: <span id="display-7a-p">0</span></p>
+                        <p><strong>Total Siswa:</strong> <span id="display-7a-total">0</span></p>
+                    </div>
+                    <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background: #f8fafc;">
+                        <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 7B</h4>
+                        <p><strong>Wali Kelas:</strong> <span id="display-7b-wali">-</span></p>
+                        <p>Laki-laki: <span id="display-7b-l">0</span> | Perempuan: <span id="display-7b-p">0</span></p>
+                        <p><strong>Total Siswa:</strong> <span id="display-7b-total">0</span></p>
+                    </div>
+                    <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background: #f8fafc;">
+                        <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 8A</h4>
+                        <p><strong>Wali Kelas:</strong> <span id="display-8a-wali">-</span></p>
+                        <p>Laki-laki: <span id="display-8a-l">0</span> | Perempuan: <span id="display-8a-p">0</span></p>
+                        <p><strong>Total Siswa:</strong> <span id="display-8a-total">0</span></p>
+                    </div>
+                    <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background: #f8fafc;">
+                        <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 8B</h4>
+                        <p><strong>Wali Kelas:</strong> <span id="display-8b-wali">-</span></p>
+                        <p>Laki-laki: <span id="display-8b-l">0</span> | Perempuan: <span id="display-8b-p">0</span></p>
+                        <p><strong>Total Siswa:</strong> <span id="display-8b-total">0</span></p>
+                    </div>
+                    <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background: #f8fafc;">
+                        <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 9A</h4>
+                        <p><strong>Wali Kelas:</strong> <span id="display-9a-wali">-</span></p>
+                        <p>Laki-laki: <span id="display-9a-l">0</span> | Perempuan: <span id="display-9a-p">0</span></p>
+                        <p><strong>Total Siswa:</strong> <span id="display-9a-total">0</span></p>
+                    </div>
+                    <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; background: #f8fafc;">
+                        <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 9B</h4>
+                        <p><strong>Wali Kelas:</strong> <span id="display-9b-wali">-</span></p>
+                        <p>Laki-laki: <span id="display-9b-l">0</span> | Perempuan: <span id="display-9b-p">0</span></p>
+                        <p><strong>Total Siswa:</strong> <span id="display-9b-total">0</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  </main>
+        <!-- 10. HALAMAN KONTAK -->
+        <section id="view-kontak" class="page-view" style="display: none;">
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-address-book"></i> Kontak Kami</h2>
+                <p>Alamat: Desa Karamat, Kecamatan Lampasio / Buol, Sulawesi Tengah.</p>
+            </div>
+        </section>
 
-  <!-- FOOTER -->
-  <footer style="background: var(--primary-color); color: white; text-align: center; padding: 20px; margin-top: 40px;">
-    <p>&copy; 2026 SMP Negeri 2 Karamat - Pemerintah Kabupaten Buol</p>
-  </footer>
+        <!-- 11. HALAMAN LOGIN PETUGAS -->
+        <section id="view-login-petugas" class="page-view" style="display: none;">
+            <div style="max-width: 400px; margin: 40px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <h3 style="color: var(--primary-color); text-align: center; margin-bottom: 20px;"><i class="fas fa-lock"></i> Login Panel Petugas</h3>
+                <form onsubmit="handleLogin(event)">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Username:</label>
+                        <input type="text" id="login-user" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Password:</label>
+                        <input type="password" id="login-pass" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                    </div>
+                    <button type="submit" style="width: 100%; background: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer;">Masuk</button>
+                </form>
+            </div>
+        </section>
 
-  <!-- SCRIPT UTAMA -->
-  <script src="script.js"></script>
+        <!-- 12. HALAMAN PANEL PETUGAS (ADMIN) -->
+        <section id="view-panel-petugas" class="page-view" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px;">
+                <h2 style="color: var(--primary-color);"><i class="fas fa-cogs"></i> Panel Petugas / Admin Sekolah</h2>
+                <button onclick="handleLogout()" style="background: #dc2626; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-sign-out-alt"></i> Keluar</button>
+            </div>
+
+            <!-- Menu Navigasi Tab Admin (Sesuai Gambar Referensi Anda) -->
+            <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
+                <button id="btn-tab-siswa" onclick="switchTab('tab-siswa')" style="padding: 10px 18px; border: none; border-radius: 6px; background: var(--primary-color); color: white; cursor: pointer; font-weight: 600;">Data Siswa</button>
+                <button id="btn-tab-beranda" onclick="switchTab('tab-beranda')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Kelola Beranda</button>
+                <button id="btn-tab-sarana" onclick="switchTab('tab-sarana')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Sarana & Prasarana</button>
+                <button id="btn-tab-sejarah" onclick="switchTab('tab-sejarah')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Sejarah</button>
+                <button id="btn-tab-visimisi" onclick="switchTab('tab-visimisi')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Visi & Misi</button>
+                <button id="btn-tab-struktur" onclick="switchTab('tab-struktur')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Struktur Organisasi</button>
+                <button id="btn-tab-guru" onclick="switchTab('tab-guru')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Guru & Staf</button>
+                <button id="btn-tab-pramuka" onclick="switchTab('tab-pramuka')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Pramuka</button>
+                <button id="btn-tab-pencaksilat" onclick="switchTab('tab-pencaksilat')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Pencak Silat</button>
+            </div>
+
+            <!-- TAB 1: KELOLA DATA SISWA -->
+            <div id="tab-siswa" class="admin-tab-content" style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-users"></i> Edit Data Peserta Didik per Kelas</h3>
+                <form onsubmit="saveStudentData(event)">
+                    <!-- Kelas 7A -->
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 7A</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 2fr 2fr; gap: 10px;">
+                            <input type="number" id="input-7a-l" placeholder="Jumlah L" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="number" id="input-7a-p" placeholder="Jumlah P" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="text" id="input-7a-wali" placeholder="Nama Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="text" id="input-7a-foto" placeholder="URL Foto Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                        </div>
+                    </div>
+                    <!-- Kelas 7B -->
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 7B</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 2fr 2fr; gap: 10px;">
+                            <input type="number" id="input-7b-l" placeholder="Jumlah L" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="number" id="input-7b-p" placeholder="Jumlah P" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="text" id="input-7b-wali" placeholder="Nama Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="text" id="input-7b-foto" placeholder="URL Foto Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                        </div>
+                    </div>
+                    <!-- Kelas 8A -->
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 8A</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 2fr 2fr; gap: 10px;">
+                            <input type="number" id="input-8a-l" placeholder="Jumlah L" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="number" id="input-8a-p" placeholder="Jumlah P" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="text" id="input-8a-wali" placeholder="Nama Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="text" id="input-8a-foto" placeholder="URL Foto Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                        </div>
+                    </div>
+                    <!-- Kelas 8B -->
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 8B</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 2fr 2fr; gap: 10px;">
+                            <input type="number" id="input-8b-l" placeholder="Jumlah L" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="number" id="input-8b-p" placeholder="Jumlah P" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="text" id="input-8b-wali" placeholder="Nama Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="text" id="input-8b-foto" placeholder="URL Foto Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                        </div>
+                    </div>
+                    <!-- Kelas 9A -->
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 9A</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 2fr 2fr; gap: 10px;">
+                            <input type="number" id="input-9a-l" placeholder="Jumlah L" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="number" id="input-9a-p" placeholder="Jumlah P" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="text" id="input-9a-wali" placeholder="Nama Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="text" id="input-9a-foto" placeholder="URL Foto Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                        </div>
+                    </div>
+                    <!-- Kelas 9B -->
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 9B</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 2fr 2fr; gap: 10px;">
+                            <input type="number" id="input-9b-l" placeholder="Jumlah L" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="number" id="input-9b-p" placeholder="Jumlah P" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="text" id="input-9b-wali" placeholder="Nama Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                            <input type="text" id="input-9b-foto" placeholder="URL Foto Wali Kelas" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                        </div>
+                    </div>
+                    <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Data Peserta Didik</button>
+                </form>
+            </div>
+
+            <!-- TAB 2: KELOLA BERANDA (LENGKAP DENGAN KELOLA KEGIATAN DINAMIS) -->
+            <div id="tab-beranda" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-home"></i> Kelola Halaman Beranda</h3>
+                <form onsubmit="saveBerandaData(event)">
+                    <div style="margin-bottom: 20px;">
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Kata Sambutan Kepala Sekolah:</label>
+                        <textarea id="input-beranda-sambutan" rows="4" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Foto Tampilan Depan (Banner Hero):</label>
+                        <input type="text" id="input-beranda-banner" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Foto Kepala Sekolah:</label>
+                        <input type="text" id="input-beranda-kepsek" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Foto Kepala Dinas Pendidikan:</label>
+                        <input type="text" id="input-beranda-kadis" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                    </div>
+
+                    <!-- KELOLA DAFTAR KEGIATAN / PENGUMUMAN DINAMIS -->
+                    <div style="margin-top: 25px; border-top: 2px solid #f1f5f9; padding-top: 20px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-bullhorn"></i> Kelola Daftar Kegiatan Sekolah</h4>
+                        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-bottom: 12px;">
+                            <input type="text" id="input-kegiatan-judul" placeholder="Judul Kegiatan (Cth: Perkemahan Pramuka / Jumat Bersih)" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                            <input type="date" id="input-kegiatan-tanggal" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                        </div>
+                        <textarea id="input-kegiatan-deskripsi" rows="3" placeholder="Deskripsi singkat mengenai kegiatan..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 12px;"></textarea>
+                        <button type="button" onclick="tambahKegiatan()" style="background-color: var(--accent-color, #0284c7); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah ke Daftar Kegiatan</button>
+
+                        <div id="admin-kegiatan-list" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;"></div>
+                    </div>
+
+                    <button type="submit" style="margin-top: 25px; background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Perubahan Beranda</button>
+                </form>
+            </div>
+
+            <!-- TAB 3: KELOLA SARANA & PRASARANA -->
+            <div id="tab-sarana" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-building"></i> Kelola Sarana & Prasarana</h3>
+                <form onsubmit="savePageContent(event, 'sarana')">
+                    <div style="margin-bottom: 20px;">
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Deskripsi / Daftar Sarana & Prasarana Sekolah:</label>
+                        <textarea id="input-content-sarana" rows="6" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+                    </div>
+                    <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Sarana & Prasarana</button>
+                </form>
+            </div>
+
+            <!-- TAB 4: KELOLA SEJARAH -->
+            <div id="tab-sejarah" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-history"></i> Kelola Sejarah Sekolah</h3>
+                <form onsubmit="savePageContent(event, 'sejarah')">
+                    <div style="margin-bottom: 20px;">
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Sejarah Sekolah:</label>
+                        <textarea id="input-content-sejarah" rows="6" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+                    </div>
+                    <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Sejarah</button>
+                </form>
+            </div>
+
+            <!-- TAB 5: KELOLA VISI & MISI -->
+            <div id="tab-visimisi" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-eye"></i> Kelola Visi & Misi</h3>
+                <form onsubmit="savePageContent(event, 'visimisi')">
+                    <div style="margin-bottom: 20px;">
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Visi:</label>
+                        <input type="text" id="input-content-visi" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Misi:</label>
+                        <textarea id="input-content-misi" rows="5" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+                    </div>
+                    <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Visi & Misi</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 SMP Negeri 2 Karamat - Pemerintah Kabupaten Buol</p>
+    </footer>
+
+    <!-- SCRIPT UTAMA -->
+    <script src="script.js"></script>
 </body>
 </html>
