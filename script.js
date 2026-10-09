@@ -149,3 +149,102 @@ function handleLogout() {
 window.addEventListener('DOMContentLoaded', () => {
   renderStudentData();
 });
+// --- FUNGSI TAB SWITCHING DI PANEL PETUGAS ---
+function switchTab(tabId) {
+  const tabs = document.querySelectorAll('.admin-tab-content');
+  tabs.forEach(tab => tab.style.display = 'none');
+  
+  const buttons = document.querySelectorAll('[id^="btn-tab-"]');
+  buttons.forEach(btn => {
+    btn.style.background = '#cbd5e1';
+    btn.style.color = 'var(--text-dark)';
+  });
+
+  document.getElementById(tabId).style.display = 'block';
+  const activeBtn = document.getElementById('btn-' + tabId);
+  if (activeBtn) {
+    activeBtn.style.background = 'var(--primary-color)';
+    activeBtn.style.color = 'white';
+  }
+}
+
+// --- FUNGSI SIMPAN KONTEN HALAMAN LAIN (Sejarah, Visi Misi, dll) ---
+function savePageContent(event, pageKey) {
+  event.preventDefault();
+  let contentData = {};
+
+  if (pageKey === 'sejarah') {
+    contentData.text = document.getElementById('input-content-sejarah').value;
+  } else if (pageKey === 'visimisi') {
+    contentData.visi = document.getElementById('input-content-visi').value;
+    contentData.misi = document.getElementById('input-content-misi').value;
+  } else if (pageKey === 'struktur') {
+    contentData.text = document.getElementById('input-content-struktur').value;
+  } else if (pageKey === 'guru') {
+    contentData.text = document.getElementById('input-content-guru').value;
+  } else if (pageKey === 'pramuka') {
+    contentData.text = document.getElementById('input-content-pramuka').value;
+  } else if (pageKey === 'pencaksilat') {
+    contentData.text = document.getElementById('input-content-pencaksilat').value;
+  }
+
+  localStorage.setItem('smpn2_content_' + pageKey, JSON.stringify(contentData));
+  alert('Data halaman ' + pageKey + ' berhasil diperbarui dan disimpan!');
+  renderPageContent();
+}
+
+// --- FUNGSI RENDER KONTEN DINAMIS KE WEBSITE UTAMA ---
+function renderPageContent() {
+  const sejarahData = JSON.parse(localStorage.getItem('smpn2_content_sejarah'));
+  if (sejarahData) {
+    const el = document.getElementById('display-sejarah');
+    if (el) el.innerHTML = sejarahData.text;
+    const inputEl = document.getElementById('input-content-sejarah');
+    if (inputEl) inputEl.value = sejarahData.text;
+  }
+
+  const visiMisiData = JSON.parse(localStorage.getItem('smpn2_content_visimisi'));
+  if (visiMisiData) {
+    const elVisi = document.getElementById('display-visi');
+    if (elVisi) elVisi.innerHTML = visiMisiData.visi;
+    const elMisi = document.getElementById('display-misi');
+    if (elMisi) elMisi.innerHTML = visiMisiData.misi;
+    
+    if (document.getElementById('input-content-visi')) document.getElementById('input-content-visi').value = visiMisiData.visi;
+    if (document.getElementById('input-content-misi')) document.getElementById('input-content-misi').value = visiMisiData.misi;
+  }
+
+  const strukturData = JSON.parse(localStorage.getItem('smpn2_content_struktur'));
+  if (strukturData) {
+    const el = document.getElementById('display-struktur');
+    if (el) el.innerHTML = strukturData.text;
+    if (document.getElementById('input-content-struktur')) document.getElementById('input-content-struktur').value = strukturData.text;
+  }
+
+  const guruData = JSON.parse(localStorage.getItem('smpn2_content_guru'));
+  if (guruData) {
+    const el = document.getElementById('display-guru');
+    if (el) el.innerHTML = guruData.text;
+    if (document.getElementById('input-content-guru')) document.getElementById('input-content-guru').value = guruData.text;
+  }
+
+  const pramukaData = JSON.parse(localStorage.getItem('smpn2_content_pramuka'));
+  if (pramukaData) {
+    const el = document.getElementById('display-pramuka');
+    if (el) el.innerHTML = pramukaData.text;
+    if (document.getElementById('input-content-pramuka')) document.getElementById('input-content-pramuka').value = pramukaData.text;
+  }
+
+  const silatData = JSON.parse(localStorage.getItem('smpn2_content_pencaksilat'));
+  if (silatData) {
+    const el = document.getElementById('display-pencaksilat');
+    if (el) el.innerHTML = silatData.text;
+    if (document.getElementById('input-content-pencaksilat')) document.getElementById('input-content-pencaksilat').value = silatData.text;
+  }
+}
+
+// Perbarui event listener di bagian paling bawah untuk memuat semuanya saat halaman dibuka
+window.addEventListener('DOMContentLoaded', () => {
+  renderStudentData();
+  renderPageContent();
+});
