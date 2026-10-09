@@ -297,5 +297,6 @@ function renderKegiatanList() {
 window.addEventListener('DOMContentLoaded', () => {
   renderStudentData();
   renderPageContent();
-  renderBerandaData(); // <--- Pastikan baris ini ditambahkan di sini
+  renderBerandaData();
+  renderKegiatanList(); // <--- Tambahkan baris ini di sini
 });
