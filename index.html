@@ -703,27 +703,31 @@
         <h2>Sejarah Sekolah</h2>
         <button class="btn-back" onclick="showPage('view-beranda')"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
       </div>
-      <div class="card-content">
-        <p>SMP Negeri 2 Karamat didirikan untuk memberikan akses pendidikan menengah pertama yang berkualitas bagi masyarakat di wilayah Desa Baruga, Kecamatan Karamat, Kabupaten Buol, Sulawesi Tengah.</p>
-        <p style="margin-top: 15px;">Sejak berdirinya, sekolah ini terus berkomitmen meningkatkan kualitas sarana, prasarana, serta sumber daya pendidik untuk mencetak generasi yang cerdas, mandiri, dan berakhlak mulia.</p>
-      </div>
+      <!-- Ubah bagian ini -->
+<div class="card-content" id="display-sejarah">
+  <p>SMP Negeri 2 Karamat didirikan untuk memberikan akses pendidikan menengah pertama yang berkualitas...</p>
+  <p style="margin-top: 15px;">Sejak berdirinya, sekolah ini terus berkomitmen meningkatkan kualitas sarana...</p>
+</div>
     </div>
   </div>
 
-  <!-- ==================== 3. PROFIL: VISI & MISI ==================== -->
-  <div id="view-visi-misi" class="page-view">
-    <div class="container">
-      <div class="page-header">
-        <h2>Visi dan Misi</h2>
-        <button class="btn-back" onclick="showPage('view-beranda')"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
-      </div>
-      <div class="card-content">
-        <h3 style="color: var(--primary-color); margin-bottom: 10px;">Visi</h3>
-        <p style="margin-bottom: 25px; font-size: 16px;">"Terwujudnya sekolah unggul dalam prestasi, berkarakter mulia, dan berwawasan lingkungan."</p>
-        
-        <h3 style="color: var(--primary-color); margin-bottom: 10px;">Misi</h3>
-        <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 10px;">
-          <li>Melaksanakan pembelajaran dan bimbingan secara efektif dan berkelanjutan.</li>
+  <!-- 3. PROFIL: VISI & MISI -->
+<div id="view-visi-misi" class="page-view">
+  <div class="container">
+    <div class="page-header">
+      <h2>Visi dan Misi</h2>
+      <button class="btn-back" onclick="showPage('view-beranda')"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+    </div>
+    <div class="card-content">
+      <h3 style="color: var(--primary-color); margin-bottom: 10px;">Visi</h3>
+      <!-- Tambahkan id="display-visi" di sini -->
+      <p id="display-visi" style="margin-bottom: 25px; font-size: 16px;">"Terwujudnya sekolah unggul dalam prestasi, berkarakter mulia, dan berwawasan lingkungan."</p>
+
+      <h3 style="color: var(--primary-color); margin-bottom: 10px;">Misi</h3>
+      <!-- Tambahkan id="display-misi" di sini -->
+      <div id="display-misi">
+        <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 9px;">
+          <li>Melaksanakan pembelajaran dan bimbingan secara efektif dan berkala.</li>
           <li>Menumbuhkan semangat keunggulan secara intensif kepada seluruh warga sekolah.</li>
           <li>Mendorong dan membantu setiap siswa untuk mengenali potensi dirinya.</li>
           <li>Menanamkan nilai-nilai keagamaan dan budi pekerti luhur dalam kehidupan sehari-hari.</li>
@@ -731,6 +735,7 @@
       </div>
     </div>
   </div>
+</div>
 
   <!-- ==================== 4. PROFIL: DATA GURU & STAF ==================== -->
   <div id="view-guru" class="page-view">
@@ -768,71 +773,73 @@
   </div>
 
   <!-- ==================== 5. PROFIL: STRUKTUR ORGANISASI ==================== -->
-  <div id="view-struktur" class="page-view">
-    <div class="container">
-      <div class="page-header">
-        <h2>Struktur Organisasi Sekolah</h2>
-        <button class="btn-back" onclick="showPage('view-beranda')"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
-      </div>
-      <div class="card-content">
-        <div class="grid-3">
-          <!-- Kepala Sekolah -->
-          <div class="profile-card">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500" alt="Kepala Sekolah">
-            <div class="profile-card-body">
-              <h4>Kepala Sekolah</h4>
-              <span class="badge-role">Pimpinan Sekolah</span>
-            </div>
-          </div>
-
-          <!-- Wakil Kepala Sekolah -->
-          <div class="profile-card">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500" alt="Wakil Kepala Sekolah">
-            <div class="profile-card-body">
-              <h4>Wakil Kepala Sekolah</h4>
-              <span class="badge-role">Wakil Pimpinan</span>
-            </div>
-          </div>
-
-          <!-- Urusan Kurikulum -->
-          <div class="profile-card">
-            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=500" alt="Urusan Kurikulum">
-            <div class="profile-card-body">
-              <h4>Urusan Kurikulum</h4>
-              <span class="badge-role">Pengembang Pembelajaran</span>
-            </div>
-          </div>
-
-          <!-- Urusan Kesiswaan -->
-          <div class="profile-card">
-            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500" alt="Urusan Kesiswaan">
-            <div class="profile-card-body">
-              <h4>Urusan Kesiswaan</h4>
-              <span class="badge-role">Pembina Siswa</span>
-            </div>
-          </div>
-
-          <!-- Operator Sekolah -->
-          <div class="profile-card">
-            <img src="images/vita2.png" alt="Operator Sekolah">
-            <div class="profile-card-body">
-              <h4>Vita Sriwahyuni Jumadil, S.E</h4>
-              <span class="badge-role">Data & Informasi (Dapodik)</span>
-            </div>
-          </div>
-
-          <!-- Bendahara BOS -->
-          <div class="profile-card">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500" alt="Bendahara BOS">
-            <div class="profile-card-body">
-              <h4>Bendahara BOS</h4>
-              <span class="badge-role">Pengelola Keuangan</span>
-            </div>
+<div id="view-struktur" class="page-view" style="display: none;">
+  <div class="container">
+    <div class="page-header">
+      <h2>Struktur Organisasi Sekolah</h2>
+      <button class="btn-back" onclick="showPage('view-beranda')"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+    </div>
+    <div class="card-content">
+      <div class="grid-3">
+        
+        <!-- Kepala Sekolah -->
+        <div class="profile-card">
+          <img id="display-struktur-kepala-foto" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500" alt="Kepala Sekolah">
+          <div class="profile-card-body">
+            <h4 id="display-struktur-kepala-nama">Kepala Sekolah</h4>
+            <span class="badge-role">Pimpinan Sekolah</span>
           </div>
         </div>
+
+        <!-- Wakil Kepala Sekolah -->
+        <div class="profile-card">
+          <img id="display-struktur-wakil-foto" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228d7w=500" alt="Wakil Kepala Sekolah">
+          <div class="profile-card-body">
+            <h4 id="display-struktur-wakil-nama">Wakil Kepala Sekolah</h4>
+            <span class="badge-role">Wakil Pimpinan</span>
+          </div>
+        </div>
+
+        <!-- Urusan Kurikulum -->
+        <div class="profile-card">
+          <img id="display-struktur-kurikulum-foto" src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=500" alt="Urusan Kurikulum">
+          <div class="profile-card-body">
+            <h4 id="display-struktur-kurikulum-nama">Urusan Kurikulum</h4>
+            <span class="badge-role">Pengembang Pembelajaran</span>
+          </div>
+        </div>
+
+        <!-- Urusan Kesiswaan -->
+        <div class="profile-card">
+          <img id="display-struktur-kesiswaan-foto" src="https://images.unsplash.com/photo-1500648767791-00dcc994a3e7?w=500" alt="Urusan Kesiswaan">
+          <div class="profile-card-body">
+            <h4 id="display-struktur-kesiswaan-nama">Urusan Kesiswaan</h4>
+            <span class="badge-role">Pembina Siswa</span>
+          </div>
+        </div>
+
+        <!-- Operator Sekolah -->
+        <div class="profile-card">
+          <img id="display-struktur-operator-foto" src="images/vita2.png" alt="Operator Sekolah">
+          <div class="profile-card-body">
+            <h4 id="display-struktur-operator-nama">Vita Sriwahyuni Jumadil, S.I.Kom</h4>
+            <span class="badge-role">Data & Informasi (Dapodik)</span>
+          </div>
+        </div>
+
+        <!-- Bendahara BOS -->
+        <div class="profile-card">
+          <img id="display-struktur-bendahara-foto" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500" alt="Bendahara BOS">
+          <div class="profile-card-body">
+            <h4 id="display-struktur-bendahara-nama">Bendahara BOS</h4>
+            <span class="badge-role">Pengelola Keuangan</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
+</div>
 
   <!-- ==================== 6. SARANA & PRASARANA ==================== -->
   <div id="view-fasilitas" class="page-view">
@@ -1180,7 +1187,57 @@
           <button onclick="switchTab('tab-pencaksilat')" id="btn-tab-pencaksilat" style="padding: 8px 16px; background: #cbd5e1; color: var(--text-dark); border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Pencak Silat</button>
         </div>
       </div>
+      <div id="tab-struktur" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+  <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-sitemap"></i> Kelola Struktur Organisasi</h3>
+  <form onsubmit="saveStrukturData(event)">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 25px;">
+      
+      <!-- Kepala Sekolah -->
+      <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kepala Sekolah</h4>
+        <div style="margin-bottom: 8px;"><label style="font-size: 0.8rem; font-weight: 600;">Nama & Gelar:</label><input type="text" id="input-struktur-kepala-nama" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;" required></div>
+        <div><label style="font-size: 0.8rem; font-weight: 600;">URL Foto:</label><input type="text" id="input-struktur-kepala-foto" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;"></div>
+      </div>
 
+      <!-- Wakil Kepala Sekolah -->
+      <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Wakil Kepala Sekolah</h4>
+        <div style="margin-bottom: 8px;"><label style="font-size: 0.8rem; font-weight: 600;">Nama & Gelar:</label><input type="text" id="input-struktur-wakil-nama" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;" required></div>
+        <div><label style="font-size: 0.8rem; font-weight: 600;">URL Foto:</label><input type="text" id="input-struktur-wakil-foto" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;"></div>
+      </div>
+
+      <!-- Urusan Kurikulum -->
+      <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Urusan Kurikulum</h4>
+        <div style="margin-bottom: 8px;"><label style="font-size: 0.8rem; font-weight: 600;">Nama & Gelar:</label><input type="text" id="input-struktur-kurikulum-nama" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;" required></div>
+        <div><label style="font-size: 0.8rem; font-weight: 600;">URL Foto:</label><input type="text" id="input-struktur-kurikulum-foto" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;"></div>
+      </div>
+
+      <!-- Urusan Kesiswaan -->
+      <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Urusan Kesiswaan</h4>
+        <div style="margin-bottom: 8px;"><label style="font-size: 0.8rem; font-weight: 600;">Nama & Gelar:</label><input type="text" id="input-struktur-kesiswaan-nama" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;" required></div>
+        <div><label style="font-size: 0.8rem; font-weight: 600;">URL Foto:</label><input type="text" id="input-struktur-kesiswaan-foto" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;"></div>
+      </div>
+
+      <!-- Operator Sekolah -->
+      <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Operator Sekolah</h4>
+        <div style="margin-bottom: 8px;"><label style="font-size: 0.8rem; font-weight: 600;">Nama & Gelar:</label><input type="text" id="input-struktur-operator-nama" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;" required></div>
+        <div><label style="font-size: 0.8rem; font-weight: 600;">URL Foto:</label><input type="text" id="input-struktur-operator-foto" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;"></div>
+      </div>
+
+      <!-- Bendahara BOS -->
+      <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Bendahara BOS</h4>
+        <div style="margin-bottom: 8px;"><label style="font-size: 0.8rem; font-weight: 600;">Nama & Gelar:</label><input type="text" id="input-struktur-bendahara-nama" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;" required></div>
+        <div><label style="font-size: 0.8rem; font-weight: 600;">URL Foto:</label><input type="text" id="input-struktur-bendahara-foto" style="width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px;"></div>
+      </div>
+
+    </div>
+    <button type="submit" style="background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Struktur Organisasi</button>
+  </form>
+</div>
       <!-- 1. TAB KELOLA SISWA -->
       <div id="tab-siswa" class="admin-tab-content" style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
         <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-users"></i> Kelola Data Peserta Didik (Kelas 7A - 9B)</h3>
