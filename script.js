@@ -130,17 +130,28 @@ function checkLoginAndOpenMenu() {
   }
 }
 
+// --- KONTROL AKSES & LOGIN PETUGAS ---
+function checkLoginAndOpenMenu() {
+  const isAuth = localStorage.getItem('smpn2_petugas_logged_in');
+  if (isAuth === 'true') {
+    showPage('view-panel-petugas'); // Tampilkan panel jika sudah login
+  } else {
+    showPage('view-login-petugas'); // Tampilkan form login jika belum
+  }
+}
+
 function handleLogin(event) {
   event.preventDefault();
   const user = document.getElementById('login-user').value;
   const pass = document.getElementById('login-pass').value;
 
+  // Kredensial default petugas (dapat disesuaikan)
   const validUser = 'admin';
   const validPass = 'smpn2karamat';
 
   if (user === validUser && pass === validPass) {
     localStorage.setItem('smpn2_petugas_logged_in', 'true');
-    alert('Login Berhasil! Selamat datang petugas.');
+    alert('Login Berhasil! Selamat datang, Petugas.');
     document.getElementById('login-user').value = '';
     document.getElementById('login-pass').value = '';
     showPage('view-panel-petugas');
@@ -149,12 +160,11 @@ function handleLogin(event) {
   }
 }
 
-function handleLogout() {
+function handlelogout() {
   localStorage.removeItem('smpn2_petugas_logged_in');
   alert('Anda telah keluar dari Panel Petugas.');
   showPage('view-beranda');
 }
-
 // --- 5. EKSEKUSI AWAL SAAT HALAMAN DIMUAT ---
 window.addEventListener('DOMContentLoaded', () => {
   renderStudentData();
