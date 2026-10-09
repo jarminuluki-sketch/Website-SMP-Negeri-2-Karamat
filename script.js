@@ -142,8 +142,6 @@ function savePageContent(event, pageKey) {
   } else if (pageKey === 'visimisi') {
     contentdata.visi = document.getElementById('input-content-visi').value;
     contentdata.misi = document.getElementById('input-content-misi').value;
-  } else if (pageKey === 'sarana') {
-    contentdata.text = document.getElementById('input-content-sarana').value;
   }
 
   localStorage.setItem('smpn2_content_' + pageKey, JSON.stringify(contentdata));
@@ -157,6 +155,19 @@ function saveStrukturGambar(event) {
   localStorage.setItem('smpn2_content_struktur_img', imgUrl);
   renderPageContent();
   alert('Gambar Struktur Organisasi berhasil diperbarui!');
+}
+
+function saveKontakData(event) {
+  event.preventDefault();
+  const kontakData = {
+    alamat: document.getElementById('input-kontak-alamat').value.trim(),
+    telp: document.getElementById('input-kontak-telp').value.trim(),
+    email: document.getElementById('input-kontak-email').value.trim(),
+    maps: document.getElementById('input-kontak-maps').value.trim()
+  };
+  localStorage.setItem('smpn2_content_kontak', JSON.stringify(kontakData));
+  renderPageContent();
+  alert('Informasi Kontak berhasil diperbarui!');
 }
 
 function renderPageContent() {
@@ -181,21 +192,25 @@ function renderPageContent() {
     if (inMisi) inMisi.value = visiData.misi;
   }
 
-  const saranaData = JSON.parse(localStorage.getItem('smpn2_content_sarana'));
-  if (saranaData) {
-    const el = document.getElementById('display-sarana');
-    if (el) el.innerHTML = `<p>${saranaData.text}</p>`;
-    const inputS1 = document.getElementById('input-content-sarana');
-    if (inputS1) inputS1.value = saranaData.text;
-  }
-
-  // Render Struktur Gambar
   const strukturImg = localStorage.getItem('smpn2_content_struktur_img');
   if (strukturImg) {
     const imgEl = document.getElementById('display-struktur-img');
     if (imgEl) imgEl.src = strukturImg;
     const inputStruktur = document.getElementById('input-struktur-img');
     if (inputStruktur) inputStruktur.value = strukturImg;
+  }
+
+  const kontakData = JSON.parse(localStorage.getItem('smpn2_content_kontak'));
+  if (kontakData) {
+    if (document.getElementById('display-kontak-alamat')) document.getElementById('display-kontak-alamat').innerText = kontakData.alamat;
+    if (document.getElementById('display-kontak-telp')) document.getElementById('display-kontak-telp').innerText = kontakData.telp;
+    if (document.getElementById('display-kontak-email')) document.getElementById('display-kontak-email').innerText = kontakData.email;
+    if (document.getElementById('display-kontak-maps')) document.getElementById('display-kontak-maps').src = kontakData.maps;
+
+    if (document.getElementById('input-kontak-alamat')) document.getElementById('input-kontak-alamat').value = kontakData.alamat;
+    if (document.getElementById('input-kontak-telp')) document.getElementById('input-kontak-telp').value = kontakData.telp;
+    if (document.getElementById('input-kontak-email')) document.getElementById('input-kontak-email').value = kontakData.email;
+    if (document.getElementById('input-kontak-maps')) document.getElementById('input-kontak-maps').value = kontakData.maps;
   }
 }
 
@@ -291,6 +306,76 @@ function renderKegiatanList() {
   }
 }
 
+// --- KELOLA SARANA & PRASARANA DINAMIS (GAMBAR & KETERANGAN) ---
+function getSaranaList() {
+  const data = localStorage.getItem('smpn2_content_sarana_list');
+  return data ? JSON.parse(data) : [];
+}
+
+function tambahSarana() {
+  const namaEl = document.getElementById('input-sarana-nama');
+  const fotoEl = document.getElementById('input-sarana-foto');
+  const ketEl = document.getElementById('input-sarana-ket');
+
+  if (!namaEl || !ketEl) return;
+
+  const nama = namaEl.value.trim();
+  const foto = fotoEl.value.trim() || 'https://via.placeholder.com/300x200';
+  const ket = ketEl.value.trim();
+
+  if (!nama || !ket) {
+    alert('Nama sarana dan keterangan wajib diisi!');
+    return;
+  }
+
+  let list = getSaranaList();
+  list.push({ nama, foto, ket });
+  localStorage.setItem('smpn2_content_sarana_list', JSON.stringify(list));
+
+  namaEl.value = '';
+  fotoEl.value = '';
+  ketEl.value = '';
+
+  renderSaranaList();
+  alert('Sarana & Prasarana berhasil ditambahkan!');
+}
+
+function hapusSarana(index) {
+  let list = getSaranaList();
+  list.splice(index, 1);
+  localStorage.setItem('smpn2_content_sarana_list', JSON.stringify(list));
+  renderSaranaList();
+}
+
+function renderSaranaList() {
+  const list = getSaranaList();
+  const adminEl = document.getElementById('admin-sarana-list');
+  if (adminEl) {
+    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada sarana.</p>' : list.map((item, idx) => `
+      <div style="background: #f8fafc; padding: 10px 15px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: cover;">
+          <div><strong>${item.nama}</strong><br><small style="color: var(--text-muted);">${item.ket}</small></div>
+        </div>
+        <button type="button" onclick="hapusSarana(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
+      </div>
+    `).join('');
+  }
+
+  const publicEl = document.getElementById('display-sarana-list');
+  if (publicEl) {
+    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada data sarana dan prasarana.</p>' : list.map(item => `
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
+        <img src="${item.foto}" alt="${item.nama}" style="width: 100%; height: 180px; object-fit: cover;">
+        <div style="padding: 15px;">
+          <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 1.05rem;">${item.nama}</h4>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">${item.ket}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
 // --- KELOLA GURU & STAF OTOMATIS ---
 function getGuruList() {
   const data = localStorage.getItem('smpn2_content_guru_list');
@@ -334,10 +419,9 @@ function hapusGuru(index) {
 
 function renderGuruList() {
   const list = getGuruList();
-  
   const adminEl = document.getElementById('admin-guru-list');
   if (adminEl) {
-    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada guru yang ditambahkan.</p>' : list.map((item, idx) => `
+    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada guru.</p>' : list.map((item, idx) => `
       <div style="background: #f8fafc; padding: 10px 15px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
         <div style="display: flex; align-items: center; gap: 10px;">
           <img src="${item.foto}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
@@ -360,11 +444,154 @@ function renderGuruList() {
   }
 }
 
+// --- KELOLA KEGIATAN PRAMUKA (GAMBAR & KEGIATAN) ---
+function getPramukaList() {
+  const data = localStorage.getItem('smpn2_content_pramuka_list');
+  return data ? JSON.parse(data) : [];
+}
+
+function tambahPramuka() {
+  const judulEl = document.getElementById('input-pramuka-judul');
+  const fotoEl = document.getElementById('input-pramuka-foto');
+  const ketEl = document.getElementById('input-pramuka-ket');
+
+  if (!judulEl || !ketEl) return;
+
+  const judul = judulEl.value.trim();
+  const foto = fotoEl.value.trim() || 'https://via.placeholder.com/300x200';
+  const ket = ketEl.value.trim();
+
+  if (!judul || !ket) {
+    alert('Judul dan Keterangan kegiatan pramuka wajib diisi!');
+    return;
+  }
+
+  let list = getPramukaList();
+  list.push({ judul, foto, ket });
+  localStorage.setItem('smpn2_content_pramuka_list', JSON.stringify(list));
+
+  judulEl.value = '';
+  fotoEl.value = '';
+  ketEl.value = '';
+
+  renderPramukaList();
+  alert('Kegiatan Pramuka berhasil ditambahkan!');
+}
+
+function hapusPramuka(index) {
+  let list = getPramukaList();
+  list.splice(index, 1);
+  localStorage.setItem('smpn2_content_pramuka_list', JSON.stringify(list));
+  renderPramukaList();
+}
+
+function renderPramukaList() {
+  const list = getPramukaList();
+  const adminEl = document.getElementById('admin-pramuka-list');
+  if (adminEl) {
+    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada kegiatan.</p>' : list.map((item, idx) => `
+      <div style="background: #f8fafc; padding: 10px 15px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: cover;">
+          <div><strong>${item.judul}</strong><br><small style="color: var(--text-muted);">${item.ket}</small></div>
+        </div>
+        <button type="button" onclick="hapusPramuka(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
+      </div>
+    `).join('');
+  }
+
+  const publicEl = document.getElementById('display-pramuka-list');
+  if (publicEl) {
+    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada dokumentasi kegiatan pramuka.</p>' : list.map(item => `
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
+        <img src="${item.foto}" alt="${item.judul}" style="width: 100%; height: 180px; object-fit: cover;">
+        <div style="padding: 15px;">
+          <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 1.05rem;">${item.judul}</h4>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">${item.ket}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+// --- KELOLA KEGIATAN PENCAK SILAT (GAMBAR & KEGIATAN) ---
+function getSilatList() {
+  const data = localStorage.getItem('smpn2_content_silat_list');
+  return data ? JSON.parse(data) : [];
+}
+
+function tambahSilat() {
+  const judulEl = document.getElementById('input-silat-judul');
+  const fotoEl = document.getElementById('input-silat-foto');
+  const ketEl = document.getElementById('input-silat-ket');
+
+  if (!judulEl || !ketEl) return;
+
+  const judul = judulEl.value.trim();
+  const foto = fotoEl.value.trim() || 'https://via.placeholder.com/300x200';
+  const ket = ketEl.value.trim();
+
+  if (!judul || !ket) {
+    alert('Judul dan Keterangan kegiatan pencak silat wajib diisi!');
+    return;
+  }
+
+  let list = getSilatList();
+  list.push({ judul, foto, ket });
+  localStorage.setItem('smpn2_content_silat_list', JSON.stringify(list));
+
+  judulEl.value = '';
+  fotoEl.value = '';
+  ketEl.value = '';
+
+  renderSilatList();
+  alert('Kegiatan Pencak Silat berhasil ditambahkan!');
+}
+
+function hapusSilat(index) {
+  let list = getSilatList();
+  list.splice(index, 1);
+  localStorage.setItem('smpn2_content_silat_list', JSON.stringify(list));
+  renderSilatList();
+}
+
+function renderSilatList() {
+  const list = getSilatList();
+  const adminEl = document.getElementById('admin-silat-list');
+  if (adminEl) {
+    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada kegiatan.</p>' : list.map((item, idx) => `
+      <div style="background: #f8fafc; padding: 10px 15px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: cover;">
+          <div><strong>${item.judul}</strong><br><small style="color: var(--text-muted);">${item.ket}</small></div>
+        </div>
+        <button type="button" onclick="hapusSilat(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
+      </div>
+    `).join('');
+  }
+
+  const publicEl = document.getElementById('display-pencaksilat-list');
+  if (publicEl) {
+    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada dokumentasi kegiatan pencak silat.</p>' : list.map(item => `
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
+        <img src="${item.foto}" alt="${item.judul}" style="width: 100%; height: 180px; object-fit: cover;">
+        <div style="padding: 15px;">
+          <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 1.05rem;">${item.judul}</h4>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">${item.ket}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
 // --- 6. EKSEKUSI AWAL SAAT HALAMAN DIMUAT ---
 window.addEventListener('DOMContentLoaded', () => {
   renderStudentData();
   renderPageContent();
   renderBerandaData();
   renderKegiatanList();
+  renderSaranaList();
   renderGuruList();
+  renderPramukaList();
+  renderSilatList();
 });
