@@ -56,16 +56,16 @@
         <!-- 1. HALAMAN BERANDA -->
         <section id="view-beranda" class="page-view active-view">
             <div class="hero-banner">
-                <img id="display-beranda-banner" src="" alt="Banner Sekolah">
+                <img id="display-beranda-banner" src="https://via.placeholder.com/1200x400" alt="Banner Sekolah">
             </div>
 
             <div class="beranda-grid">
                 <div class="card-content">
                     <h3 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-user-tie"></i> Sambutan Kepala Sekolah</h3>
-                    <p id="display-beranda-sambutan" style="line-height: 1.6; color: var(--text-dark);"></p>
+                    <p id="display-beranda-sambutan" style="line-height: 1.6; color: var(--text-dark);">Puji syukur kami panjatkan ke Tuhan Yang Maha Esa atas rilisnya portal resmi sekolah ini...</p>
                 </div>
                 <div class="card-content" style="text-align: center;">
-                    <img id="display-beranda-kepsek" src="" alt="Kepala Sekolah" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 3px solid var(--primary-color);">
+                    <img id="display-beranda-kepsek" src="https://via.placeholder.com/150" alt="Kepala Sekolah" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 3px solid var(--primary-color);">
                     <h5 style="color: var(--primary-color);">Kepala Sekolah</h5>
                 </div>
             </div>
@@ -83,7 +83,7 @@
         <section id="view-sejarah" class="page-view" style="display: none;">
             <div class="card-content">
                 <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-history"></i> Sejarah Sekolah</h2>
-                <div id="display-sejarah"></div>
+                <div id="display-sejarah"><p>Memuat sejarah sekolah...</p></div>
             </div>
         </section>
 
@@ -92,9 +92,9 @@
             <div class="card-content">
                 <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-eye"></i> Visi & Misi</h2>
                 <h4 style="color: var(--primary-color);">Visi:</h4>
-                <p id="display-visi" style="margin-bottom: 20px; font-style: italic;"></p>
+                <p id="display-visi" style="margin-bottom: 20px; font-style: italic;">Memuat visi...</p>
                 <h4 style="color: var(--primary-color);">Misi:</h4>
-                <div id="display-misi"></div>
+                <div id="display-misi"><p>Memuat misi...</p></div>
             </div>
         </section>
 
@@ -102,7 +102,7 @@
         <section id="view-sarana" class="page-view" style="display: none;">
             <div class="card-content">
                 <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-building"></i> Sarana & Prasarana</h2>
-                <div id="display-sarana"></div>
+                <div id="display-sarana"><p>Memuat sarana prasarana...</p></div>
             </div>
         </section>
 
@@ -216,17 +216,13 @@
                 <button onclick="handleLogout()" style="background: #dc2626; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-sign-out-alt"></i> Keluar</button>
             </div>
 
-            <!-- Menu Navigasi Tab Admin (Sesuai Gambar Referensi Anda) -->
+            <!-- Menu Navigasi Tab Admin -->
             <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
                 <button id="btn-tab-siswa" onclick="switchTab('tab-siswa')" style="padding: 10px 18px; border: none; border-radius: 6px; background: var(--primary-color); color: white; cursor: pointer; font-weight: 600;">Data Siswa</button>
                 <button id="btn-tab-beranda" onclick="switchTab('tab-beranda')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Kelola Beranda</button>
                 <button id="btn-tab-sarana" onclick="switchTab('tab-sarana')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Sarana & Prasarana</button>
                 <button id="btn-tab-sejarah" onclick="switchTab('tab-sejarah')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Sejarah</button>
                 <button id="btn-tab-visimisi" onclick="switchTab('tab-visimisi')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Visi & Misi</button>
-                <button id="btn-tab-struktur" onclick="switchTab('tab-struktur')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Struktur Organisasi</button>
-                <button id="btn-tab-guru" onclick="switchTab('tab-guru')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Guru & Staf</button>
-                <button id="btn-tab-pramuka" onclick="switchTab('tab-pramuka')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Pramuka</button>
-                <button id="btn-tab-pencaksilat" onclick="switchTab('tab-pencaksilat')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Pencak Silat</button>
             </div>
 
             <!-- TAB 1: KELOLA DATA SISWA -->
@@ -326,7 +322,7 @@
                             <input type="date" id="input-kegiatan-tanggal" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
                         </div>
                         <textarea id="input-kegiatan-deskripsi" rows="3" placeholder="Deskripsi singkat mengenai kegiatan..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 12px;"></textarea>
-                        <button type="button" onclick="tambahKegiatan()" style="background-color: var(--accent-color, #0284c7); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah ke Daftar Kegiatan</button>
+                        <button type="button" onclick="tambahKegiatan()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah ke Daftar Kegiatan</button>
 
                         <div id="admin-kegiatan-list" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;"></div>
                     </div>
