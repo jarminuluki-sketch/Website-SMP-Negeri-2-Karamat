@@ -108,17 +108,21 @@
 
         <!-- 5. HALAMAN STRUKTUR ORGANISASI -->
         <section id="view-struktur" class="page-view" style="display: none;">
-            <div class="card-content">
-                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-sitemap"></i> Struktur Organisasi</h2>
-                <p>Struktur Organisasi SMP Negeri 2 Karamat.</p>
+            <div class="card-content" style="text-align: center;">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px; text-align: left;"><i class="fas fa-sitemap"></i> Struktur Organisasi</h2>
+                <div style="background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; display: inline-block; width: 100%;">
+                    <img id="display-struktur-img" src="https://via.placeholder.com/900x500?text=Struktur+Organisasi+Sekolah" alt="Struktur Organisasi" style="max-width: 100%; height: auto; border-radius: 6px;">
+                </div>
             </div>
         </section>
 
         <!-- 6. HALAMAN GURU & STAF -->
         <section id="view-guru" class="page-view" style="display: none;">
             <div class="card-content">
-                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-chalkboard-teacher"></i> Guru & Staf</h2>
-                <p>Daftar Dewan Guru dan Staf Pengajar.</p>
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-chalkboard-teacher"></i> Dewan Guru & Staf Pengajar</h2>
+                <div id="display-guru-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+                    <p style="color: var(--text-muted);">Belum ada daftar guru yang ditambahkan.</p>
+                </div>
             </div>
         </section>
 
@@ -223,6 +227,8 @@
                 <button id="btn-tab-sarana" onclick="switchTab('tab-sarana')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Sarana & Prasarana</button>
                 <button id="btn-tab-sejarah" onclick="switchTab('tab-sejarah')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Sejarah</button>
                 <button id="btn-tab-visimisi" onclick="switchTab('tab-visimisi')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Visi & Misi</button>
+                <button id="btn-tab-struktur" onclick="switchTab('tab-struktur')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Struktur Organisasi</button>
+                <button id="btn-tab-guru" onclick="switchTab('tab-guru')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Guru & Staf</button>
             </div>
 
             <!-- TAB 1: KELOLA DATA SISWA -->
@@ -293,7 +299,7 @@
                 </form>
             </div>
 
-            <!-- TAB 2: KELOLA BERANDA (LENGKAP DENGAN KELOLA KEGIATAN DINAMIS) -->
+            <!-- TAB 2: KELOLA BERANDA -->
             <div id="tab-beranda" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
                 <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-home"></i> Kelola Halaman Beranda</h3>
                 <form onsubmit="saveBerandaData(event)">
@@ -309,20 +315,16 @@
                         <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Foto Kepala Sekolah:</label>
                         <input type="text" id="input-beranda-kepsek" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
                     </div>
-                    <div style="margin-bottom: 20px;">
-                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Foto Kepala Dinas Pendidikan:</label>
-                        <input type="text" id="input-beranda-kadis" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
-                    </div>
 
-                    <!-- KELOLA DAFTAR KEGIATAN / PENGUMUMAN DINAMIS -->
+                    <!-- KELOLA DAFTAR KEGIATAN -->
                     <div style="margin-top: 25px; border-top: 2px solid #f1f5f9; padding-top: 20px;">
                         <h4 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-bullhorn"></i> Kelola Daftar Kegiatan Sekolah</h4>
                         <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-bottom: 12px;">
-                            <input type="text" id="input-kegiatan-judul" placeholder="Judul Kegiatan (Cth: Perkemahan Pramuka / Jumat Bersih)" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                            <input type="text" id="input-kegiatan-judul" placeholder="Judul Kegiatan" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
                             <input type="date" id="input-kegiatan-tanggal" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
                         </div>
-                        <textarea id="input-kegiatan-deskripsi" rows="3" placeholder="Deskripsi singkat mengenai kegiatan..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 12px;"></textarea>
-                        <button type="button" onclick="tambahKegiatan()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah ke Daftar Kegiatan</button>
+                        <textarea id="input-kegiatan-deskripsi" rows="3" placeholder="Deskripsi singkat..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 12px;"></textarea>
+                        <button type="button" onclick="tambahKegiatan()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah Kegiatan</button>
 
                         <div id="admin-kegiatan-list" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;"></div>
                     </div>
@@ -336,10 +338,10 @@
                 <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-building"></i> Kelola Sarana & Prasarana</h3>
                 <form onsubmit="savePageContent(event, 'sarana')">
                     <div style="margin-bottom: 20px;">
-                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Deskripsi / Daftar Sarana & Prasarana Sekolah:</label>
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Deskripsi Sarana & Prasarana:</label>
                         <textarea id="input-content-sarana" rows="6" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
                     </div>
-                    <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Sarana & Prasarana</button>
+                    <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Sarana</button>
                 </form>
             </div>
 
@@ -369,6 +371,31 @@
                     </div>
                     <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Visi & Misi</button>
                 </form>
+            </div>
+
+            <!-- TAB 6: KELOLA STRUKTUR ORGANISASI (BARU - BERBENTUK GAMBAR) -->
+            <div id="tab-struktur" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-sitemap"></i> Kelola Struktur Organisasi</h3>
+                <form onsubmit="saveStrukturGambar(event)">
+                    <div style="margin-bottom: 20px;">
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Gambar Struktur Organisasi:</label>
+                        <input type="text" id="input-struktur-img" placeholder="https://..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                    </div>
+                    <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Struktur Organisasi</button>
+                </form>
+            </div>
+
+            <!-- TAB 7: KELOLA GURU & STAF (BARU - TAMBAH & HAPUS OTOMATIS) -->
+            <div id="tab-guru" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-chalkboard-teacher"></i> Kelola Dewan Guru & Staf</h3>
+                <div style="display: grid; grid-template-columns: 2fr 2fr 2fr; gap: 10px; margin-bottom: 12px;">
+                    <input type="text" id="input-guru-nama" placeholder="Nama & Gelar (Cth: Budi, S.Pd)" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <input type="text" id="input-guru-mapel" placeholder="Jabatan / Mata Pelajaran" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <input type="text" id="input-guru-foto" placeholder="URL Foto Guru" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
+                <button type="button" onclick="tambahGuru()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah Guru ke Daftar</button>
+
+                <div id="admin-guru-list" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;"></div>
             </div>
         </section>
 
