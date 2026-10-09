@@ -229,9 +229,15 @@ function getKegiatanList() {
 }
 
 function tambahKegiatan() {
-  const judul = document.getElementById('input-kegiatan-judul').value;
-  const tanggal = document.getElementById('input-kegiatan-tanggal').value;
-  const deskripsi = document.getElementById('input-kegiatan-deskripsi').value;
+  const judulEl = document.getElementById('input-kegiatan-judul');
+  const tanggalEl = document.getElementById('input-kegiatan-tanggal');
+  const deskripsiEl = document.getElementById('input-kegiatan-deskripsi');
+
+  if (!judulEl || !deskripsiEl) return;
+
+  const judul = judulEl.value.trim();
+  const tanggal = tanggalEl.value.trim();
+  const deskripsi = deskripsiEl.value.trim();
 
   if (!judul || !deskripsi) {
     alert('Judul dan Deskripsi kegiatan wajib diisi!');
@@ -242,9 +248,9 @@ function tambahKegiatan() {
   list.push({ judul, tanggal, deskripsi });
   localStorage.setItem('smpn2_content_kegiatan_list', JSON.stringify(list));
 
-  document.getElementById('input-kegiatan-judul').value = '';
-  document.getElementById('input-kegiatan-tanggal').value = '';
-  document.getElementById('input-kegiatan-deskripsi').value = '';
+  judulEl.value = '';
+  tanggalEl.value = '';
+  deskripsiEl.value = '';
 
   renderKegiatanList();
   alert('Kegiatan berhasil ditambahkan ke daftar!');
