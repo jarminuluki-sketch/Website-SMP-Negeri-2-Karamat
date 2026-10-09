@@ -344,7 +344,7 @@
   <!-- ==================== 1. HALAMAN BERANDA ==================== -->
   <div id="view-beranda" class="page-view active-view">
     <div class="hero-banner">
-      <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1400" alt="Gedung Sekolah">
+      <img id="display-beranda-banner" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1400" alt="Gedung Sekolah">
       <div class="hero-overlay">
         <div class="hero-content">
           <h1>Selamat Datang di SMPN 2 Karamat</h1>
@@ -352,10 +352,29 @@
         </div>
       </div>
     </div>
+    
     <div class="container">
-      <div class="card-content" style="text-align: center;">
-        <h3 style="color: var(--primary-color); margin-bottom: 15px;">Sambutan Kepala Sekolah</h3>
-        <p style="color: var(--text-muted); max-width: 800px; margin: 0 auto;">Puji syukur kami panjatkan ke Tuhan Yang Maha Esa atas rilisnya portal resmi sekolah ini guna meningkatkan layanan informasi digital bagi siswa, orang tua, serta masyarakat luas di Kabupaten Buol.</p>
+      <!-- Sambutan & Foto Kepala Sekolah -->
+      <div class="card-content" style="margin-bottom: 25px;">
+        <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;">Sambutan Kepala Sekolah</h3>
+        <div style="display: grid; grid-template-columns: 200px 1fr; gap: 25px; align-items: center;">
+          <img id="display-beranda-kepsek" src="https://via.placeholder.com/150" alt="Kepala Sekolah" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 2px solid var(--primary-color);">
+          <p id="display-beranda-sambutan" style="color: var(--text-muted);">Puji syukur kami panjatkan ke Tuhan Yang Maha Esa atas rilisnya portal resmi sekolah ini...</p>
+        </div>
+      </div>
+
+      <!-- Foto Kepala Dinas Pendidikan -->
+      <div class="card-content" style="margin-bottom: 25px;">
+        <h3 style="color: var(--primary-color); margin-bottom: 15px; text-align: center;">Kepala Dinas Pendidikan Kabupaten Buol</h3>
+        <div style="text-align: center;">
+          <img id="display-beranda-kadis" src="https://via.placeholder.com/150" alt="Kepala Dinas" style="width: 150px; height: 180px; object-fit: cover; border-radius: 8px; border: 2px solid var(--primary-color); margin: 0 auto 10px auto; display: block;">
+        </div>
+      </div>
+
+      <!-- Informasi Kegiatan -->
+      <div class="card-content">
+        <h3 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-bullhorn"></i> Informasi & Kegiatan Terbaru</h3>
+        <p id="display-beranda-kegiatan" style="color: var(--text-muted);">Belum ada informasi kegiatan terbaru.</p>
       </div>
     </div>
   </div>
@@ -668,7 +687,40 @@
   <button id="btn-tab-pramuka" onclick="switchTab('tab-pramuka')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Pramuka</button>
   <button id="btn-tab-pencaksilat" onclick="switchTab('tab-pencaksilat')" style="padding: 10px 18px; border: none; border-radius: 6px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Pencak Silat</button>
 </div>
+      <!-- TAB KELOLA BERANDA -->
+<div id="tab-beranda" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-top: 20px;">
+  <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-home"></i> Kelola Halaman Beranda</h3>
+  <form onsubmit="saveBerandaData(event)">
+    
+    <div style="margin-bottom: 20px;">
+      <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Kata Sambutan Kepala Sekolah:</label>
+      <textarea id="input-beranda-sambutan" rows="4" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+    </div>
 
+    <div style="margin-bottom: 20px;">
+      <label style="font-weight: 600; display: block; margin-bottom: 5px;">Informasi Kegiatan / Pengumuman Terbaru:</label>
+      <textarea id="input-beranda-kegiatan" rows="4" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;" required></textarea>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Foto Tampilan Depan (Banner Hero):</label>
+      <input type="text" id="input-beranda-banner" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Foto Kepala Sekolah:</label>
+      <input type="text" id="input-beranda-kepsek" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Foto Kepala Dinas Pendidikan:</label>
+      <input type="text" id="input-beranda-kadis" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+    </div>
+
+    <button type="submit" style="background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Perubahan Beranda</button>
+  </form>
+</div>
+      
       <!-- TAB 1: KELOLA DATA SISWA -->
       <div id="tab-siswa" class="admin-tab-content" style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
         <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-users"></i> Kelola Data Peserta Didik</h3>
