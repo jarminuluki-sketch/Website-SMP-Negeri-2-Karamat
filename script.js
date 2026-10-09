@@ -36,7 +36,6 @@ function renderStudentData() {
   classes.forEach(cls => {
     const clsduta = data[cls] || { l: 0, p: 0, wali: '', foto: '' };
 
-    // Update tampilan publik
     const elL = document.getElementById(`display-${cls}-l`);
     const elP = document.getElementById(`display-${cls}-p`);
     const elTot = document.getElementById(`display-${cls}-total`);
@@ -49,7 +48,6 @@ function renderStudentData() {
     if (elWali) elWali.innerText = clsduta.wali;
     if (elFoto) elFoto.src = clsduta.foto;
 
-    // Update form input di Panel Petugas
     const inputL = document.getElementById(`input-${cls}-l`);
     const inputP = document.getElementById(`input-${cls}-p`);
     const inputWali = document.getElementById(`input-${cls}-wali`);
@@ -78,7 +76,7 @@ function saveStudentData(event) {
 
   localStorage.setItem('smpn2_data_peserta_didik', JSON.stringify(newdata));
   renderStudentData();
-  alert('Data peserta didik dari kelas 7A sampai 9B berhasil diperbarui dan disimpan!');
+  alert('Data peserta didik berhasil diperbarui dan disimpan!');
 }
 
 // --- 3. KONTROL AKSES & LOGIN PETUGAS ---
@@ -134,7 +132,7 @@ function switchTab(tabId) {
   }
 }
 
-// --- 5. SIMPAN KONTEN DINAMIS LAINNYA (Sejarah, Visi Misi, Sarana, Beranda) ---
+// --- 5. SIMPAN KONTEN DINAMIS LAINNYA ---
 function savePageContent(event, pageKey) {
   event.preventDefault();
   let contentdata = {};
@@ -146,9 +144,6 @@ function savePageContent(event, pageKey) {
     contentdata.misi = document.getElementById('input-content-misi').value;
   } else if (pageKey === 'sarana') {
     contentdata.text = document.getElementById('input-content-sarana').value;
-  } else {
-    const inputEl = document.getElementById(`input-content-${pageKey}`);
-    if (inputEl) contentdata.text = inputEl.value;
   }
 
   localStorage.setItem('smpn2_content_' + pageKey, JSON.stringify(contentdata));
@@ -157,7 +152,6 @@ function savePageContent(event, pageKey) {
 }
 
 function renderPageContent() {
-  // Render Sejarah
   const sejarahData = JSON.parse(localStorage.getItem('smpn2_content_sejarah'));
   if (sejarahData) {
     const el = document.getElementById('display-sejarah');
@@ -166,7 +160,6 @@ function renderPageContent() {
     if (input1) input1.value = sejarahData.text;
   }
 
-  // Render Visi Misi
   const visiData = JSON.parse(localStorage.getItem('smpn2_content_visimisi'));
   if (visiData) {
     const elVisi = document.getElementById('display-visi');
@@ -180,7 +173,6 @@ function renderPageContent() {
     if (inMisi) inMisi.value = visiData.misi;
   }
 
-  // Render Sarana & Prasarana
   const saranaData = JSON.parse(localStorage.getItem('smpn2_content_sarana'));
   if (saranaData) {
     const el = document.getElementById('display-sarana');
@@ -195,7 +187,7 @@ function saveBerandaData(event) {
   event.preventDefault();
   const berandaData = {
     sambutan: document.getElementById('input-beranda-sambutan').value,
-    kegiatan: document.getElementById('input-beranda-kegiatan').value,
+    kegiatan: document.getElementById('input-beranda-kegiatan')?.value || '',
     banner: document.getElementById('input-beranda-banner').value,
     kepsek: document.getElementById('input-beranda-kepsek').value,
     kadis: document.getElementById('input-beranda-kadis').value
@@ -210,13 +202,10 @@ function renderBerandaData() {
   const data = JSON.parse(localStorage.getItem('smpn2_content_beranda'));
   if (data) {
     if (document.getElementById('display-beranda-sambutan')) document.getElementById('display-beranda-sambutan').innerText = data.sambutan;
-    if (document.getElementById('display-beranda-kegiatan')) document.getElementById('display-beranda-kegiatan').innerText = data.kegiatan;
     if (document.getElementById('display-beranda-banner')) document.getElementById('display-beranda-banner').src = data.banner;
     if (document.getElementById('display-beranda-kepsek')) document.getElementById('display-beranda-kepsek').src = data.kepsek;
-    if (document.getElementById('display-beranda-kadis')) document.getElementById('display-beranda-kadis').src = data.kadis;
 
     if (document.getElementById('input-beranda-sambutan')) document.getElementById('input-beranda-sambutan').value = data.sambutan;
-    if (document.getElementById('input-beranda-kegiatan')) document.getElementById('input-beranda-kegiatan').value = data.kegiatan;
     if (document.getElementById('input-beranda-banner')) document.getElementById('input-beranda-banner').value = data.banner;
     if (document.getElementById('input-beranda-kepsek')) document.getElementById('input-beranda-kepsek').value = data.kepsek;
     if (document.getElementById('input-beranda-kadis')) document.getElementById('input-beranda-kadis').value = data.kadis;
