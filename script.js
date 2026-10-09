@@ -151,6 +151,14 @@ function savePageContent(event, pageKey) {
   renderPageContent();
 }
 
+function saveStrukturGambar(event) {
+  event.preventDefault();
+  const imgUrl = document.getElementById('input-struktur-img').value.trim();
+  localStorage.setItem('smpn2_content_struktur_img', imgUrl);
+  renderPageContent();
+  alert('Gambar Struktur Organisasi berhasil diperbarui!');
+}
+
 function renderPageContent() {
   const sejarahData = JSON.parse(localStorage.getItem('smpn2_content_sejarah'));
   if (sejarahData) {
@@ -180,6 +188,15 @@ function renderPageContent() {
     const inputS1 = document.getElementById('input-content-sarana');
     if (inputS1) inputS1.value = saranaData.text;
   }
+
+  // Render Struktur Gambar
+  const strukturImg = localStorage.getItem('smpn2_content_struktur_img');
+  if (strukturImg) {
+    const imgEl = document.getElementById('display-struktur-img');
+    if (imgEl) imgEl.src = strukturImg;
+    const inputStruktur = document.getElementById('input-struktur-img');
+    if (inputStruktur) inputStruktur.value = strukturImg;
+  }
 }
 
 // --- KELOLA HALAMAN BERANDA ---
@@ -188,8 +205,7 @@ function saveBerandaData(event) {
   const berandaData = {
     sambutan: document.getElementById('input-beranda-sambutan').value,
     banner: document.getElementById('input-beranda-banner').value,
-    kepsek: document.getElementById('input-beranda-kepsek').value,
-    kadis: document.getElementById('input-beranda-kadis').value
+    kepsek: document.getElementById('input-beranda-kepsek').value
   };
 
   localStorage.setItem('smpn2_content_beranda', JSON.stringify(berandaData));
@@ -207,7 +223,6 @@ function renderBerandaData() {
     if (document.getElementById('input-beranda-sambutan')) document.getElementById('input-beranda-sambutan').value = data.sambutan;
     if (document.getElementById('input-beranda-banner')) document.getElementById('input-beranda-banner').value = data.banner;
     if (document.getElementById('input-beranda-kepsek')) document.getElementById('input-beranda-kepsek').value = data.kepsek;
-    if (document.getElementById('input-beranda-kadis')) document.getElementById('input-beranda-kadis').value = data.kadis;
   }
 }
 
@@ -242,7 +257,7 @@ function tambahKegiatan() {
   deskripsiEl.value = '';
 
   renderKegiatanList();
-  alert('Kegiatan berhasil ditambahkan ke daftar!');
+  alert('Kegiatan berhasil ditambahkan!');
 }
 
 function hapusKegiatan(index) {
@@ -254,37 +269,94 @@ function hapusKegiatan(index) {
 
 function renderKegiatanList() {
   const list = getKegiatanList();
-  
   const adminListEl = document.getElementById('admin-kegiatan-list');
   if (adminListEl) {
-    if (list.length === 0) {
-      adminListEl.innerHTML = '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada kegiatan yang ditambahkan.</p>';
-    } else {
-      adminListEl.innerHTML = list.map((item, idx) => `
-        <div style="background: #f8fafc; padding: 12px 15px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <div>
-            <strong style="color: var(--primary-color);">${item.judul}</strong> <span style="font-size: 0.8rem; color: var(--text-muted);">(${item.tanggal || 'Tanpa Tanggal'})</span>
-            <p style="font-size: 0.85rem; color: var(--text-dark); margin-top: 3px;">${item.deskripsi}</p>
-          </div>
-          <button type="button" onclick="hapusKegiatan(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;"><i class="fas fa-trash"></i> Hapus</button>
-        </div>
-      `).join('');
-    }
+    adminListEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada kegiatan.</p>' : list.map((item, idx) => `
+      <div style="background: #f8fafc; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+        <div><strong>${item.judul}</strong> (${item.tanggal || 'Tanpa Tanggal'})<p style="font-size: 0.85rem;">${item.deskripsi}</p></div>
+        <button type="button" onclick="hapusKegiatan(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
+      </div>
+    `).join('');
   }
 
   const publicListEl = document.getElementById('display-beranda-kegiatan-list');
   if (publicListEl) {
-    if (list.length === 0) {
-      publicListEl.innerHTML = '<p style="color: var(--text-muted);">Belum ada informasi kegiatan terbaru.</p>';
-    } else {
-      publicListEl.innerHTML = list.map(item => `
-        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
-          <span style="font-size: 0.75rem; background: #e0f2fe; color: #0369a1; padding: 3px 8px; border-radius: 4px; font-weight: 600;"><i class="fas fa-calendar-alt"></i> ${item.tanggal || 'Agenda Sekolah'}</span>
-          <h4 style="color: var(--primary-color); margin: 10px 0 6px 0; font-size: 1.05rem;">${item.judul}</h4>
-          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">${item.deskripsi}</p>
+    publicListEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada informasi kegiatan terbaru.</p>' : list.map(item => `
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px;">
+        <span style="font-size: 0.75rem; background: #e0f2fe; color: #0369a1; padding: 3px 8px; border-radius: 4px; font-weight: 600;">${item.tanggal || 'Agenda Sekolah'}</span>
+        <h4 style="color: var(--primary-color); margin: 10px 0 6px 0;">${item.judul}</h4>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">${item.deskripsi}</p>
+      </div>
+    `).join('');
+  }
+}
+
+// --- KELOLA GURU & STAF OTOMATIS ---
+function getGuruList() {
+  const data = localStorage.getItem('smpn2_content_guru_list');
+  return data ? JSON.parse(data) : [];
+}
+
+function tambahGuru() {
+  const namaEl = document.getElementById('input-guru-nama');
+  const mapelEl = document.getElementById('input-guru-mapel');
+  const fotoEl = document.getElementById('input-guru-foto');
+
+  if (!namaEl || !mapelEl) return;
+
+  const nama = namaEl.value.trim();
+  const mapel = mapelEl.value.trim();
+  const foto = fotoEl.value.trim() || 'https://via.placeholder.com/150';
+
+  if (!nama || !mapel) {
+    alert('Nama dan Jabatan/Mapel guru wajib diisi!');
+    return;
+  }
+
+  let list = getGuruList();
+  list.push({ nama, mapel, foto });
+  localStorage.setItem('smpn2_content_guru_list', JSON.stringify(list));
+
+  namaEl.value = '';
+  mapelEl.value = '';
+  fotoEl.value = '';
+
+  renderGuruList();
+  alert('Data guru berhasil ditambahkan!');
+}
+
+function hapusGuru(index) {
+  let list = getGuruList();
+  list.splice(index, 1);
+  localStorage.setItem('smpn2_content_guru_list', JSON.stringify(list));
+  renderGuruList();
+}
+
+function renderGuruList() {
+  const list = getGuruList();
+  
+  const adminEl = document.getElementById('admin-guru-list');
+  if (adminEl) {
+    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada guru yang ditambahkan.</p>' : list.map((item, idx) => `
+      <div style="background: #f8fafc; padding: 10px 15px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="${item.foto}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+          <div><strong>${item.nama}</strong><br><small style="color: var(--text-muted);">${item.mapel}</small></div>
         </div>
-      `).join('');
-    }
+        <button type="button" onclick="hapusGuru(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
+      </div>
+    `).join('');
+  }
+
+  const publicEl = document.getElementById('display-guru-list');
+  if (publicEl) {
+    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada daftar dewan guru yang ditampilkan.</p>' : list.map(item => `
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
+        <img src="${item.foto}" alt="${item.nama}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 12px; border: 3px solid var(--primary-color);">
+        <h4 style="color: var(--primary-color); margin-bottom: 5px; font-size: 1rem;">${item.nama}</h4>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">${item.mapel}</p>
+      </div>
+    `).join('');
   }
 }
 
@@ -294,4 +366,5 @@ window.addEventListener('DOMContentLoaded', () => {
   renderPageContent();
   renderBerandaData();
   renderKegiatanList();
+  renderGuruList();
 });
