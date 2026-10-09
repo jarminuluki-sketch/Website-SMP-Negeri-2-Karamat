@@ -632,15 +632,15 @@
           <li><a onclick="showPage('view-pramuka')">Pramuka</a></li>
         </ul>
       </li>
-  <li class="nav-item">
-  <a href="#" class="nav-link">Peserta Didik <i class="fas fa-chevron-down" style="font-size: 10px; margin-left: 4px;"></i></a>
+  <li class="nav-item dropdown">
+  <a href="#" class="nav-link">Peserta Didik <i class="fas fa-chevron-down"></i></a>
   <ul class="dropdown-menu">
-    <li><a href="#" onclick="showPage('view-peserta-didik')">Kelas 7A</a></li>
-    <li><a href="#" onclick="showPage('view-peserta-didik')">Kelas 7B</a></li>
-    <li><a href="#" onclick="showPage('view-peserta-didik')">Kelas 8A</a></li>
-    <li><a href="#" onclick="showPage('view-peserta-didik')">Kelas 8B</a></li>
-    <li><a href="#" onclick="showPage('view-peserta-didik')">Kelas 9A</a></li>
-    <li><a href="#" onclick="showPage('view-peserta-didik')">Kelas 9B</a></li>
+    <li><a href="#" onclick="showPage('view-kelas-7a')">Kelas 7A</a></li>
+    <li><a href="#" onclick="showPage('view-kelas-7b')">Kelas 7B</a></li>
+    <li><a href="#" onclick="showPage('view-kelas-8a')">Kelas 8A</a></li>
+    <li><a href="#" onclick="showPage('view-kelas-8b')">Kelas 8B</a></li>
+    <li><a href="#" onclick="showPage('view-kelas-9a')">Kelas 9A</a></li>
+    <li><a href="#" onclick="showPage('view-kelas-9b')">Kelas 9B</a></li>
   </ul>
 </li>
       
@@ -949,59 +949,173 @@
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
       
-      <!-- Kelas 7A -->
-      <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-top: 4px solid var(--primary-color);">
-        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.2rem;">Kelas 7A</h3>
-        <p style="margin-bottom: 8px; color: var(--text-muted);">Laki-laki: <strong id="val-7a-L" style="color: var(--text-dark);">0 Siswa</strong></p>
-        <p style="margin-bottom: 12px; color: var(--text-muted);">Perempuan: <strong id="val-7a-P" style="color: var(--text-dark);">0 Siswa</strong></p>
-        <hr style="margin: 12px 0; border: 0; border-top: 1px solid #e2e8f0;">
-        <p id="val-7a-total" style="font-weight: bold; color: var(--primary-color);">Total: 0 Siswa</p>
+      <!-- ==================== HALAMAN KHUSUS KELAS 7A ==================== -->
+<div id="view-kelas-7a" class="page-view" style="display: none;">
+  <div class="container" style="padding: 40px 20px;">
+    <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2>Data Peserta Didik & Wali Kelas 7A</h2>
+      <button class="btn-back" onclick="showPage('view-beranda')" style="padding: 8px 16px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); align-items: center;">
+      <!-- Statistik Siswa -->
+      <div>
+        <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 1.3rem;"><i class="fas fa-chart-pie"></i> Statistik Siswa Kelas 7A</h3>
+        <p style="margin-bottom: 12px; color: var(--text-muted); font-size: 1.1rem;">Jumlah Laki-laki: <strong id="display-7a-L" style="color: var(--text-dark);">0 Siswa</strong></p>
+        <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 1.1rem;">Jumlah Perempuan: <strong id="display-7a-P" style="color: var(--text-dark);">0 Siswa</strong></p>
+        <hr style="margin: 15px 0; border: 0; border-top: 2px solid #e2e8f0;">
+        <p id="display-7a-total" style="font-weight: bold; color: var(--primary-color); font-size: 1.2rem;">Total: 0 Siswa</p>
       </div>
 
-      <!-- Kelas 7B -->
-      <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-top: 4px solid var(--primary-color);">
-        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.2rem;">Kelas 7B</h3>
-        <p style="margin-bottom: 8px; color: var(--text-muted);">Laki-laki: <strong id="val-7b-L" style="color: var(--text-dark);">0 Siswa</strong></p>
-        <p style="margin-bottom: 12px; color: var(--text-muted);">Perempuan: <strong id="val-7b-P" style="color: var(--text-dark);">0 Siswa</strong></p>
-        <hr style="margin: 12px 0; border: 0; border-top: 1px solid #e2e8f0;">
-        <p id="val-7b-total" style="font-weight: bold; color: var(--primary-color);">Total: 0 Siswa</p>
+      <!-- Info & Foto Wali Kelas -->
+      <div style="text-align: center; border-left: 2px solid #f1f5f9; padding-left: 30px;">
+        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.3rem;"><i class="fas fa-user-tie"></i> Wali Kelas 7A</h3>
+        <img id="display-7a-foto" src="https://via.placeholder.com/150" alt="Foto Wali Kelas 7A" style="width: 150px; height: 180px; object-fit: cover; border-radius: 8px; border: 3px solid var(--primary-color); margin-bottom: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h4 id="display-7a-wali" style="color: var(--text-dark); font-size: 1.1rem; font-weight: bold;">Nama Wali Kelas, S.Pd.</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!-- ==================== HALAMAN KHUSUS KELAS 7B ==================== -->
+<div id="view-kelas-7b" class="page-view" style="display: none;">
+  <div class="container" style="padding: 40px 20px;">
+    <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2>Data Peserta Didik & Wali Kelas 7B</h2>
+      <button class="btn-back" onclick="showPage('view-beranda')" style="padding: 8px 16px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); align-items: center;">
+      <!-- Statistik Siswa -->
+      <div>
+        <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 1.3rem;"><i class="fas fa-chart-pie"></i> Statistik Siswa Kelas 7B</h3>
+        <p style="margin-bottom: 12px; color: var(--text-muted); font-size: 1.1rem;">Jumlah Laki-laki: <strong id="display-7b-L" style="color: var(--text-dark);">0 Siswa</strong></p>
+        <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 1.1rem;">Jumlah Perempuan: <strong id="display-7b-P" style="color: var(--text-dark);">0 Siswa</strong></p>
+        <hr style="margin: 15px 0; border: 0; border-top: 2px solid #e2e8f0;">
+        <p id="display-7b-total" style="font-weight: bold; color: var(--primary-color); font-size: 1.2rem;">Total: 0 Siswa</p>
       </div>
 
-      <!-- Kelas 8A -->
-      <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-top: 4px solid var(--primary-color);">
-        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.2rem;">Kelas 8A</h3>
-        <p style="margin-bottom: 8px; color: var(--text-muted);">Laki-laki: <strong id="val-8a-L" style="color: var(--text-dark);">0 Siswa</strong></p>
-        <p style="margin-bottom: 12px; color: var(--text-muted);">Perempuan: <strong id="val-8a-P" style="color: var(--text-dark);">0 Siswa</strong></p>
-        <hr style="margin: 12px 0; border: 0; border-top: 1px solid #e2e8f0;">
-        <p id="val-8a-total" style="font-weight: bold; color: var(--primary-color);">Total: 0 Siswa</p>
+      <!-- Info & Foto Wali Kelas -->
+      <div style="text-align: center; border-left: 2px solid #f1f5f9; padding-left: 30px;">
+        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.3rem;"><i class="fas fa-user-tie"></i> Wali Kelas 7A</h3>
+        <img id="display-7b-foto" src="https://via.placeholder.com/150" alt="Foto Wali Kelas 7B" style="width: 150px; height: 180px; object-fit: cover; border-radius: 8px; border: 3px solid var(--primary-color); margin-bottom: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h4 id="display-7b-wali" style="color: var(--text-dark); font-size: 1.1rem; font-weight: bold;">Nama Wali Kelas, S.Pd.</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!-- ==================== HALAMAN KHUSUS KELAS 8A ==================== -->
+<div id="view-kelas-8a" class="page-view" style="display: none;">
+  <div class="container" style="padding: 40px 20px;">
+    <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2>Data Peserta Didik & Wali Kelas 8A</h2>
+      <button class="btn-back" onclick="showPage('view-beranda')" style="padding: 8px 16px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); align-items: center;">
+      <!-- Statistik Siswa -->
+      <div>
+        <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 1.3rem;"><i class="fas fa-chart-pie"></i> Statistik Siswa Kelas 8A</h3>
+        <p style="margin-bottom: 12px; color: var(--text-muted); font-size: 1.1rem;">Jumlah Laki-laki: <strong id="display-8a-L" style="color: var(--text-dark);">0 Siswa</strong></p>
+        <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 1.1rem;">Jumlah Perempuan: <strong id="display-8a-P" style="color: var(--text-dark);">0 Siswa</strong></p>
+        <hr style="margin: 15px 0; border: 0; border-top: 2px solid #e2e8f0;">
+        <p id="display-8a-total" style="font-weight: bold; color: var(--primary-color); font-size: 1.2rem;">Total: 0 Siswa</p>
       </div>
 
-      <!-- Kelas 8B -->
-      <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-top: 4px solid var(--primary-color);">
-        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.2rem;">Kelas 8B</h3>
-        <p style="margin-bottom: 8px; color: var(--text-muted);">Laki-laki: <strong id="val-8b-L" style="color: var(--text-dark);">0 Siswa</strong></p>
-        <p style="margin-bottom: 12px; color: var(--text-muted);">Perempuan: <strong id="val-8b-P" style="color: var(--text-dark);">0 Siswa</strong></p>
-        <hr style="margin: 12px 0; border: 0; border-top: 1px solid #e2e8f0;">
-        <p id="val-8b-total" style="font-weight: bold; color: var(--primary-color);">Total: 0 Siswa</p>
+      <!-- Info & Foto Wali Kelas -->
+      <div style="text-align: center; border-left: 2px solid #f1f5f9; padding-left: 30px;">
+        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.3rem;"><i class="fas fa-user-tie"></i> Wali Kelas 8A</h3>
+        <img id="display-8a-foto" src="https://via.placeholder.com/150" alt="Foto Wali Kelas 8A" style="width: 150px; height: 180px; object-fit: cover; border-radius: 8px; border: 3px solid var(--primary-color); margin-bottom: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h4 id="display-8a-wali" style="color: var(--text-dark); font-size: 1.1rem; font-weight: bold;">Nama Wali Kelas, S.Pd.</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!-- ==================== HALAMAN KHUSUS KELAS 8B ==================== -->
+<div id="view-kelas-8b" class="page-view" style="display: none;">
+  <div class="container" style="padding: 40px 20px;">
+    <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2>Data Peserta Didik & Wali Kelas 8B</h2>
+      <button class="btn-back" onclick="showPage('view-beranda')" style="padding: 8px 16px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); align-items: center;">
+      <!-- Statistik Siswa -->
+      <div>
+        <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 1.3rem;"><i class="fas fa-chart-pie"></i> Statistik Siswa Kelas 8B</h3>
+        <p style="margin-bottom: 12px; color: var(--text-muted); font-size: 1.1rem;">Jumlah Laki-laki: <strong id="display-8b-L" style="color: var(--text-dark);">0 Siswa</strong></p>
+        <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 1.1rem;">Jumlah Perempuan: <strong id="display-8b-P" style="color: var(--text-dark);">0 Siswa</strong></p>
+        <hr style="margin: 15px 0; border: 0; border-top: 2px solid #e2e8f0;">
+        <p id="display-8a-total" style="font-weight: bold; color: var(--primary-color); font-size: 1.2rem;">Total: 0 Siswa</p>
       </div>
 
-      <!-- Kelas 9A -->
-      <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-top: 4px solid var(--primary-color);">
-        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.2rem;">Kelas 9A</h3>
-        <p style="margin-bottom: 8px; color: var(--text-muted);">Laki-laki: <strong id="val-9a-L" style="color: var(--text-dark);">0 Siswa</strong></p>
-        <p style="margin-bottom: 12px; color: var(--text-muted);">Perempuan: <strong id="val-9a-P" style="color: var(--text-dark);">0 Siswa</strong></p>
-        <hr style="margin: 12px 0; border: 0; border-top: 1px solid #e2e8f0;">
-        <p id="val-9a-total" style="font-weight: bold; color: var(--primary-color);">Total: 0 Siswa</p>
+      <!-- Info & Foto Wali Kelas -->
+      <div style="text-align: center; border-left: 2px solid #f1f5f9; padding-left: 30px;">
+        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.3rem;"><i class="fas fa-user-tie"></i> Wali Kelas 8B</h3>
+        <img id="display-8b-foto" src="https://via.placeholder.com/150" alt="Foto Wali Kelas 8B" style="width: 150px; height: 180px; object-fit: cover; border-radius: 8px; border: 3px solid var(--primary-color); margin-bottom: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h4 id="display-8b-wali" style="color: var(--text-dark); font-size: 1.1rem; font-weight: bold;">Nama Wali Kelas, S.Pd.</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!-- ==================== HALAMAN KHUSUS KELAS 9A ==================== -->
+<div id="view-kelas-9a" class="page-view" style="display: none;">
+  <div class="container" style="padding: 40px 20px;">
+    <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2>Data Peserta Didik & Wali Kelas 9A</h2>
+      <button class="btn-back" onclick="showPage('view-beranda')" style="padding: 8px 16px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); align-items: center;">
+      <!-- Statistik Siswa -->
+      <div>
+        <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 1.3rem;"><i class="fas fa-chart-pie"></i> Statistik Siswa Kelas 9A</h3>
+        <p style="margin-bottom: 12px; color: var(--text-muted); font-size: 1.1rem;">Jumlah Laki-laki: <strong id="display-9a-L" style="color: var(--text-dark);">0 Siswa</strong></p>
+        <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 1.1rem;">Jumlah Perempuan: <strong id="display-9a-P" style="color: var(--text-dark);">0 Siswa</strong></p>
+        <hr style="margin: 15px 0; border: 0; border-top: 2px solid #e2e8f0;">
+        <p id="display-9a-total" style="font-weight: bold; color: var(--primary-color); font-size: 1.2rem;">Total: 0 Siswa</p>
       </div>
 
-      <!-- Kelas 9B -->
-      <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-top: 4px solid var(--primary-color);">
-        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.2rem;">Kelas 9B</h3>
-        <p style="margin-bottom: 8px; color: var(--text-muted);">Laki-laki: <strong id="val-9b-L" style="color: var(--text-dark);">0 Siswa</strong></p>
-        <p style="margin-bottom: 12px; color: var(--text-muted);">Perempuan: <strong id="val-9b-P" style="color: var(--text-dark);">0 Siswa</strong></p>
-        <hr style="margin: 12px 0; border: 0; border-top: 1px solid #e2e8f0;">
-        <p id="val-9b-total" style="font-weight: bold; color: var(--primary-color);">Total: 0 Siswa</p>
+      <!-- Info & Foto Wali Kelas -->
+      <div style="text-align: center; border-left: 2px solid #f1f5f9; padding-left: 30px;">
+        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.3rem;"><i class="fas fa-user-tie"></i> Wali Kelas 9A</h3>
+        <img id="display-9a-foto" src="https://via.placeholder.com/150" alt="Foto Wali Kelas 9A" style="width: 150px; height: 180px; object-fit: cover; border-radius: 8px; border: 3px solid var(--primary-color); margin-bottom: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h4 id="display-9a-wali" style="color: var(--text-dark); font-size: 1.1rem; font-weight: bold;">Nama Wali Kelas, S.Pd.</h4>
       </div>
+    </div>
+  </div>
+</div>
+
+      <!-- ==================== HALAMAN KHUSUS KELAS 9B ==================== -->
+<div id="view-kelas-9b" class="page-view" style="display: none;">
+  <div class="container" style="padding: 40px 20px;">
+    <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2>Data Peserta Didik & Wali Kelas 9B</h2>
+      <button class="btn-back" onclick="showPage('view-beranda')" style="padding: 8px 16px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</button>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); align-items: center;">
+      <!-- Statistik Siswa -->
+      <div>
+        <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 1.3rem;"><i class="fas fa-chart-pie"></i> Statistik Siswa Kelas 9B</h3>
+        <p style="margin-bottom: 12px; color: var(--text-muted); font-size: 1.1rem;">Jumlah Laki-laki: <strong id="display-9b-L" style="color: var(--text-dark);">0 Siswa</strong></p>
+        <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 1.1rem;">Jumlah Perempuan: <strong id="display-9b-P" style="color: var(--text-dark);">0 Siswa</strong></p>
+        <hr style="margin: 15px 0; border: 0; border-top: 2px solid #e2e8f0;">
+        <p id="display-9a-total" style="font-weight: bold; color: var(--primary-color); font-size: 1.2rem;">Total: 0 Siswa</p>
+      </div>
+
+      <!-- Info & Foto Wali Kelas -->
+      <div style="text-align: center; border-left: 2px solid #f1f5f9; padding-left: 30px;">
+        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.3rem;"><i class="fas fa-user-tie"></i> Wali Kelas 8B</h3>
+        <img id="display-9b-foto" src="https://via.placeholder.com/150" alt="Foto Wali Kelas 9A" style="width: 150px; height: 180px; object-fit: cover; border-radius: 8px; border: 3px solid var(--primary-color); margin-bottom: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h4 id="display-9b-wali" style="color: var(--text-dark); font-size: 1.1rem; font-weight: bold;">Nama Wali Kelas, S.Pd.</h4>
+      </div>
+    </div>
+  </div>
+</div>
 
     </div>
   </div>
@@ -1072,46 +1186,62 @@
         <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-users"></i> Kelola Data Peserta Didik (Kelas 7A - 9B)</h3>
         <form onsubmit="saveStudentData(event)">
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 25px;">
-            <!-- 7A -->
-            <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
-              <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 7A</h4>
-              <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-7a-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
-              <div><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-7a-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
-            </div>
-            <!-- 7B -->
-            <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
-              <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 7B</h4>
-              <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-7b-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
-              <div><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-7b-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
-            </div>
-            <!-- 8A -->
-            <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
-              <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 8A</h4>
-              <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-8a-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
-              <div><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-8a-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
-            </div>
-            <!-- 8B -->
-            <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
-              <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 8B</h4>
-              <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-8b-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
-              <div><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-8b-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
-            </div>
-            <!-- 9A -->
-            <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
-              <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 9A</h4>
-              <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-9a-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
-              <div><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-9a-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
-            </div>
-            <!-- 9B -->
-            <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
-              <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 9B</h4>
-              <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-9b-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
-              <div><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-9b-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
-            </div>
-          </div>
-          <button type="submit" style="background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Data Siswa</button>
-        </form>
-      </div>
+  
+  <!-- Kelas 7A -->
+  <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+    <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 7A</h4>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-7a-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-7a-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Nama Wali Kelas:</label><input type="text" id="input-7a-wali" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" placeholder="Nama & Gelar"></div>
+    <div><label style="font-size: 0.85rem; font-weight: 600;">URL / Link Foto Wali Kelas:</label><input type="text" id="input-7a-foto" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" placeholder="images/wali-7a.jpg"></div>
+  </div>
+
+  <!-- Kelas 7B -->
+  <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+    <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 7B</h4>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-7b-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-7b-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Nama Wali Kelas:</label><input type="text" id="input-7b-wali" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" placeholder="Nama & Gelar"></div>
+    <div><label style="font-size: 0.85rem; font-weight: 600;">URL / Link Foto Wali Kelas:</label><input type="text" id="input-7b-foto" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" placeholder="images/wali-7b.jpg"></div>
+  </div>
+
+  <!-- Kelas 8A -->
+  <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+    <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 8A</h4>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-8a-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-8a-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Nama Wali Kelas:</label><input type="text" id="input-8a-wali" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" placeholder="Nama & Gelar"></div>
+    <div><label style="font-size: 0.85rem; font-weight: 600;">URL / Link Foto Wali Kelas:</label><input type="text" id="input-8a-foto" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" placeholder="images/wali-8a.jpg"></div>
+  </div>
+
+  <!-- Kelas 8B -->
+  <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+    <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 8B</h4>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-8b-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-8b-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Nama Wali Kelas:</label><input type="text" id="input-8b-wali" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" placeholder="Nama & Gelar"></div>
+    <div><label style="font-size: 0.85rem; font-weight: 600;">URL / Link Foto Wali Kelas:</label><input type="text" id="input-8b-foto" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" placeholder="images/wali-8b.jpg"></div>
+  </div>
+
+  <!-- Kelas 9A -->
+  <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+    <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 9A</h4>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-9a-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-9a-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Nama Wali Kelas:</label><input type="text" id="input-9a-wali" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" placeholder="Nama & Gelar"></div>
+    <div><label style="font-size: 0.85rem; font-weight: 600;">URL / Link Foto Wali Kelas:</label><input type="text" id="input-9a-foto" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" placeholder="images/wali-9a.jpg"></div>
+  </div>
+
+  <!-- Kelas 9B -->
+  <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+    <h4 style="color: var(--primary-color); margin-bottom: 10px;">Kelas 9B</h4>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Laki-laki:</label><input type="number" id="input-9b-L" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Perempuan:</label><input type="number" id="input-9b-P" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" required></div>
+    <div style="margin-bottom: 10px;"><label style="font-size: 0.85rem; font-weight: 600;">Nama Wali Kelas:</label><input type="text" id="input-9b-wali" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" placeholder="Nama & Gelar"></div>
+    <div><label style="font-size: 0.85rem; font-weight: 600;">URL / Link Foto Wali Kelas:</label><input type="text" id="input-9b-foto" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-top: 4px;" placeholder="images/wali-9b.jpg"></div>
+  </div>
+
+</div>
 
       <!-- 2. TAB KELOLA SEJARAH -->
       <div id="tab-sejarah" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
