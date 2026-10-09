@@ -111,8 +111,6 @@ function saveStudentData(event) {
 }
 
 
-// --- 4. SISTEM KEAMANAN LOGIN PETUGAS ---
-
 function checkLoginAndOpenMenu() {
   const isAuth = localStorage.getItem('smpn2_petugas_logged_in');
   if (isAuth === 'true') {
@@ -127,7 +125,6 @@ function handleLogin(event) {
   const user = document.getElementById('login-user').value;
   const pass = document.getElementById('login-pass').value;
 
-  // Kredensial Petugas
   const validUser = 'admin';
   const validPass = 'smpn2karamat';
 
