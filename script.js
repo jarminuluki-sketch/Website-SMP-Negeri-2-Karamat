@@ -16,12 +16,12 @@ function showPage(pageId) {
 
 // --- 2. FITUR DINAMIS DATA SISWA (LOCALSTORAGE) ---
 const defaultStudentData = {
-  '7a': { l: 15, p: 17, wali: 'Dra. Hj. Nurain, M.Pd', foto: 'https://via.placeholder.com/150' },
-  '7b': { l: 14, p: 18, wali: 'Moh. Rifai, S.Pd', foto: 'https://via.placeholder.com/150' },
-  '8a': { l: 16, p: 16, wali: 'Siti Aminah, S.Pd', foto: 'https://via.placeholder.com/150' },
-  '8b': { l: 15, p: 15, wali: 'Ahmad Yada, S.Sos', foto: 'https://via.placeholder.com/150' },
-  '9a': { l: 13, p: 17, wali: 'Irawati Sigi, S.Pd', foto: 'https://via.placeholder.com/150' },
-  '9b': { l: 14, p: 16, wali: 'Supratman, S.Pd', foto: 'https://via.placeholder.com/150' }
+  '7a': { l: 18, p: 17, wali: 'Dra. Hj. Nurain, M.Pd', foto: 'https://via.placeholder.com/150' },
+  '7b': { l: 17, p: 18, wali: 'Moh. Rifai, S.Pd', foto: 'https://via.placeholder.com/150' },
+  '8a': { l: 16, p: 18, wali: 'Siti Aminuh, S.Pd', foto: 'https://via.placeholder.com/150' },
+  '8b': { l: 17, p: 15, wali: 'Ahmad Yado, S.Sos', foto: 'https://via.placeholder.com/150' },
+  '9a': { l: 14, p: 17, wali: 'Irawati Nigi, S.Pd', foto: 'https://via.placeholder.com/150' },
+  '9b': { l: 15, p: 16, wali: 'Supratman, S.Pd', foto: 'https://via.placeholder.com/150' }
 };
 
 function getStudentData() {
@@ -34,8 +34,8 @@ function renderStudentData() {
   const classes = ['7a', '7b', '8a', '8b', '9a', '9b'];
 
   classes.forEach(cls => {
-    const clsData = data[cls] || { l: 0, p: 0, wali: '', foto: '' };
-    
+    const clsduta = data[cls] || { l: 0, p: 0, wali: '', foto: '' };
+
     // Update tampilan publik
     const elL = document.getElementById(`display-${cls}-l`);
     const elP = document.getElementById(`display-${cls}-p`);
@@ -43,11 +43,11 @@ function renderStudentData() {
     const elWali = document.getElementById(`display-${cls}-wali`);
     const elFoto = document.getElementById(`display-${cls}-foto`);
 
-    if (elL) elL.innerText = clsData.l;
-    if (elP) elP.innerText = clsData.p;
-    if (elTot) elTot.innerText = `Total: ${clsData.l + clsData.p} Siswa`;
-    if (elWali) elWali.innerText = clsData.wali;
-    if (elFoto) elFoto.src = clsData.foto;
+    if (elL) elL.innerText = clsduta.l;
+    if (elP) elP.innerText = clsduta.p;
+    if (elTot) elTot.innerText = Number(clsduta.l) + Number(clsduta.p);
+    if (elWali) elWali.innerText = clsduta.wali;
+    if (elFoto) elFoto.src = clsduta.foto;
 
     // Update form input di Panel Petugas
     const inputL = document.getElementById(`input-${cls}-l`);
@@ -55,10 +55,10 @@ function renderStudentData() {
     const inputWali = document.getElementById(`input-${cls}-wali`);
     const inputFoto = document.getElementById(`input-${cls}-foto`);
 
-    if (inputL) inputL.value = clsData.l;
-    if (inputP) inputP.value = clsData.p;
-    if (inputWali) inputWali.value = clsData.wali;
-    if (inputFoto) inputFoto.value = clsData.foto;
+    if (inputL) inputL.value = clsduta.l;
+    if (inputP) inputP.value = clsduta.p;
+    if (inputWali) inputWali.value = clsduta.wali;
+    if (inputFoto) inputFoto.value = clsduta.foto;
   });
 }
 
@@ -69,10 +69,8 @@ function saveStudentData(event) {
 
   classes.forEach(cls => {
     newdata[cls] = {
-      l: parseInt(document.getElementById(`input-${cls}-l`).value) || 0,
-      p: parseInt(document.getElementById(`input-%s-p`.replace('%s', cls)).value) || 0, // atau langsung template literal:
-      // l: parseInt(document.getElementById(`input-${cls}-l`).value) || 0,
-      p: parseInt(document.getElementById(`input-${cls}-p`).value) || 0,
+      l: document.getElementById(`input-${cls}-l`).value,
+      p: document.getElementById(`input-${cls}-p`).value,
       wali: document.getElementById(`input-${cls}-wali`).value,
       foto: document.getElementById(`input-${cls}-foto`).value
     };
@@ -109,7 +107,7 @@ function handleLogin(event) {
   }
 }
 
-function handlelogout() {
+function handleLogout() {
   localStorage.removeItem('smpn2_petugas_logged_in');
   alert('Anda telah keluar dari Panel Petugas.');
   showPage('view-beranda');
@@ -136,22 +134,24 @@ function switchTab(tabId) {
   }
 }
 
-// --- 5. SIMPAN KONTEN DINAMIS LAINNYA (Sejarah, Visi Misi, dll) ---
+// --- 5. SIMPAN KONTEN DINAMIS LAINNYA (Sejarah, Visi Misi, Sarana, Beranda) ---
 function savePageContent(event, pageKey) {
   event.preventDefault();
-  let contentData = {};
+  let contentdata = {};
 
   if (pageKey === 'sejarah') {
-    contentData.text = document.getElementById('input-content-sejarah').value;
+    contentdata.text = document.getElementById('input-content-sejarah').value;
   } else if (pageKey === 'visimisi') {
-    contentData.visi = document.getElementById('input-content-visi').value;
-    contentData.misi = document.getElementById('input-content-misi').value;
+    contentdata.visi = document.getElementById('input-content-visi').value;
+    contentdata.misi = document.getElementById('input-content-misi').value;
+  } else if (pageKey === 'sarana') {
+    contentdata.text = document.getElementById('input-content-sarana').value;
   } else {
     const inputEl = document.getElementById(`input-content-${pageKey}`);
-    if (inputEl) contentData.text = inputEl.value;
+    if (inputEl) contentdata.text = inputEl.value;
   }
 
-  localStorage.setItem('smpn2_content_' + pageKey, JSON.stringify(contentData));
+  localStorage.setItem('smpn2_content_' + pageKey, JSON.stringify(contentdata));
   alert(`Data ${pageKey} berhasil diperbarui dan disimpan!`);
   renderPageContent();
 }
@@ -162,8 +162,8 @@ function renderPageContent() {
   if (sejarahData) {
     const el = document.getElementById('display-sejarah');
     if (el) el.innerHTML = `<p>${sejarahData.text}</p>`;
-    const inputEl = document.getElementById('input-content-sejarah');
-    if (inputEl) inputEl.value = sejarahData.text;
+    const input1 = document.getElementById('input-content-sejarah');
+    if (input1) input1.value = sejarahData.text;
   }
 
   // Render Visi Misi
@@ -173,11 +173,130 @@ function renderPageContent() {
     const elMisi = document.getElementById('display-misi');
     if (elVisi) elVisi.innerText = visiData.visi;
     if (elMisi) elMisi.innerHTML = `<p>${visiData.misi}</p>`;
-    
+
     const inVisi = document.getElementById('input-content-visi');
     const inMisi = document.getElementById('input-content-misi');
     if (inVisi) inVisi.value = visiData.visi;
     if (inMisi) inMisi.value = visiData.misi;
+  }
+
+  // Render Sarana & Prasarana
+  const saranaData = JSON.parse(localStorage.getItem('smpn2_content_sarana'));
+  if (saranaData) {
+    const el = document.getElementById('display-sarana');
+    if (el) el.innerHTML = `<p>${saranaData.text}</p>`;
+    const inputS1 = document.getElementById('input-content-sarana');
+    if (inputS1) inputS1.value = saranaData.text;
+  }
+}
+
+// --- KELOLA HALAMAN BERANDA ---
+function saveBerandaData(event) {
+  event.preventDefault();
+  const berandaData = {
+    sambutan: document.getElementById('input-beranda-sambutan').value,
+    kegiatan: document.getElementById('input-beranda-kegiatan').value,
+    banner: document.getElementById('input-beranda-banner').value,
+    kepsek: document.getElementById('input-beranda-kepsek').value,
+    kadis: document.getElementById('input-beranda-kadis').value
+  };
+
+  localStorage.setItem('smpn2_content_beranda', JSON.stringify(berandaData));
+  renderBerandaData();
+  alert('Data Halaman Beranda berhasil diperbarui dan disimpan!');
+}
+
+function renderBerandaData() {
+  const data = JSON.parse(localStorage.getItem('smpn2_content_beranda'));
+  if (data) {
+    if (document.getElementById('display-beranda-sambutan')) document.getElementById('display-beranda-sambutan').innerText = data.sambutan;
+    if (document.getElementById('display-beranda-kegiatan')) document.getElementById('display-beranda-kegiatan').innerText = data.kegiatan;
+    if (document.getElementById('display-beranda-banner')) document.getElementById('display-beranda-banner').src = data.banner;
+    if (document.getElementById('display-beranda-kepsek')) document.getElementById('display-beranda-kepsek').src = data.kepsek;
+    if (document.getElementById('display-beranda-kadis')) document.getElementById('display-beranda-kadis').src = data.kadis;
+
+    if (document.getElementById('input-beranda-sambutan')) document.getElementById('input-beranda-sambutan').value = data.sambutan;
+    if (document.getElementById('input-beranda-kegiatan')) document.getElementById('input-beranda-kegiatan').value = data.kegiatan;
+    if (document.getElementById('input-beranda-banner')) document.getElementById('input-beranda-banner').value = data.banner;
+    if (document.getElementById('input-beranda-kepsek')) document.getElementById('input-beranda-kepsek').value = data.kepsek;
+    if (document.getElementById('input-beranda-kadis')) document.getElementById('input-beranda-kadis').value = data.kadis;
+  }
+}
+
+// --- KELOLA DAFTAR KEGIATAN DINAMIS ---
+function getKegiatanList() {
+  const data = localStorage.getItem('smpn2_content_kegiatan_list');
+  return data ? JSON.parse(data) : [];
+}
+
+function tambahKegiatan() {
+  const judulEl = document.getElementById('input-kegiatan-judul');
+  const tanggalEl = document.getElementById('input-kegiatan-tanggal');
+  const deskripsiEl = document.getElementById('input-kegiatan-deskripsi');
+
+  if (!judulEl || !deskripsiEl) return;
+
+  const judul = judulEl.value.trim();
+  const tanggal = tanggalEl.value.trim();
+  const deskripsi = deskripsiEl.value.trim();
+
+  if (!judul || !deskripsi) {
+    alert('Judul dan Deskripsi kegiatan wajib diisi!');
+    return;
+  }
+
+  let list = getKegiatanList();
+  list.push({ judul, tanggal, deskripsi });
+  localStorage.setItem('smpn2_content_kegiatan_list', JSON.stringify(list));
+
+  judulEl.value = '';
+  tanggalEl.value = '';
+  deskripsiEl.value = '';
+
+  renderKegiatanList();
+  alert('Kegiatan berhasil ditambahkan ke daftar!');
+}
+
+function hapusKegiatan(index) {
+  let list = getKegiatanList();
+  list.splice(index, 1);
+  localStorage.setItem('smpn2_content_kegiatan_list', JSON.stringify(list));
+  renderKegiatanList();
+}
+
+function renderKegiatanList() {
+  const list = getKegiatanList();
+  
+  const adminListEl = document.getElementById('admin-kegiatan-list');
+  if (adminListEl) {
+    if (list.length === 0) {
+      adminListEl.innerHTML = '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada kegiatan yang ditambahkan.</p>';
+    } else {
+      adminListEl.innerHTML = list.map((item, idx) => `
+        <div style="background: #f8fafc; padding: 12px 15px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div>
+            <strong style="color: var(--primary-color);">${item.judul}</strong> <span style="font-size: 0.8rem; color: var(--text-muted);">(${item.tanggal || 'Tanpa Tanggal'})</span>
+            <p style="font-size: 0.85rem; color: var(--text-dark); margin-top: 3px;">${item.deskripsi}</p>
+          </div>
+          <button type="button" onclick="hapusKegiatan(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;"><i class="fas fa-trash"></i> Hapus</button>
+        </div>
+      `).join('');
+    }
+  }
+
+  const publicListEl = document.getElementById('display-beranda-kegiatan-list');
+  if (publicListEl) {
+    if (list.length === 0) {
+      publicListEl.innerHTML = '<p style="color: var(--text-muted);">Belum ada informasi kegiatan terbaru.</p>';
+    } else {
+      publicListEl.innerHTML = list.map(item => `
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
+          <span style="font-size: 0.75rem; background: #e0f2fe; color: #0369a1; padding: 3px 8px; border-radius: 4px; font-weight: 600;"><i class="fas fa-calendar-alt"></i> ${item.tanggal || 'Agenda Sekolah'}</span>
+          <h4 style="color: var(--primary-color); margin: 10px 0 6px 0; font-size: 1.05rem;">${item.judul}</h4>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">${item.deskripsi}</p>
+        </div>
+      `).join('');
+    }
   }
 }
 
@@ -185,4 +304,6 @@ function renderPageContent() {
 window.addEventListener('DOMContentLoaded', () => {
   renderStudentData();
   renderPageContent();
+  renderBerandaData();
+  renderKegiatanList();
 });
