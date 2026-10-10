@@ -142,6 +142,8 @@ function savePageContent(event, pageKey) {
   } else if (pageKey === 'visimisi') {
     contentdata.visi = document.getElementById('input-content-visi').value;
     contentdata.misi = document.getElementById('input-content-misi').value;
+  } else if (pageKey === 'tupoksi') {
+    contentdata.text = document.getElementById('input-content-tupoksi').value;
   }
 
   localStorage.setItem('smpn2_content_' + pageKey, JSON.stringify(contentdata));
@@ -190,6 +192,14 @@ function renderPageContent() {
     const inMisi = document.getElementById('input-content-misi');
     if (inVisi) inVisi.value = visiData.visi;
     if (inMisi) inMisi.value = visiData.misi;
+  }
+
+  const tupoksiData = JSON.parse(localStorage.getItem('smpn2_content_tupoksi'));
+  if (tupoksiData) {
+    const elTupoksi = document.getElementById('display-tupoksi');
+    if (elTupoksi) elTupoksi.innerHTML = `<p>${tupoksiData.text}</p>`;
+    const inTupoksi = document.getElementById('input-content-tupoksi');
+    if (inTupoksi) inTupoksi.value = tupoksiData.text;
   }
 
   const strukturImg = localStorage.getItem('smpn2_content_struktur_img');
@@ -306,7 +316,76 @@ function renderKegiatanList() {
   }
 }
 
-// --- KELOLA SARANA & PRASARANA DINAMIS (GAMBAR & KETERANGAN) ---
+// --- KELOLA VIDEO KEGIATAN DINAMIS ---
+function getVideoList() {
+  const data = localStorage.getItem('smpn2_content_video_list');
+  return data ? JSON.parse(data) : [];
+}
+
+function tambahVideo() {
+  const judulEl = document.getElementById('input-video-judul');
+  const urlEl = document.getElementById('input-video-url');
+  const ketEl = document.getElementById('input-video-ket');
+
+  if (!judulEl || !urlEl || !ketEl) return;
+
+  const judul = judulEl.value.trim();
+  const url = urlEl.value.trim();
+  const ket = ketEl.value.trim();
+
+  if (!judul || !url) {
+    alert('Judul dan URL Embed Video wajib diisi!');
+    return;
+  }
+
+  let list = getVideoList();
+  list.push({ judul, url, ket });
+  localStorage.setItem('smpn2_content_video_list', JSON.stringify(list));
+
+  judulEl.value = '';
+  urlEl.value = '';
+  ketEl.value = '';
+
+  renderVideoList();
+  alert('Video kegiatan berhasil ditambahkan!');
+}
+
+function hapusVideo(index) {
+  let list = getVideoList();
+  list.splice(index, 1);
+  localStorage.setItem('smpn2_content_video_list', JSON.stringify(list));
+  renderVideoList();
+}
+
+function renderVideoList() {
+  const list = getVideoList();
+  const adminEl = document.getElementById('admin-video-list');
+  if (adminEl) {
+    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada video.</p>' : list.map((item, idx) => `
+      <div style="background: #f8fafc; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+        <div><strong>${item.judul}</strong><br><small style="color: var(--text-muted);">${item.url}</small></div>
+        <button type="button" onclick="hapusVideo(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
+      </div>
+    `).join('');
+  }
+
+  const publicEl = document.getElementById('display-beranda-video-list');
+  if (publicEl) {
+    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada video kegiatan yang ditambahkan.</p>' : list.map(item => `
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
+        <div style="width: 100%; height: 200px;">
+          <iframe src="${item.url}" title="${item.judul}" width="100%" height="100%" style="border:0;" allowfullscreen></iframe>
+        </div>
+        <div style="padding: 15px;">
+          <h4 style="color: var(--primary-color); margin-bottom: 6px; font-size: 1.05rem;">${item.judul}</h4>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">${item.ket}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+// --- KELOLA SARANA & PRASARANA DINAMIS ---
 function getSaranaList() {
   const data = localStorage.getItem('smpn2_content_sarana_list');
   return data ? JSON.parse(data) : [];
@@ -376,7 +455,7 @@ function renderSaranaList() {
   }
 }
 
-// --- KELOLA GURU & STAF OTOMATIS ---
+// --- KELOLA GURU & STAF OTOMATIS (TANPA BINGKAI & BACKGROUND) ---
 function getGuruList() {
   const data = localStorage.getItem('smpn2_content_guru_list');
   return data ? JSON.parse(data) : [];
@@ -436,7 +515,7 @@ function renderGuruList() {
   if (publicEl) {
     publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada daftar dewan guru yang ditampilkan.</p>' : list.map(item => `
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
-        <img src="${item.foto}" alt="${item.nama}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 12px; border: 3px solid var(--primary-color);">
+        <img src="${item.foto}" alt="${item.nama}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 12px; border: none; background: transparent;">
         <h4 style="color: var(--primary-color); margin-bottom: 5px; font-size: 1rem;">${item.nama}</h4>
         <p style="color: var(--text-muted); font-size: 0.85rem;">${item.mapel}</p>
       </div>
@@ -444,7 +523,7 @@ function renderGuruList() {
   }
 }
 
-// --- KELOLA KEGIATAN PRAMUKA (GAMBAR & KEGIATAN) ---
+// --- KELOLA KEGIATAN PRAMUKA ---
 function getPramukaList() {
   const data = localStorage.getItem('smpn2_content_pramuka_list');
   return data ? JSON.parse(data) : [];
@@ -514,7 +593,7 @@ function renderPramukaList() {
   }
 }
 
-// --- KELOLA KEGIATAN PENCAK SILAT (GAMBAR & KEGIATAN) ---
+// --- KELOLA KEGIATAN PENCAK SILAT ---
 function getSilatList() {
   const data = localStorage.getItem('smpn2_content_silat_list');
   return data ? JSON.parse(data) : [];
@@ -590,6 +669,7 @@ window.addEventListener('DOMContentLoaded', () => {
   renderPageContent();
   renderBerandaData();
   renderKegiatanList();
+  renderVideoList();
   renderSaranaList();
   renderGuruList();
   renderPramukaList();
