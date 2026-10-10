@@ -251,7 +251,7 @@ function renderBerandaData() {
   }
 }
 
-// --- KELOLA DAFTAR KEGIATAN DINAMIS (DENGAN FOTO) ---
+// --- KELOLA DAFTAR KEGIATAN DINAMIS (FOTO FULL / OBJECT-FIT CONTAIN) ---
 function getKegiatanList() {
   const data = localStorage.getItem('smpn2_content_kegiatan_list');
   return data ? JSON.parse(data) : [];
@@ -302,7 +302,7 @@ function renderKegiatanList() {
     adminListEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada kegiatan.</p>' : list.map((item, idx) => `
       <div style="background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
         <div style="display: flex; align-items: center; gap: 12px;">
-          ${item.foto ? `<img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: cover;">` : ''}
+          ${item.foto ? `<img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: contain; background: #000;">` : ''}
           <div><strong>${item.judul}</strong> (${item.tanggal || 'Tanpa Tanggal'})<p style="font-size: 0.85rem;">${item.deskripsi}</p></div>
         </div>
         <button type="button" onclick="hapusKegiatan(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
@@ -314,7 +314,7 @@ function renderKegiatanList() {
   if (publicListEl) {
     publicListEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada informasi kegiatan terbaru.</p>' : list.map(item => `
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-        ${item.foto ? `<img src="${item.foto}" alt="${item.judul}" style="width: 100%; height: 180px; object-fit: cover;">` : ''}
+        ${item.foto ? `<div style="width: 100%; max-height: 380px; background: #0f172a; display: flex; align-items: center; justify-content: center; overflow: hidden;"><img src="${item.foto}" alt="${item.judul}" style="width: 100%; height: auto; max-height: 380px; object-fit: contain;"></div>` : ''}
         <div style="padding: 20px;">
           <span style="font-size: 0.75rem; background: #e0f2fe; color: #0369a1; padding: 3px 8px; border-radius: 4px; font-weight: 600;">${item.tanggal || 'Agenda Sekolah'}</span>
           <h4 style="color: var(--primary-color); margin: 10px 0 6px 0;">${item.judul}</h4>
@@ -325,7 +325,7 @@ function renderKegiatanList() {
   }
 }
 
-// --- KELOLA VIDEO KEGIATAN DINAMIS ---
+// --- KELOLA VIDEO KEGIATAN DINAMIS (FULL DISPLAY) ---
 function getVideoList() {
   const data = localStorage.getItem('smpn2_content_video_list');
   return data ? JSON.parse(data) : [];
@@ -382,7 +382,7 @@ function renderVideoList() {
   if (publicEl) {
     publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada video kegiatan yang ditambahkan.</p>' : list.map(item => `
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-        <div style="width: 100%; height: 200px;">
+        <div style="width: 100%; height: 315px; background: #000;">
           <iframe src="${item.url}" title="${item.judul}" width="100%" height="100%" style="border:0;" allowfullscreen></iframe>
         </div>
         <div style="padding: 20px;">
@@ -442,7 +442,7 @@ function renderSaranaList() {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada sarana.</p>' : list.map((item, idx) => `
       <div style="background: #f8fafc; padding: 10px 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
         <div style="display: flex; align-items: center; gap: 12px;">
-          <img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: cover;">
+          <img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: contain; background: #000;">
           <div><strong>${item.nama}</strong><br><small style="color: var(--text-muted);">${item.ket}</small></div>
         </div>
         <button type="button" onclick="hapusSarana(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
@@ -454,7 +454,7 @@ function renderSaranaList() {
   if (publicEl) {
     publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada data sarana dan prasarana.</p>' : list.map(item => `
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-        <img src="${item.foto}" alt="${item.nama}" style="width: 100%; height: 180px; object-fit: cover;">
+        <div style="width: 100%; height: 200px; background: #0f172a; overflow: hidden; display: flex; align-items: center; justify-content: center;"><img src="${item.foto}" alt="${item.nama}" style="width: 100%; height: 100%; object-fit: contain;"></div>
         <div style="padding: 20px;">
           <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 1.05rem;">${item.nama}</h4>
           <p style="color: var(--text-muted); font-size: 0.9rem;">${item.ket}</p>
@@ -464,7 +464,7 @@ function renderSaranaList() {
   }
 }
 
-// --- KELOLA GURU & STAF OTOMATIS (TANPA BINGKAI & BACKGROUND) ---
+// --- KELOLA GURU & STAF OTOMATIS ---
 function getGuruList() {
   const data = localStorage.getItem('smpn2_content_guru_list');
   return data ? JSON.parse(data) : [];
@@ -580,7 +580,7 @@ function renderPramukaList() {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada kegiatan.</p>' : list.map((item, idx) => `
       <div style="background: #f8fafc; padding: 10px 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
         <div style="display: flex; align-items: center; gap: 12px;">
-          <img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: cover;">
+          <img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: contain; background: #000;">
           <div><strong>${item.judul}</strong><br><small style="color: var(--text-muted);">${item.ket}</small></div>
         </div>
         <button type="button" onclick="hapusPramuka(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
@@ -592,7 +592,7 @@ function renderPramukaList() {
   if (publicEl) {
     publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada dokumentasi kegiatan pramuka.</p>' : list.map(item => `
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-        <img src="${item.foto}" alt="${item.judul}" style="width: 100%; height: 180px; object-fit: cover;">
+        <div style="width: 100%; height: 200px; background: #0f172a; overflow: hidden; display: flex; align-items: center; justify-content: center;"><img src="${item.foto}" alt="${item.judul}" style="width: 100%; height: 100%; object-fit: contain;"></div>
         <div style="padding: 20px;">
           <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 1.05rem;">${item.judul}</h4>
           <p style="color: var(--text-muted); font-size: 0.9rem;">${item.ket}</p>
@@ -650,7 +650,7 @@ function renderSilatList() {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada kegiatan.</p>' : list.map((item, idx) => `
       <div style="background: #f8fafc; padding: 10px 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
         <div style="display: flex; align-items: center; gap: 12px;">
-          <img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: cover;">
+          <img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: contain; background: #000;">
           <div><strong>${item.judul}</strong><br><small style="color: var(--text-muted);">${item.ket}</small></div>
         </div>
         <button type="button" onclick="hapusSilat(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
@@ -662,7 +662,7 @@ function renderSilatList() {
   if (publicEl) {
     publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada dokumentasi kegiatan pencak silat.</p>' : list.map(item => `
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-        <img src="${item.foto}" alt="${item.judul}" style="width: 100%; height: 180px; object-fit: cover;">
+        <div style="width: 100%; height: 200px; background: #0f172a; overflow: hidden; display: flex; align-items: center; justify-content: center;"><img src="${item.foto}" alt="${item.judul}" style="width: 100%; height: 100%; object-fit: contain;"></div>
         <div style="padding: 20px;">
           <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 1.05rem;">${item.judul}</h4>
           <p style="color: var(--text-muted); font-size: 0.9rem;">${item.ket}</p>
