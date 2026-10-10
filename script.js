@@ -14,7 +14,7 @@ function showPage(pageId) {
   }
 }
 
-// --- 2. FITUR DINAMIS DATA SISWA (LOCALSTORAGE) ---
+// --- 2. FITUR DINAMIS DATA SISWA ---
 const defaultStudentData = {
   '7a': { l: 18, p: 17, wali: 'Dra. Hj. Nurain, M.Pd', foto: 'https://via.placeholder.com/150' },
   '7b': { l: 17, p: 18, wali: 'Moh. Rifai, S.Pd', foto: 'https://via.placeholder.com/150' },
@@ -76,10 +76,10 @@ function saveStudentData(event) {
 
   localStorage.setItem('smpn2_data_peserta_didik', JSON.stringify(newdata));
   renderStudentData();
-  alert('Data peserta didik berhasil diperbarui dan disimpan!');
+  alert('Data peserta didik berhasil diperbarui!');
 }
 
-// --- 3. KONTROL AKSES & LOGIN PETUGAS ---
+// --- 3. LOGIN & KONTROL PETUGAS ---
 function checkLoginAndOpenMenu() {
   const isAuth = localStorage.getItem('smpn2_petugas_logged_in');
   if (isAuth === 'true') {
@@ -101,17 +101,17 @@ function handleLogin(event) {
     document.getElementById('login-pass').value = '';
     showPage('view-panel-petugas');
   } else {
-    alert('Username atau Password salah! Silakan coba lagi.');
+    alert('Username atau Password salah!');
   }
 }
 
 function handleLogout() {
   localStorage.removeItem('smpn2_petugas_logged_in');
-  alert('Anda telah keluar dari Panel Petugas.');
+  alert('Anda telah keluar.');
   showPage('view-beranda');
 }
 
-// --- 4. FUNGSI TAB SWITCHING DI PANEL PETUGAS ---
+// --- 4. TAB SWITCHING ---
 function switchTab(tabId) {
   const tabs = document.querySelectorAll('.admin-tab-content');
   tabs.forEach(tab => tab.style.display = 'none');
@@ -132,49 +132,93 @@ function switchTab(tabId) {
   }
 }
 
-// --- 5. SIMPAN KONTEN DINAMIS LAINNYA ---
-function savePageContent(event, pageKey) {
-  event.preventDefault();
-  let contentdata = {};
+// --- 5. KELOLA VISI & MISI DINAMIS (TERSUSUN RAPI VERTIKAL) ---
+const defaultVisi = "Mewujudkan Peserta Didik yang Berkarakter, Berakhlak Mulia dan Berbudaya berdasarkan Iman dan Taqwa, Berjiwa Kewargaan Serta Mampu Berkolaborasi dan Bertanggung Jawab";
 
-  if (pageKey === 'sejarah') {
-    contentdata.text = document.getElementById('input-content-sejarah').value;
-  } else if (pageKey === 'visimisi') {
-    contentdata.visi = document.getElementById('input-content-visi').value;
-    contentdata.misi = document.getElementById('input-content-misi').value;
+const defaultMisiList = [
+  "Menanamkan Keimanan, Ketakwaan dan Akhlak Mulia Melalui Pembiasaan Nilai-nilai Agama",
+  "Menumbuhkan Sikap Disiplin, Tanggung jawab dan Cinta Tanah Air Sebagai Wujud Jiwa Kewargaan",
+  "Mengembangkan Budaya Sekolah yang Santun, Bersih, Aman dan Menghargai Keberagaman",
+  "Membiasakan Diri Bagi Peserta Didik Untuk Bekerjasama, Gotong-royong dan Peduli Terhadap Sesama",
+  "Mengembangkan Potensi, Bakat dan Kreativitas Peserta Didik Secara Optimal"
+];
+
+function getVisi() {
+  return localStorage.getItem('smpn2_content_visi') || defaultVisi;
+}
+
+function getMisiList() {
+  const data = localStorage.getItem('smpn2_content_misi_list');
+  return data ? JSON.parse(data) : defaultMisiList;
+}
+
+function saveVisiOnly() {
+  const val = document.getElementById('input-content-visi').value.trim();
+  if (!val) return alert('Visi tidak boleh kosong!');
+  localStorage.setItem('smpn2_content_visi', val);
+  renderVisiMisi();
+  alert('Visi berhasil diperbarui!');
+}
+
+function tambahMisiPoin() {
+  const inputEl = document.getElementById('input-misi-poin');
+  if (!inputEl) return;
+  const text = inputEl.value.trim();
+  if (!text) return alert('Poin Misi tidak boleh kosong!');
+
+  let list = getMisiList();
+  list.push(text);
+  localStorage.setItem('smpn2_content_misi_list', JSON.stringify(list));
+  inputEl.value = '';
+  renderVisiMisi();
+  alert('Poin Misi berhasil ditambahkan!');
+}
+
+function hapusMisiPoin(index) {
+  let list = getMisiList();
+  list.splice(index, 1);
+  localStorage.setItem('smpn2_content_misi_list', JSON.stringify(list));
+  renderVisiMisi();
+}
+
+function renderVisiMisi() {
+  const visiText = getVisi();
+  const misiList = getMisiList();
+
+  const visiEl = document.getElementById('display-visi');
+  if (visiEl) visiEl.innerText = visiText;
+
+  const inputVisi = document.getElementById('input-content-visi');
+  if (inputVisi) inputVisi.value = visiText;
+
+  // Render Admin List
+  const adminEl = document.getElementById('admin-misi-list');
+  if (adminEl) {
+    adminEl.innerHTML = misiList.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada poin misi.</p>' : misiList.map((item, idx) => `
+      <div style="background: #f8fafc; padding: 10px 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+        <div><strong>${idx + 1}.</strong> ${item}</div>
+        <button type="button" onclick="hapusMisiPoin(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
+      </div>
+    `).join('');
   }
 
-  localStorage.setItem('smpn2_content_' + pageKey, JSON.stringify(contentdata));
-  alert(`Data ${pageKey} berhasil diperbarui dan disimpan!`);
-  renderPageContent();
+  // Render Public List (Vertikal Rapi Ke Bawah)
+  const publicEl = document.getElementById('display-misi-list');
+  if (publicEl) {
+    publicEl.innerHTML = misiList.length === 0 ? '<p style="color: var(--text-muted);">Belum ada misi.</p>' : misiList.map((item, idx) => `
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+        <div style="background: var(--primary-color); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 0.95rem;">${idx + 1}</div>
+        <div style="color: var(--text-dark); font-weight: 500; font-size: 0.98rem; line-height: 1.5;">${item}</div>
+      </div>
+    `).join('');
+  }
 }
 
-function saveStrukturGambar(event) {
-  event.preventDefault();
-  const imgUrl = document.getElementById('input-struktur-img').value.trim();
-  localStorage.setItem('smpn2_content_struktur_img', imgUrl);
-  renderPageContent();
-  alert('Gambar Struktur Organisasi berhasil diperbarui!');
-}
-
-function saveKontakData(event) {
-  event.preventDefault();
-  const kontakData = {
-    alamat: document.getElementById('input-kontak-alamat').value.trim(),
-    telp: document.getElementById('input-kontak-telp').value.trim(),
-    email: document.getElementById('input-kontak-email').value.trim(),
-    maps: document.getElementById('input-kontak-maps').value.trim()
-  };
-  localStorage.setItem('smpn2_content_kontak', JSON.stringify(kontakData));
-  renderPageContent();
-  alert('Informasi Kontak berhasil diperbarui!');
-}
-
-// --- KELOLA TUPOKSI DINAMIS (TERSUSUN RAPI KE BAWAH) ---
+// --- 6. KELOLA TUPOKSI DINAMIS ---
 const defaultTupoksiList = [
   { judul: 'Kepala Sekolah', deskripsi: 'Mengoperasikan fungsi kepemimpinan dan manajerial sekolah untuk meningkatkan mutu pendidikan.' },
   { judul: 'Manajerial', deskripsi: 'Menyusun perencanaan sekolah (RKT/RKAS), mengelola kurikulum, kesiswaan, sarana prasarana, serta keuangan sekolah.' },
-  { judul: 'Supervise & Evaluasi', deskripsi: 'Melakukan supervisi akademis terhadap guru, mengevaluasi kinerja tenaga kependidikan, serta memantau program sekolah.' },
+  { judul: 'Supervisi & Evaluasi', deskripsi: 'Melakukan supervisi akademis terhadap guru, mengevaluasi kinerja tenaga kependidikan, serta memantau program sekolah.' },
   { judul: 'Kewirausahaan', deskripsi: 'Mengembangkan inovasi, kemitraan, dan kreativitas untuk kemajuan dan kemandirian sekolah.' },
   { judul: 'Pengembangan SDM', deskripsi: 'Membina profesionalisme guru dan staf tata usaha secara berkelanjutan.' }
 ];
@@ -219,7 +263,6 @@ function hapusTupoksiItem(index) {
 function renderTupoksiList() {
   const list = getTupoksiList();
 
-  // Render di Panel Petugas
   const adminEl = document.getElementById('admin-tupoksi-list');
   if (adminEl) {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada tugas pokok.</p>' : list.map((item, idx) => `
@@ -230,7 +273,6 @@ function renderTupoksiList() {
     `).join('');
   }
 
-  // Render di Halaman Publik (Tersusun rapi ke bawah)
   const publicEl = document.getElementById('display-tupoksi-list');
   if (publicEl) {
     publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada informasi tupoksi.</p>' : list.map((item, idx) => `
@@ -245,6 +287,41 @@ function renderTupoksiList() {
   }
 }
 
+// --- 7. KELOLA KONTEN HALAMAN LAINNYA ---
+function savePageContent(event, pageKey) {
+  event.preventDefault();
+  let contentdata = {};
+
+  if (pageKey === 'sejarah') {
+    contentdata.text = document.getElementById('input-content-sejarah').value;
+  }
+
+  localStorage.setItem('smpn2_content_' + pageKey, JSON.stringify(contentdata));
+  alert(`Data ${pageKey} berhasil diperbarui!`);
+  renderPageContent();
+}
+
+function saveStrukturGambar(event) {
+  event.preventDefault();
+  const imgUrl = document.getElementById('input-struktur-img').value.trim();
+  localStorage.setItem('smpn2_content_struktur_img', imgUrl);
+  renderPageContent();
+  alert('Gambar Struktur Organisasi berhasil diperbarui!');
+}
+
+function saveKontakData(event) {
+  event.preventDefault();
+  const kontakData = {
+    alamat: document.getElementById('input-kontak-alamat').value.trim(),
+    telp: document.getElementById('input-kontak-telp').value.trim(),
+    email: document.getElementById('input-kontak-email').value.trim(),
+    maps: document.getElementById('input-kontak-maps').value.trim()
+  };
+  localStorage.setItem('smpn2_content_kontak', JSON.stringify(kontakData));
+  renderPageContent();
+  alert('Informasi Kontak berhasil diperbarui!');
+}
+
 function renderPageContent() {
   const sejarahData = JSON.parse(localStorage.getItem('smpn2_content_sejarah'));
   if (sejarahData) {
@@ -252,19 +329,6 @@ function renderPageContent() {
     if (el) el.innerHTML = `<p>${sejarahData.text}</p>`;
     const input1 = document.getElementById('input-content-sejarah');
     if (input1) input1.value = sejarahData.text;
-  }
-
-  const visiData = JSON.parse(localStorage.getItem('smpn2_content_visimisi'));
-  if (visiData) {
-    const elVisi = document.getElementById('display-visi');
-    const elMisi = document.getElementById('display-misi');
-    if (elVisi) elVisi.innerText = visiData.visi;
-    if (elMisi) elMisi.innerHTML = `<p>${visiData.misi}</p>`;
-
-    const inVisi = document.getElementById('input-content-visi');
-    const inMisi = document.getElementById('input-content-misi');
-    if (inVisi) inVisi.value = visiData.visi;
-    if (inMisi) inMisi.value = visiData.misi;
   }
 
   const strukturImg = localStorage.getItem('smpn2_content_struktur_img');
@@ -289,7 +353,13 @@ function renderPageContent() {
   }
 }
 
-// --- KELOLA HALAMAN BERANDA ---
+// --- 8. KELOLA BERANDA (DEFAULT DIRECT LINKS) ---
+const defaultBerandaData = {
+  sambutan: "Puji dan syukur marilah kita panjatkan ke hadirat Allah SWT, Tuhan Yang Maha Esa, atas rahmat, hidayah, dan karunia-Nya, sehingga kita semua senantiasa diberikan kesehatan dan kesempatan untuk terus berinovasi demi kemajuan pendidikan di sekolah yang kita cintai ini.\n\nDi era digital yang berkembang sangat pesat saat ini, pemanfaatan teknologi informasi dan komunikasi merupakan sebuah kebutuhan mendasar, khususnya dalam meningkatkan kualitas pelayanan pendidikan dan transparansi informasi publik. Oleh karena itu, dengan penuh rasa syukur dan bangga, saya menyampaikan bahwa SMP Negeri 2 Karamat resmi meluncurkan Website Resmi Sekolah sekaligus Aplikasi PPDB Online (Penerimaan Peserta Didik Baru Online).\n\nHadirnya website resmi ini dirancang sebagai wadah informasi terpadu, sarana komunikasi, serta jendela informasi bagi masyarakat luas, orang tua murid, dan para alumni untuk mengetahui berbagai perkembangan, kegiatan, prestasi, serta program-program unggulan SMP Negeri 2 Karamat.\n\nSelain itu, peluncuran Aplikasi PPDB Online merupakan bentuk komitmen kami dalam memberikan pelayanan yang lebih mudah, cepat, efisien, dan transparan bagi para calon peserta didik baru beserta orang tua. Melalui sistem ini, proses pendaftaran dapat dilakukan secara mandiri dari mana saja tanpa terbatas jarak dan waktu.\n\nKami menyadari bahwa inovasi ini tidak dapat berjalan optimal tanpa dukungan dari seluruh pihak. Oleh karena itu, kami mengucapkan terima kasih dan apresiasi yang setinggi-tingginya kepada tim pengembang, para guru, tenaga kependidikan, serta seluruh pihak yang telah bekerja keras hingga website dan aplikasi ini dapat terwujud dan beroperasi dengan baik.\n\nHarapan kami, fasilitas digital ini tidak hanya mempermudah akses informasi dan administrasi, tetapi juga menjadi pemicu semangat bagi kita semua untuk terus meningkatkan mutu pembelajaran serta membawa SMP Negeri 2 Karamat menjadi sekolah yang makin unggul, berprestasi, dan berkarakter.\n\nMari kita manfaatkan sarana ini dengan sebaik-baiknya demi kemajuan pendidikan anak-anak kita, sang generasi penerus bangsa.\n\nTerima kasih atas perhatian dan kerja samanya.",
+  banner: "https://i.postimg.cc/PJyqnvJX/Gemini-Generated-Image-tqris4tqris4tqri.jpg",
+  kepsek: "https://i.postimg.cc/sxPCtknH/Gemini-Generated-Image-tnppjqtnppjqtnpp.jpg"
+};
+
 function saveBerandaData(event) {
   event.preventDefault();
   const berandaData = {
@@ -300,26 +370,35 @@ function saveBerandaData(event) {
 
   localStorage.setItem('smpn2_content_beranda', JSON.stringify(berandaData));
   renderBerandaData();
-  alert('Data Halaman Beranda berhasil diperbarui dan disimpan!');
+  alert('Data Beranda berhasil diperbarui!');
 }
 
 function renderBerandaData() {
-  const data = JSON.parse(localStorage.getItem('smpn2_content_beranda'));
-  if (data) {
-    if (document.getElementById('display-beranda-sambutan')) document.getElementById('display-beranda-sambutan').innerText = data.sambutan;
-    if (document.getElementById('display-beranda-banner')) document.getElementById('display-beranda-banner').src = data.banner;
-    if (document.getElementById('display-beranda-kepsek')) document.getElementById('display-beranda-kepsek').src = data.kepsek;
+  const localData = localStorage.getItem('smpn2_content_beranda');
+  const data = localData ? JSON.parse(localData) : defaultBerandaData;
 
-    if (document.getElementById('input-beranda-sambutan')) document.getElementById('input-beranda-sambutan').value = data.sambutan;
-    if (document.getElementById('input-beranda-banner')) document.getElementById('input-beranda-banner').value = data.banner;
-    if (document.getElementById('input-beranda-kepsek')) document.getElementById('input-beranda-kepsek').value = data.kepsek;
-  }
+  if (document.getElementById('display-beranda-sambutan')) document.getElementById('display-beranda-sambutan').innerText = data.sambutan;
+  if (document.getElementById('display-beranda-banner')) document.getElementById('display-beranda-banner').src = data.banner;
+  if (document.getElementById('display-beranda-kepsek')) document.getElementById('display-beranda-kepsek').src = data.kepsek;
+
+  if (document.getElementById('input-beranda-sambutan')) document.getElementById('input-beranda-sambutan').value = data.sambutan;
+  if (document.getElementById('input-beranda-banner')) document.getElementById('input-beranda-banner').value = data.banner;
+  if (document.getElementById('input-beranda-kepsek')) document.getElementById('input-beranda-kepsek').value = data.kepsek;
 }
 
-// --- KELOLA DAFTAR KEGIATAN DINAMIS ---
+// --- 9. KELOLA DAFTAR KEGIATAN DINAMIS ---
+const defaultKegiatanList = [
+  {
+    judul: "Ucapan HUTDA ke 27 KaB. Buol",
+    tanggal: "2026-10-12",
+    foto: "https://i.postimg.cc/KjT84p0M/Whats-App-Image-2026-10-10-at-13-30-26.jpg",
+    deskripsi: "Dalam rangka memperingati Hari Ulang Tahun Daerah (HUTDA) ke-27 Kabupaten Buol, Keluarga Besar SMP Negeri 2 Karamat turut ambil bagian dengan penuh antusiasme dan rasa bangga. Peringatan momen bersejarah daerah ini diwarnai dengan semangat kebersamaan seluruh elemen sekolah, mulai dari jajaran dewan guru, staf tata usaha, hingga para siswa. Kepala SMPN 2 Karamat menyampaikan bahwa peringatan HUTDA ke-27 ini bukan sekadar perayaan tahunan, melainkan momen refleksi bersama untuk memotivasi generasi muda dalam berkontribusi bagi kemajuan Kabupaten Buol, khususnya di bidang pendidikan."
+  }
+];
+
 function getKegiatanList() {
   const data = localStorage.getItem('smpn2_content_kegiatan_list');
-  return data ? JSON.parse(data) : [];
+  return data ? JSON.parse(data) : defaultKegiatanList;
 }
 
 function tambahKegiatan() {
@@ -390,7 +469,7 @@ function renderKegiatanList() {
   }
 }
 
-// --- KELOLA VIDEO KEGIATAN DINAMIS ---
+// --- 10. KELOLA VIDEO KEGIATAN DINAMIS ---
 function getVideoList() {
   const data = localStorage.getItem('smpn2_content_video_list');
   return data ? JSON.parse(data) : [];
@@ -459,7 +538,7 @@ function renderVideoList() {
   }
 }
 
-// --- KELOLA SARANA & PRASARANA DINAMIS ---
+// --- 11. KELOLA SARANA & PRASARANA DINAMIS ---
 function getSaranaList() {
   const data = localStorage.getItem('smpn2_content_sarana_list');
   return data ? JSON.parse(data) : [];
@@ -529,7 +608,7 @@ function renderSaranaList() {
   }
 }
 
-// --- KELOLA GURU & STAF ---
+// --- 12. KELOLA GURU & STAF ---
 function getGuruList() {
   const data = localStorage.getItem('smpn2_content_guru_list');
   return data ? JSON.parse(data) : [];
@@ -597,7 +676,7 @@ function renderGuruList() {
   }
 }
 
-// --- KELOLA KEGIATAN PRAMUKA ---
+// --- 13. KELOLA PRAMUKA ---
 function getPramukaList() {
   const data = localStorage.getItem('smpn2_content_pramuka_list');
   return data ? JSON.parse(data) : [];
@@ -667,7 +746,7 @@ function renderPramukaList() {
   }
 }
 
-// --- KELOLA KEGIATAN PENCAK SILAT ---
+// --- 14. KELOLA PENCAK SILAT ---
 function getSilatList() {
   const data = localStorage.getItem('smpn2_content_silat_list');
   return data ? JSON.parse(data) : [];
@@ -737,7 +816,7 @@ function renderSilatList() {
   }
 }
 
-// --- 6. EKSEKUSI AWAL SAAT HALAMAN DIMUAT ---
+// --- 15. INITIAL LOAD ---
 window.addEventListener('DOMContentLoaded', () => {
   renderStudentData();
   renderPageContent();
@@ -749,4 +828,5 @@ window.addEventListener('DOMContentLoaded', () => {
   renderPramukaList();
   renderSilatList();
   renderTupoksiList();
+  renderVisiMisi();
 });
