@@ -142,8 +142,6 @@ function savePageContent(event, pageKey) {
   } else if (pageKey === 'visimisi') {
     contentdata.visi = document.getElementById('input-content-visi').value;
     contentdata.misi = document.getElementById('input-content-misi').value;
-  } else if (pageKey === 'tupoksi') {
-    contentdata.text = document.getElementById('input-content-tupoksi').value;
   }
 
   localStorage.setItem('smpn2_content_' + pageKey, JSON.stringify(contentdata));
@@ -172,6 +170,81 @@ function saveKontakData(event) {
   alert('Informasi Kontak berhasil diperbarui!');
 }
 
+// --- KELOLA TUPOKSI DINAMIS (TERSUSUN RAPI KE BAWAH) ---
+const defaultTupoksiList = [
+  { judul: 'Kepala Sekolah', deskripsi: 'Mengoperasikan fungsi kepemimpinan dan manajerial sekolah untuk meningkatkan mutu pendidikan.' },
+  { judul: 'Manajerial', deskripsi: 'Menyusun perencanaan sekolah (RKT/RKAS), mengelola kurikulum, kesiswaan, sarana prasarana, serta keuangan sekolah.' },
+  { judul: 'Supervise & Evaluasi', deskripsi: 'Melakukan supervisi akademis terhadap guru, mengevaluasi kinerja tenaga kependidikan, serta memantau program sekolah.' },
+  { judul: 'Kewirausahaan', deskripsi: 'Mengembangkan inovasi, kemitraan, dan kreativitas untuk kemajuan dan kemandirian sekolah.' },
+  { judul: 'Pengembangan SDM', deskripsi: 'Membina profesionalisme guru dan staf tata usaha secara berkelanjutan.' }
+];
+
+function getTupoksiList() {
+  const data = localStorage.getItem('smpn2_content_tupoksi_list');
+  return data ? JSON.parse(data) : defaultTupoksiList;
+}
+
+function tambahTupoksiItem() {
+  const judulEl = document.getElementById('input-tupoksi-judul');
+  const deskripsiEl = document.getElementById('input-tupoksi-deskripsi');
+
+  if (!judulEl || !deskripsiEl) return;
+
+  const judul = judulEl.value.trim();
+  const deskripsi = deskripsiEl.value.trim();
+
+  if (!judul || !deskripsi) {
+    alert('Judul dan Rincian Tugas Pokok wajib diisi!');
+    return;
+  }
+
+  let list = getTupoksiList();
+  list.push({ judul, deskripsi });
+  localStorage.setItem('smpn2_content_tupoksi_list', JSON.stringify(list));
+
+  judulEl.value = '';
+  deskripsiEl.value = '';
+
+  renderTupoksiList();
+  alert('Tugas Pokok berhasil ditambahkan!');
+}
+
+function hapusTupoksiItem(index) {
+  let list = getTupoksiList();
+  list.splice(index, 1);
+  localStorage.setItem('smpn2_content_tupoksi_list', JSON.stringify(list));
+  renderTupoksiList();
+}
+
+function renderTupoksiList() {
+  const list = getTupoksiList();
+
+  // Render di Panel Petugas
+  const adminEl = document.getElementById('admin-tupoksi-list');
+  if (adminEl) {
+    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada tugas pokok.</p>' : list.map((item, idx) => `
+      <div style="background: #f8fafc; padding: 12px 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+        <div><strong>${idx + 1}. ${item.judul}</strong>: <span style="color: var(--text-muted);">${item.deskripsi}</span></div>
+        <button type="button" onclick="hapusTupoksiItem(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
+      </div>
+    `).join('');
+  }
+
+  // Render di Halaman Publik (Tersusun rapi ke bawah)
+  const publicEl = document.getElementById('display-tupoksi-list');
+  if (publicEl) {
+    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada informasi tupoksi.</p>' : list.map((item, idx) => `
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; gap: 15px; align-items: flex-start;">
+        <div style="background: var(--primary-color); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">${idx + 1}</div>
+        <div>
+          <h4 style="color: var(--primary-color); margin-bottom: 6px; font-size: 1.05rem;">${item.judul}</h4>
+          <p style="color: var(--text-dark); line-height: 1.6; font-size: 0.95rem;">${item.deskripsi}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
 function renderPageContent() {
   const sejarahData = JSON.parse(localStorage.getItem('smpn2_content_sejarah'));
   if (sejarahData) {
@@ -192,14 +265,6 @@ function renderPageContent() {
     const inMisi = document.getElementById('input-content-misi');
     if (inVisi) inVisi.value = visiData.visi;
     if (inMisi) inMisi.value = visiData.misi;
-  }
-
-  const tupoksiData = JSON.parse(localStorage.getItem('smpn2_content_tupoksi'));
-  if (tupoksiData) {
-    const elTupoksi = document.getElementById('display-tupoksi');
-    if (elTupoksi) elTupoksi.innerHTML = `<p>${tupoksiData.text}</p>`;
-    const inTupoksi = document.getElementById('input-content-tupoksi');
-    if (inTupoksi) inTupoksi.value = tupoksiData.text;
   }
 
   const strukturImg = localStorage.getItem('smpn2_content_struktur_img');
@@ -251,7 +316,7 @@ function renderBerandaData() {
   }
 }
 
-// --- KELOLA DAFTAR KEGIATAN DINAMIS (FOTO FULL / OBJECT-FIT CONTAIN) ---
+// --- KELOLA DAFTAR KEGIATAN DINAMIS ---
 function getKegiatanList() {
   const data = localStorage.getItem('smpn2_content_kegiatan_list');
   return data ? JSON.parse(data) : [];
@@ -325,7 +390,7 @@ function renderKegiatanList() {
   }
 }
 
-// --- KELOLA VIDEO KEGIATAN DINAMIS (FULL DISPLAY) ---
+// --- KELOLA VIDEO KEGIATAN DINAMIS ---
 function getVideoList() {
   const data = localStorage.getItem('smpn2_content_video_list');
   return data ? JSON.parse(data) : [];
@@ -464,7 +529,7 @@ function renderSaranaList() {
   }
 }
 
-// --- KELOLA GURU & STAF OTOMATIS ---
+// --- KELOLA GURU & STAF ---
 function getGuruList() {
   const data = localStorage.getItem('smpn2_content_guru_list');
   return data ? JSON.parse(data) : [];
@@ -683,4 +748,5 @@ window.addEventListener('DOMContentLoaded', () => {
   renderGuruList();
   renderPramukaList();
   renderSilatList();
+  renderTupoksiList();
 });
