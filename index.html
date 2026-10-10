@@ -57,16 +57,16 @@
         <!-- 1. HALAMAN BERANDA -->
         <section id="view-beranda" class="page-view active-view">
             <div class="hero-banner">
-                <img id="display-beranda-banner" src="https://via.placeholder.com/1200x400" alt="Banner Sekolah">
+                <img id="display-beranda-banner" src="https://i.postimg.cc/PJyqnvJX/Gemini-Generated-Image-tqris4tqris4tqri.jpg" alt="Banner Sekolah">
             </div>
 
             <div class="beranda-grid">
                 <div class="card-content">
                     <h3 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-user-tie"></i> Sambutan Kepala Sekolah</h3>
-                    <p id="display-beranda-sambutan" style="line-height: 1.6; color: var(--text-dark);">Puji syukur kami panjatkan ke Tuhan Yang Maha Esa atas rilisnya portal resmi sekolah ini...</p>
+                    <p id="display-beranda-sambutan" style="line-height: 1.6; color: var(--text-dark);">Puji dan syukur marilah kita panjatkan ke hadirat Allah SWT, Tuhan Yang Maha Esa, atas rahmat, hidayah, dan karunia-Nya...</p>
                 </div>
                 <div class="card-content" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                    <img id="display-beranda-kepsek" src="https://via.placeholder.com/220" alt="Kepala Sekolah" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; margin-bottom: 12px; border: none; background: transparent; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    <img id="display-beranda-kepsek" src="https://i.postimg.cc/sxPCtknH/Gemini-Generated-Image-tnppjqtnppjqtnpp.jpg" alt="Kepala Sekolah" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; margin-bottom: 12px; border: none; background: transparent; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
                     <h5 style="color: var(--primary-color); font-size: 1.1rem;">Kepala Sekolah</h5>
                 </div>
             </div>
@@ -94,18 +94,24 @@
             </div>
         </section>
 
-        <!-- 3. HALAMAN VISI & MISI -->
+        <!-- 3. HALAMAN VISI & MISI (MISI TERSUSUN RAPI KE BAWAH) -->
         <section id="view-visimisi" class="page-view" style="display: none;">
             <div class="card-content">
-                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-eye"></i> Visi & Misi</h2>
-                <h4 style="color: var(--primary-color);">Visi:</h4>
-                <p id="display-visi" style="margin-bottom: 20px; font-style: italic;">Memuat visi...</p>
-                <h4 style="color: var(--primary-color);">Misi:</h4>
-                <div id="display-misi"><p>Memuat misi...</p></div>
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-eye"></i> Visi & Misi</h2>
+                
+                <div style="background: #f0fdf4; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 1.1rem;"><i class="fas fa-bullseye"></i> Visi Sekolah:</h4>
+                    <p id="display-visi" style="font-style: italic; font-weight: 600; color: #065f46; font-size: 1.05rem; line-height: 1.6;"></p>
+                </div>
+
+                <h4 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.1rem;"><i class="fas fa-list-ol"></i> Misi Sekolah:</h4>
+                <div id="display-misi-list" style="display: flex; flex-direction: column; gap: 12px;">
+                    <p style="color: var(--text-muted);">Memuat misi...</p>
+                </div>
             </div>
         </section>
 
-        <!-- 4. HALAMAN TUPOKSI (TERSUSUN RAPI KE BAWAH) -->
+        <!-- 4. HALAMAN TUPOKSI -->
         <section id="view-tupoksi" class="page-view" style="display: none;">
             <div class="card-content">
                 <h2 style="color: var(--primary-color); margin-bottom: 25px;"><i class="fas fa-tasks"></i> Tupoksi (Tugas Pokok & Fungsi)</h2>
@@ -425,23 +431,27 @@
                 </form>
             </div>
 
-            <!-- TAB 6: KELOLA VISI & MISI -->
+            <!-- TAB 6: KELOLA VISI & MISI (DENGAN KELOLA MISI PER POIN) -->
             <div id="tab-visimisi" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.04);">
                 <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-eye"></i> Kelola Visi & Misi</h3>
-                <form onsubmit="savePageContent(event, 'visimisi')">
-                    <div style="margin-bottom: 20px;">
-                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Visi:</label>
-                        <input type="text" id="input-content-visi" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;" required>
+                <div style="margin-bottom: 20px;">
+                    <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Visi:</label>
+                    <input type="text" id="input-content-visi" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;" required>
+                    <button type="button" onclick="saveVisiOnly()" style="margin-top: 10px; background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Visi</button>
+                </div>
+
+                <div style="margin-top: 25px; border-top: 2px solid #f1f5f9; padding-top: 20px;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-list-ol"></i> Kelola Poin Misi Sekolah</h4>
+                    <div style="margin-bottom: 12px;">
+                        <input type="text" id="input-misi-poin" placeholder="Tuliskan poin misi..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 10px;">
+                        <button type="button" onclick="tambahMisiPoin()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah Poin Misi</button>
                     </div>
-                    <div style="margin-bottom: 20px;">
-                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Misi:</label>
-                        <textarea id="input-content-misi" rows="5" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;" required></textarea>
-                    </div>
-                    <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 600;"><i class="fas fa-save"></i> Simpan Visi & Misi</button>
-                </form>
+
+                    <div id="admin-misi-list" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;"></div>
+                </div>
             </div>
 
-            <!-- TAB 7: KELOLA TUPOKSI (DENGAN TOMBOL TAMBAH TUGAS POKOK LAINNYA) -->
+            <!-- TAB 7: KELOLA TUPOKSI -->
             <div id="tab-tupoksi" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.04);">
                 <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-tasks"></i> Kelola Tupoksi (Tugas Pokok & Fungsi)</h3>
                 <div style="display: grid; grid-template-columns: 2fr 3fr; gap: 15px; margin-bottom: 12px;">
