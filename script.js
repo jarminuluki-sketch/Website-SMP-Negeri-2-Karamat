@@ -191,7 +191,6 @@ function renderVisiMisi() {
   const inputVisi = document.getElementById('input-content-visi');
   if (inputVisi) inputVisi.value = visiText;
 
-  // Render Admin List
   const adminEl = document.getElementById('admin-misi-list');
   if (adminEl) {
     adminEl.innerHTML = misiList.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada poin misi.</p>' : misiList.map((item, idx) => `
@@ -202,7 +201,6 @@ function renderVisiMisi() {
     `).join('');
   }
 
-  // Render Public List (Vertikal Rapi Ke Bawah)
   const publicEl = document.getElementById('display-misi-list');
   if (publicEl) {
     publicEl.innerHTML = misiList.length === 0 ? '<p style="color: var(--text-muted);">Belum ada misi.</p>' : misiList.map((item, idx) => `
@@ -353,7 +351,7 @@ function renderPageContent() {
   }
 }
 
-// --- 8. KELOLA BERANDA (DEFAULT DIRECT LINKS) ---
+// --- 8. KELOLA BERANDA ---
 const defaultBerandaData = {
   sambutan: "Puji dan syukur marilah kita panjatkan ke hadirat Allah SWT, Tuhan Yang Maha Esa, atas rahmat, hidayah, dan karunia-Nya, sehingga kita semua senantiasa diberikan kesehatan dan kesempatan untuk terus berinovasi demi kemajuan pendidikan di sekolah yang kita cintai ini.\n\nDi era digital yang berkembang sangat pesat saat ini, pemanfaatan teknologi informasi dan komunikasi merupakan sebuah kebutuhan mendasar, khususnya dalam meningkatkan kualitas pelayanan pendidikan dan transparansi informasi publik. Oleh karena itu, dengan penuh rasa syukur dan bangga, saya menyampaikan bahwa SMP Negeri 2 Karamat resmi meluncurkan Website Resmi Sekolah sekaligus Aplikasi PPDB Online (Penerimaan Peserta Didik Baru Online).\n\nHadirnya website resmi ini dirancang sebagai wadah informasi terpadu, sarana komunikasi, serta jendela informasi bagi masyarakat luas, orang tua murid, dan para alumni untuk mengetahui berbagai perkembangan, kegiatan, prestasi, serta program-program unggulan SMP Negeri 2 Karamat.\n\nSelain itu, peluncuran Aplikasi PPDB Online merupakan bentuk komitmen kami dalam memberikan pelayanan yang lebih mudah, cepat, efisien, dan transparan bagi para calon peserta didik baru beserta orang tua. Melalui sistem ini, proses pendaftaran dapat dilakukan secara mandiri dari mana saja tanpa terbatas jarak dan waktu.\n\nKami menyadari bahwa inovasi ini tidak dapat berjalan optimal tanpa dukungan dari seluruh pihak. Oleh karena itu, kami mengucapkan terima kasih dan apresiasi yang setinggi-tingginya kepada tim pengembang, para guru, tenaga kependidikan, serta seluruh pihak yang telah bekerja keras hingga website dan aplikasi ini dapat terwujud dan beroperasi dengan baik.\n\nHarapan kami, fasilitas digital ini tidak hanya mempermudah akses informasi dan administrasi, tetapi juga menjadi pemicu semangat bagi kita semua untuk terus meningkatkan mutu pembelajaran serta membawa SMP Negeri 2 Karamat menjadi sekolah yang makin unggul, berprestasi, dan berkarakter.\n\nMari kita manfaatkan sarana ini dengan sebaik-baiknya demi kemajuan pendidikan anak-anak kita, sang generasi penerus bangsa.\n\nTerima kasih atas perhatian dan kerja samanya.",
   banner: "https://i.postimg.cc/PJyqnvJX/Gemini-Generated-Image-tqris4tqris4tqri.jpg",
@@ -386,13 +384,13 @@ function renderBerandaData() {
   if (document.getElementById('input-beranda-kepsek')) document.getElementById('input-beranda-kepsek').value = data.kepsek;
 }
 
-// --- 9. KELOLA DAFTAR KEGIATAN DINAMIS ---
+// --- 9. KELOLA KEGIATAN ---
 const defaultKegiatanList = [
   {
     judul: "Ucapan HUTDA ke 27 KaB. Buol",
     tanggal: "2026-10-12",
     foto: "https://i.postimg.cc/KjT84p0M/Whats-App-Image-2026-10-10-at-13-30-26.jpg",
-    deskripsi: "Dalam rangka memperingati Hari Ulang Tahun Daerah (HUTDA) ke-27 Kabupaten Buol, Keluarga Besar SMP Negeri 2 Karamat turut ambil bagian dengan penuh antusiasme dan rasa bangga. Peringatan momen bersejarah daerah ini diwarnai dengan semangat kebersamaan seluruh elemen sekolah, mulai dari jajaran dewan guru, staf tata usaha, hingga para siswa. Kepala SMPN 2 Karamat menyampaikan bahwa peringatan HUTDA ke-27 ini bukan sekadar perayaan tahunan, melainkan momen refleksi bersama untuk memotivasi generasi muda dalam berkontribusi bagi kemajuan Kabupaten Buol, khususnya di bidang pendidikan."
+    deskripsi: "Dalam rangka memperingati Hari Ulang Tahun Daerah (HUTDA) ke-27 Kabupaten Buol, Keluarga Besar SMP Negeri 2 Karamat turut ambil bagian dengan penuh antusiasme dan rasa bangga."
   }
 ];
 
@@ -469,7 +467,7 @@ function renderKegiatanList() {
   }
 }
 
-// --- 10. KELOLA VIDEO KEGIATAN DINAMIS ---
+// --- 10. KELOLA VIDEO ---
 function getVideoList() {
   const data = localStorage.getItem('smpn2_content_video_list');
   return data ? JSON.parse(data) : [];
@@ -538,7 +536,7 @@ function renderVideoList() {
   }
 }
 
-// --- 11. KELOLA SARANA & PRASARANA DINAMIS ---
+// --- 11. KELOLA SARANA ---
 function getSaranaList() {
   const data = localStorage.getItem('smpn2_content_sarana_list');
   return data ? JSON.parse(data) : [];
@@ -608,7 +606,7 @@ function renderSaranaList() {
   }
 }
 
-// --- 12. KELOLA GURU & STAF ---
+// --- 12. KELOLA GURU ---
 function getGuruList() {
   const data = localStorage.getItem('smpn2_content_guru_list');
   return data ? JSON.parse(data) : [];
@@ -746,7 +744,7 @@ function renderPramukaList() {
   }
 }
 
-// --- 14. KELOLA PENCAK SILAT ---
+// --- 14. KELOLA SILAT ---
 function getSilatList() {
   const data = localStorage.getItem('smpn2_content_silat_list');
   return data ? JSON.parse(data) : [];
