@@ -91,9 +91,9 @@
             </div>
 
             <div class="card-content" style="margin-top: 35px;">
-                <h3 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-video"></i> Video Dokumentasi Kegiatan</h3>
+                <h3 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-video"></i> Video Edukasi dan Kegiatan</h3>
                 <div id="display-beranda-video-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
-                    <p style="color: var(--text-muted);">Belum ada video kegiatan yang ditambahkan.</p>
+                    <p style="color: var(--text-muted);">Belum ada video yang ditambahkan.</p>
                 </div>
             </div>
         </section>
@@ -331,7 +331,7 @@
             <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
                 <button id="btn-tab-siswa" onclick="switchTab('tab-siswa')" style="padding: 10px 18px; border: none; border-radius: 8px; background: var(--primary-color); color: white; cursor: pointer; font-weight: 600;">Data Siswa</button>
                 <button id="btn-tab-beranda" onclick="switchTab('tab-beranda')" style="padding: 10px 18px; border: none; border-radius: 8px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Kelola Beranda</button>
-                <button id="btn-tab-video" onclick="switchTab('tab-video')" style="padding: 10px 18px; border: none; border-radius: 8px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Video Kegiatan</button>
+                <button id="btn-tab-video" onclick="switchTab('tab-video')" style="padding: 10px 18px; border: none; border-radius: 8px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Video Edukasi & Kegiatan</button>
                 <button id="btn-tab-sarana" onclick="switchTab('tab-sarana')" style="padding: 10px 18px; border: none; border-radius: 8px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Sarana</button>
                 <button id="btn-tab-sejarah" onclick="switchTab('tab-sejarah')" style="padding: 10px 18px; border: none; border-radius: 8px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Sejarah</button>
                 <button id="btn-tab-visimisi" onclick="switchTab('tab-visimisi')" style="padding: 10px 18px; border: none; border-radius: 8px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Visi & Misi</button>
@@ -441,16 +441,16 @@
                 </form>
             </div>
 
-            <!-- TAB 3: KELOLA VIDEO KEGIATAN -->
+            <!-- TAB 3: KELOLA VIDEO EDUKASI DAN KEGIATAN -->
             <div id="tab-video" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.04);">
-                <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-video"></i> Kelola Video Kegiatan Sekolah</h3>
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-video"></i> Kelola Video Edukasi dan Kegiatan</h3>
                 <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 15px;">Bisa memasukkan URL YouTube biasa (https://youtu.be/... atau https://youtube.com/watch?v=...) maupun file MP4 langsung.</p>
                 <div style="display: grid; grid-template-columns: 2fr 2fr; gap: 15px; margin-bottom: 12px;">
-                    <input type="text" id="input-video-judul" placeholder="Judul Video Dokumentasi" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;">
+                    <input type="text" id="input-video-judul" placeholder="Judul Video" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;">
                     <input type="text" id="input-video-url" placeholder="URL Video YouTube / MP4" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;">
                 </div>
                 <textarea id="input-video-ket" rows="3" placeholder="Keterangan singkat video..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 12px;"></textarea>
-                <button type="button" onclick="tambahVideo()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah Video Kegiatan</button>
+                <button type="button" onclick="tambahVideo()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah Video</button>
 
                 <div id="admin-video-list" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;"></div>
             </div>
