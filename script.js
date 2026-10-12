@@ -14,6 +14,23 @@ function showPage(pageId) {
   }
 }
 
+// --- FUNGSI BANTUAN: KONSISTENSI URL YOUTUBE EMBED ---
+function parseYoutubeEmbedUrl(url) {
+  if (!url) return '';
+  let videoId = '';
+  
+  if (url.includes('youtu.be/')) {
+    videoId = url.split('youtu.be/')[1].split('?')[0];
+  } else if (url.includes('youtube.com/watch')) {
+    const urlParams = new URLSearchParams(url.split('?')[1]);
+    videoId = urlParams.get('v');
+  } else if (url.includes('youtube.com/embed/')) {
+    videoId = url.split('youtube.com/embed/')[1].split('?')[0];
+  }
+
+  return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+}
+
 // --- 2. FITUR DINAMIS DATA SISWA ---
 const defaultStudentData = {
   '7a': { l: 18, p: 17, wali: 'Dra. Hj. Nurain, M.Pd', foto: 'https://via.placeholder.com/150' },
@@ -467,7 +484,7 @@ function renderKegiatanList() {
   }
 }
 
-// --- 10. KELOLA VIDEO (DIPERKUAT DENGAN KONTROL HTML5 & YOUTUBE) ---
+// --- 10. KELOLA VIDEO (AUTOCONVERT URL YOUTUBE EMBED) ---
 function getVideoList() {
   const data = localStorage.getItem('smpn2_content_video_list');
   return data ? JSON.parse(data) : [];
@@ -481,13 +498,16 @@ function tambahVideo() {
   if (!judulEl || !urlEl || !ketEl) return;
 
   const judul = judulEl.value.trim();
-  const url = urlEl.value.trim();
+  const rawUrl = urlEl.value.trim();
   const ket = ketEl.value.trim();
 
-  if (!judul || !url) {
+  if (!judul || !rawUrl) {
     alert('Judul dan URL Video wajib diisi!');
     return;
   }
+
+  // Otomatis ubah URL YouTube biasa menjadi URL embed
+  const url = parseYoutubeEmbedUrl(rawUrl);
 
   let list = getVideoList();
   list.push({ judul, url, ket });
@@ -523,13 +543,15 @@ function renderVideoList() {
   const publicEl = document.getElementById('display-beranda-video-list');
   if (publicEl) {
     publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada video kegiatan yang ditambahkan.</p>' : list.map(item => {
-      const isYoutube = item.url.includes('youtube.com') || item.url.includes('youtu.be');
+      // Pastikan URL selalu dalam format Embed jika merupakan YouTube
+      const embedUrl = parseYoutubeEmbedUrl(item.url);
+      const isYoutube = embedUrl.includes('youtube.com') || embedUrl.includes('youtu.be');
       let playerHtml = '';
 
       if (isYoutube) {
-        playerHtml = `<iframe src="${item.url}" title="${item.judul}" width="100%" height="100%" style="border:0;" allowfullscreen></iframe>`;
+        playerHtml = `<iframe src="${embedUrl}" title="${item.judul}" width="100%" height="100%" style="border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
       } else {
-        playerHtml = `<video src="${item.url}" controls preload="metadata" style="width:100%; height:100%; object-fit:contain; background:#000;"></video>`;
+        playerHtml = `<video src="${embedUrl}" controls preload="metadata" style="width:100%; height:100%; object-fit:contain; background:#000;"></video>`;
       }
 
       return `
