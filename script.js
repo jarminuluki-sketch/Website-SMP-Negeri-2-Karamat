@@ -484,7 +484,7 @@ function renderKegiatanList() {
   }
 }
 
-// --- 10. KELOLA VIDEO (AUTOCONVERT URL YOUTUBE EMBED) ---
+// --- 10. KELOLA VIDEO EDUKASI DAN KEGIATAN (AUTOCONVERT URL YOUTUBE EMBED) ---
 function getVideoList() {
   const data = localStorage.getItem('smpn2_content_video_list');
   return data ? JSON.parse(data) : [];
@@ -518,7 +518,7 @@ function tambahVideo() {
   ketEl.value = '';
 
   renderVideoList();
-  alert('Video kegiatan berhasil ditambahkan!');
+  alert('Video berhasil ditambahkan!');
 }
 
 function hapusVideo(index) {
@@ -542,7 +542,7 @@ function renderVideoList() {
 
   const publicEl = document.getElementById('display-beranda-video-list');
   if (publicEl) {
-    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada video kegiatan yang ditambahkan.</p>' : list.map(item => {
+    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada video yang ditambahkan.</p>' : list.map(item => {
       // Pastikan URL selalu dalam format Embed jika merupakan YouTube
       const embedUrl = parseYoutubeEmbedUrl(item.url);
       const isYoutube = embedUrl.includes('youtube.com') || embedUrl.includes('youtu.be');
