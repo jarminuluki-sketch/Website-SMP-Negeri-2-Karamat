@@ -467,7 +467,7 @@ function renderKegiatanList() {
   }
 }
 
-// --- 10. KELOLA VIDEO ---
+// --- 10. KELOLA VIDEO (MENDUKUNG YOUTUBE & FILE MP4 LANGSUNG) ---
 function getVideoList() {
   const data = localStorage.getItem('smpn2_content_video_list');
   return data ? JSON.parse(data) : [];
@@ -485,7 +485,7 @@ function tambahVideo() {
   const ket = ketEl.value.trim();
 
   if (!judul || !url) {
-    alert('Judul dan URL Embed Video wajib diisi!');
+    alert('Judul dan URL Video wajib diisi!');
     return;
   }
 
@@ -522,17 +522,29 @@ function renderVideoList() {
 
   const publicEl = document.getElementById('display-beranda-video-list');
   if (publicEl) {
-    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada video kegiatan yang ditambahkan.</p>' : list.map(item => `
-      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-        <div style="width: 100%; height: 315px; background: #000;">
-          <iframe src="${item.url}" title="${item.judul}" width="100%" height="100%" style="border:0;" allowfullscreen></iframe>
+    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada video kegiatan yang ditambahkan.</p>' : list.map(item => {
+      // Deteksi apakah link YouTube atau file video biasa (.mp4)
+      const isYoutube = item.url.includes('youtube.com') || item.url.includes('youtu.be');
+      let playerHtml = '';
+
+      if (isYoutube) {
+        playerHtml = `<iframe src="${item.url}" title="${item.judul}" width="100%" height="100%" style="border:0;" allowfullscreen></iframe>`;
+      } else {
+        playerHtml = `<video src="${item.url}" controls width="100%" height="100%" style="width:100%; height:100%; object-fit:contain; background:#000;"></video>`;
+      }
+
+      return `
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+          <div style="width: 100%; height: 315px; background: #000;">
+            ${playerHtml}
+          </div>
+          <div style="padding: 20px;">
+            <h4 style="color: var(--primary-color); margin-bottom: 6px; font-size: 1.05rem;">${item.judul}</h4>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">${item.ket}</p>
+          </div>
         </div>
-        <div style="padding: 20px;">
-          <h4 style="color: var(--primary-color); margin-bottom: 6px; font-size: 1.05rem;">${item.judul}</h4>
-          <p style="color: var(--text-muted); font-size: 0.9rem;">${item.ket}</p>
-        </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 }
 
