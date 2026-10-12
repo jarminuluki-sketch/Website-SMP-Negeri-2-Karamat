@@ -467,7 +467,7 @@ function renderKegiatanList() {
   }
 }
 
-// --- 10. KELOLA VIDEO (MENDUKUNG YOUTUBE & FILE MP4 LANGSUNG) ---
+// --- 10. KELOLA VIDEO (DIPERKUAT DENGAN KONTROL HTML5 & YOUTUBE) ---
 function getVideoList() {
   const data = localStorage.getItem('smpn2_content_video_list');
   return data ? JSON.parse(data) : [];
@@ -523,19 +523,18 @@ function renderVideoList() {
   const publicEl = document.getElementById('display-beranda-video-list');
   if (publicEl) {
     publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada video kegiatan yang ditambahkan.</p>' : list.map(item => {
-      // Deteksi apakah link YouTube atau file video biasa (.mp4)
       const isYoutube = item.url.includes('youtube.com') || item.url.includes('youtu.be');
       let playerHtml = '';
 
       if (isYoutube) {
         playerHtml = `<iframe src="${item.url}" title="${item.judul}" width="100%" height="100%" style="border:0;" allowfullscreen></iframe>`;
       } else {
-        playerHtml = `<video src="${item.url}" controls width="100%" height="100%" style="width:100%; height:100%; object-fit:contain; background:#000;"></video>`;
+        playerHtml = `<video src="${item.url}" controls preload="metadata" style="width:100%; height:100%; object-fit:contain; background:#000;"></video>`;
       }
 
       return `
         <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-          <div style="width: 100%; height: 315px; background: #000;">
+          <div style="width: 100%; height: 315px; background: #000; display: flex; align-items: center; justify-content: center;">
             ${playerHtml}
           </div>
           <div style="padding: 20px;">
