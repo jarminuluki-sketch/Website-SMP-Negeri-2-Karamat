@@ -163,7 +163,216 @@ body {
   padding-left: 22px;
 }
 
-/* HERO SECTION FULL SCREEN / FULL LAYAR */
+/* Tombol Aksesibilitas Navbar */
+.accessibility-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+
+.accessibility-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+/* Panel Modal Aksesibilitas */
+.accessibility-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.accessibility-card {
+  background: white;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  overflow: hidden;
+  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.accessibility-header {
+  background: #0284c7;
+  color: white;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accessibility-header h3 {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.accessibility-close {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.accessibility-body {
+  padding: 20px;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.acc-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.acc-box-full {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.acc-box-title {
+  font-weight: 700;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.acc-font-controls {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 8px 15px;
+}
+
+.acc-font-controls button {
+  background: #eff6ff;
+  color: #0284c7;
+  border: 1px solid #bfdbfe;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.acc-font-controls span {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+
+.acc-box-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.acc-box-left i {
+  font-size: 1.3rem;
+  color: #0284c7;
+  background: #e0f2fe;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.acc-title {
+  font-weight: 700;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+}
+
+.acc-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Switch Toggle CSS */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #cbd5e1;
+  transition: .3s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #0284c7;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* HERO SECTION FULL SCREEN */
 .hero-full-width {
   position: relative;
   width: 100vw;
@@ -197,10 +406,7 @@ body {
 
 .hero-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0; width: 100%; height: 100%;
   background: linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(6, 78, 59, 0.75) 100%);
   z-index: 2;
   pointer-events: none;
@@ -220,8 +426,6 @@ body {
   font-weight: 800;
   margin-bottom: 15px;
   text-shadow: 0 4px 20px rgba(0,0,0,0.8);
-  line-height: 1.2;
-  letter-spacing: -0.5px;
 }
 
 .hero-subtitle {
@@ -229,8 +433,6 @@ body {
   opacity: 0.95;
   margin-bottom: 30px;
   text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-  font-weight: 400;
-  line-height: 1.6;
 }
 
 /* KONTEN UTAMA 100% FULL LAYAR */
@@ -256,7 +458,6 @@ body {
   display: block;
 }
 
-/* Grid Beranda & Kartu 3D */
 .beranda-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -276,20 +477,6 @@ body {
     margin-top: 15px;
     gap: 8px;
   }
-  .hero-full-width {
-    height: 60vh;
-    min-height: 380px;
-  }
-  .hero-title {
-    font-size: 1.8rem;
-  }
-  .hero-subtitle {
-    font-size: 0.95rem;
-    margin-bottom: 18px;
-  }
-  .main-content {
-    padding: 0 10px;
-  }
 }
 
 .card-content {
@@ -299,48 +486,21 @@ body {
   border-radius: 16px;
   box-shadow: var(--shadow-3d);
   border: 1px solid var(--border-color);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s ease;
 }
 
-/* PENGATURAN UKURAN FONT BESAR & JELAS UNTUK SEMUA ISI MENU & SUB-MENU */
-.card-content p, 
-.card-content li, 
-.card-content span {
-  font-size: 1.18rem !important; /* Ukuran font isi diperbesar jelas seperti gambar */
+.card-content p, .card-content li, .card-content span {
+  font-size: 1.18rem !important;
   line-height: 1.8 !important;
 }
 
-.card-content h2, 
-.card-content h3, 
-.card-content h4 {
-  font-size: 1.85rem !important; /* Ukuran judul/sub-menu diperbesar tegas */
+.card-content h2, .card-content h3, .card-content h4 {
+  font-size: 1.85rem !important;
   font-weight: 700 !important;
   margin-bottom: 18px;
   color: var(--primary-color);
 }
 
-.card-content:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-  border-color: rgba(6, 78, 59, 0.2);
-}
-
-/* Tombol 3D Aerodinamis */
-button, .btn-action {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-button:hover, .btn-action:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-button:active, .btn-action:active {
-  transform: translateY(0);
-}
-
-/* Footer 3D */
 footer {
   background: linear-gradient(135deg, var(--primary-color) 0%, #04382c 100%);
   color: white;
@@ -348,5 +508,4 @@ footer {
   padding: 25px;
   margin-top: 60px;
   font-size: 1rem;
-  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05);
 }
