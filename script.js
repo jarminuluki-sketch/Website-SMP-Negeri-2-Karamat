@@ -371,7 +371,7 @@ function renderPageContent() {
 // --- 8. KELOLA BERANDA (BERANDA HERO VIDEO BACKGROUND) ---
 const defaultBerandaData = {
   sambutan: "Puji dan syukur marilah kita panjatkan ke hadirat Allah SWT, Tuhan Yang Maha Esa, atas rahmat, hidayah, dan karunia-Nya, sehingga kita semua senantiasa diberikan kesehatan dan kesempatan untuk terus berinovasi demi kemajuan pendidikan di sekolah yang kita cintai ini.\n\nDi era digital yang berkembang sangat pesat saat ini, pemanfaatan teknologi informasi dan komunikasi merupakan sebuah kebutuhan mendasar, khususnya dalam meningkatkan kualitas pelayanan pendidikan dan transparansi informasi publik. Oleh karena itu, dengan penuh rasa syukur dan bangga, saya menyampaikan bahwa SMP Negeri 2 Karamat resmi meluncurkan Website Resmi Sekolah sekaligus Aplikasi PPDB Online (Penerimaan Peserta Didik Baru Online).\n\nHadirnya website resmi ini dirancang sebagai wadah informasi terpadu, sarana komunikasi, serta jendela informasi bagi masyarakat luas, orang tua murid, dan para alumni untuk mengetahui berbagai perkembangan, kegiatan, prestasi, serta program-program unggulan SMP Negeri 2 Karamat.\n\nSelain itu, peluncuran Aplikasi PPDB Online merupakan bentuk komitmen kami dalam memberikan pelayanan yang lebih mudah, cepat, efisien, dan transparan bagi para calon peserta didik baru beserta orang tua. Melalui sistem ini, proses pendaftaran dapat dilakukan secara mandiri dari mana saja tanpa terbatas jarak dan waktu.\n\nKami menyadari bahwa inovasi ini tidak dapat berjalan optimal tanpa dukungan dari seluruh pihak. Oleh karena itu, kami mengucapkan terima kasih dan apresiasi yang setinggi-tingginya kepada tim pengembang, para guru, tenaga kependidikan, serta seluruh pihak yang telah bekerja keras hingga website dan aplikasi ini dapat terwujud dan beroperasi dengan baik.\n\nHarapan kami, fasilitas digital ini tidak hanya mempermudah akses informasi dan administrasi, tetapi juga menjadi pemicu semangat bagi kita semua untuk terus meningkatkan mutu pembelajaran serta membawa SMP Negeri 2 Karamat menjadi sekolah yang makin unggul, berprestasi, dan berkarakter.\n\nMari kita manfaatkan sarana ini dengan sebaik-baiknya demi kemajuan pendidikan anak-anak kita, sang generasi penerus bangsa.\n\nTerima kasih atas perhatian dan kerja samanya.",
-  banner: "https://assets.mixkit.co/videos/preview/mixkit-school-corridor-with-students-walking-42797-large.mp4",
+  banner: "images/slide_video_smpn2karamat.mp4",
   kepsek: "https://i.postimg.cc/sxPCtknH/Gemini-Generated-Image-tnppjqtnppjqtnpp.jpg"
 };
 
@@ -398,8 +398,8 @@ function renderBerandaData() {
   const videoBg = document.getElementById('display-beranda-video-bg');
   const videoSrc = document.getElementById('display-beranda-video-src');
   if (videoBg && videoSrc) {
-    if (videoSrc.src !== data.banner) {
-      videoSrc.src = data.banner;
+    if (videoSrc.getAttribute('src') !== data.banner) {
+      videoSrc.setAttribute('src', data.banner);
       videoBg.load();
       videoBg.play().catch(() => {});
     }
