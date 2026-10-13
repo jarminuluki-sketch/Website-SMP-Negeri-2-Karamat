@@ -14,6 +14,43 @@ function showPage(pageId) {
   }
 }
 
+// --- FUNGSI AKSESIBILITAS ---
+function toggleAccessibilityModal() {
+  const modal = document.getElementById('accessibilityModal');
+  if (modal) {
+    modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+  }
+}
+
+let currentFontScale = 1;
+function changeFontSize(amount) {
+  currentFontScale += amount / 100;
+  if (currentFontScale < 0.8) currentFontScale = 0.8;
+  if (currentFontScale > 1.6) currentFontScale = 1.6;
+
+  document.documentElement.style.setProperty('--font-scale', currentFontScale);
+  const display = document.getElementById('fontSizeDisplay');
+  if (display) {
+    display.innerText = Math.round(currentFontScale * 100) + '%';
+  }
+}
+
+function toggleBodyClass(className, enable) {
+  if (enable) {
+    document.body.classList.add(className);
+  } else {
+    document.body.classList.remove(className);
+  }
+}
+
+// Tutup modal jika klik di luar kotak
+window.addEventListener('click', (event) => {
+  const modal = document.getElementById('accessibilityModal');
+  if (event.target === modal) {
+    modal.style.display = 'none';
+  }
+});
+
 // --- FUNGSI BANTUAN: KONSISTENSI URL YOUTUBE EMBED ---
 function parseYoutubeEmbedUrl(url) {
   if (!url) return '';
@@ -368,9 +405,9 @@ function renderPageContent() {
   }
 }
 
-// --- 8. KELOLA BERANDA (BERANDA HERO VIDEO BACKGROUND) ---
+// --- 8. KELOLA BERANDA ---
 const defaultBerandaData = {
-  sambutan: "Puji dan syukur marilah kita panjatkan ke hadirat Allah SWT, Tuhan Yang Maha Esa, atas rahmat, hidayah, dan karunia-Nya, sehingga kita semua senantiasa diberikan kesehatan dan kesempatan untuk terus berinovasi demi kemajuan pendidikan di sekolah yang kita cintai ini.\n\nDi era digital yang berkembang sangat pesat saat ini, pemanfaatan teknologi informasi dan komunikasi merupakan sebuah kebutuhan mendasar, khususnya dalam meningkatkan kualitas pelayanan pendidikan dan transparansi informasi publik. Oleh karena itu, dengan penuh rasa syukur dan bangga, saya menyampaikan bahwa SMP Negeri 2 Karamat resmi meluncurkan Website Resmi Sekolah sekaligus Aplikasi PPDB Online (Penerimaan Peserta Didik Baru Online).\n\nHadirnya website resmi ini dirancang sebagai wadah informasi terpadu, sarana komunikasi, serta jendela informasi bagi masyarakat luas, orang tua murid, dan para alumni untuk mengetahui berbagai perkembangan, kegiatan, prestasi, serta program-program unggulan SMP Negeri 2 Karamat.\n\nSelain itu, peluncuran Aplikasi PPDB Online merupakan bentuk komitmen kami dalam memberikan pelayanan yang lebih mudah, cepat, efisien, dan transparan bagi para calon peserta didik baru beserta orang tua. Melalui sistem ini, proses pendaftaran dapat dilakukan secara mandiri dari mana saja tanpa terbatas jarak dan waktu.\n\nKami menyadari bahwa inovasi ini tidak dapat berjalan optimal tanpa dukungan dari seluruh pihak. Oleh karena itu, kami mengucapkan terima kasih dan apresiasi yang setinggi-tingginya kepada tim pengembang, para guru, tenaga kependidikan, serta seluruh pihak yang telah bekerja keras hingga website dan aplikasi ini dapat terwujud dan beroperasi dengan baik.\n\nHarapan kami, fasilitas digital ini tidak hanya mempermudah akses informasi dan administrasi, tetapi juga menjadi pemicu semangat bagi kita semua untuk terus meningkatkan mutu pembelajaran serta membawa SMP Negeri 2 Karamat menjadi sekolah yang makin unggul, berprestasi, dan berkarakter.\n\nMari kita manfaatkan sarana ini dengan sebaik-baiknya demi kemajuan pendidikan anak-anak kita, sang generasi penerus bangsa.\n\nTerima kasih atas perhatian dan kerja samanya.",
+  sambutan: "Puji dan syukur marilah kita panjatkan ke hadirat Allah SWT, Tuhan Yang Maha Esa, atas rahmat, hidayah, dan karunia-Nya...",
   banner: "images/WhatsApp Video 2026-10-13 at 12.31.10.mp4",
   kepsek: "https://i.postimg.cc/sxPCtknH/Gemini-Generated-Image-tnppjqtnppjqtnpp.jpg"
 };
@@ -394,7 +431,6 @@ function renderBerandaData() {
 
   if (document.getElementById('display-beranda-sambutan')) document.getElementById('display-beranda-sambutan').innerText = data.sambutan;
   
-  // Render Video Background
   const videoBg = document.getElementById('display-beranda-video-bg');
   const videoSrc = document.getElementById('display-beranda-video-src');
   if (videoBg && videoSrc) {
@@ -418,7 +454,7 @@ const defaultKegiatanList = [
     judul: "Ucapan HUTDA ke 27 KaB. Buol",
     tanggal: "2026-10-12",
     foto: "https://i.postimg.cc/KjT84p0M/Whats-App-Image-2026-10-10-at-13-30-26.jpg",
-    deskripsi: "Dalam rangka memperingati Hari Ulang Tahun Daerah (HUTDA) ke-27 Kabupaten Buol, Keluarga Besar SMP Negeri 2 Karamat turut ambil bagian dengan penuh antusiasme dan rasa bangga."
+    deskripsi: "Dalam rangka memperingati Hari Ulang Tahun Daerah (HUTDA) ke-27 Kabupaten Buol..."
   }
 ];
 
@@ -441,7 +477,7 @@ function tambahKegiatan() {
   const deskripsi = deskripsiEl.value.trim();
 
   if (!judul || !deskripsi) {
-    alert('Judul dan Deskripsi kegiatan wajib diisi!');
+    alert('Judul dan Deskripsi wajib diisi!');
     return;
   }
 
@@ -473,7 +509,7 @@ function renderKegiatanList() {
       <div style="background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
         <div style="display: flex; align-items: center; gap: 12px;">
           ${item.foto ? `<img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: contain; background: #000;">` : ''}
-          <div><strong>${item.judul}</strong> (${item.tanggal || 'Tanpa Tanggal'})<p style="font-size: 0.85rem;">${item.deskripsi}</p></div>
+          <div><strong>${item.judul}</strong> (${item.tanggal || 'Tanpa Tanggal'})</div>
         </div>
         <button type="button" onclick="hapusKegiatan(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
       </div>
@@ -495,7 +531,7 @@ function renderKegiatanList() {
   }
 }
 
-// --- 10. KELOLA VIDEO EDUKASI DAN KEGIATAN (AUTOCONVERT URL YOUTUBE EMBED) ---
+// --- 10. KELOLA VIDEO ---
 function getVideoList() {
   const data = localStorage.getItem('smpn2_content_video_list');
   return data ? JSON.parse(data) : [];
@@ -544,7 +580,7 @@ function renderVideoList() {
   if (adminEl) {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada video.</p>' : list.map((item, idx) => `
       <div style="background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-        <div><strong>${item.judul}</strong><br><small style="color: var(--text-muted);">${item.url}</small></div>
+        <div><strong>${item.judul}</strong></div>
         <button type="button" onclick="hapusVideo(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
       </div>
     `).join('');
@@ -555,19 +591,13 @@ function renderVideoList() {
     publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada video yang ditambahkan.</p>' : list.map(item => {
       const embedUrl = parseYoutubeEmbedUrl(item.url);
       const isYoutube = embedUrl.includes('youtube.com') || embedUrl.includes('youtu.be');
-      let playerHtml = '';
-
-      if (isYoutube) {
-        playerHtml = `<iframe src="${embedUrl}" title="${item.judul}" width="100%" height="100%" style="border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-      } else {
-        playerHtml = `<video src="${embedUrl}" controls preload="metadata" style="width:100%; height:100%; object-fit:contain; background:#000;"></video>`;
-      }
+      let playerHtml = isYoutube ? 
+        `<iframe src="${embedUrl}" title="${item.judul}" width="100%" height="100%" style="border:0;" allowfullscreen></iframe>` : 
+        `<video src="${embedUrl}" controls preload="metadata" style="width:100%; height:100%; object-fit:contain; background:#000;"></video>`;
 
       return `
         <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-          <div style="width: 100%; height: 315px; background: #000; display: flex; align-items: center; justify-content: center;">
-            ${playerHtml}
-          </div>
+          <div style="width: 100%; height: 315px; background: #000; display: flex; align-items: center; justify-content: center;">${playerHtml}</div>
           <div style="padding: 20px;">
             <h4 style="color: var(--primary-color); margin-bottom: 6px; font-size: 1.05rem;">${item.judul}</h4>
             <p style="color: var(--text-muted); font-size: 0.9rem;">${item.ket}</p>
@@ -596,7 +626,7 @@ function tambahSarana() {
   const ket = ketEl.value.trim();
 
   if (!nama || !ket) {
-    alert('Nama sarana dan keterangan wajib diisi!');
+    alert('Nama dan Keterangan wajib diisi!');
     return;
   }
 
@@ -609,7 +639,7 @@ function tambahSarana() {
   ketEl.value = '';
 
   renderSaranaList();
-  alert('Sarana & Prasarana berhasil ditambahkan!');
+  alert('Sarana berhasil ditambahkan!');
 }
 
 function hapusSarana(index) {
@@ -625,10 +655,7 @@ function renderSaranaList() {
   if (adminEl) {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada sarana.</p>' : list.map((item, idx) => `
       <div style="background: #f8fafc; padding: 10px 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: contain; background: #000;">
-          <div><strong>${item.nama}</strong><br><small style="color: var(--text-muted);">${item.ket}</small></div>
-        </div>
+        <div><strong>${item.nama}</strong></div>
         <button type="button" onclick="hapusSarana(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
       </div>
     `).join('');
@@ -636,11 +663,11 @@ function renderSaranaList() {
 
   const publicEl = document.getElementById('display-sarana-list');
   if (publicEl) {
-    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada data sarana dan prasarana.</p>' : list.map(item => `
+    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada data sarana.</p>' : list.map(item => `
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
         <div style="width: 100%; height: 200px; background: #0f172a; overflow: hidden; display: flex; align-items: center; justify-content: center;"><img src="${item.foto}" alt="${item.nama}" style="width: 100%; height: 100%; object-fit: contain;"></div>
         <div style="padding: 20px;">
-          <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 1.05rem;">${item.nama}</h4>
+          <h4 style="color: var(--primary-color); margin-bottom: 8px;">${item.nama}</h4>
           <p style="color: var(--text-muted); font-size: 0.9rem;">${item.ket}</p>
         </div>
       </div>
@@ -666,7 +693,7 @@ function tambahGuru() {
   const foto = fotoEl.value.trim() || 'https://via.placeholder.com/150';
 
   if (!nama || !mapel) {
-    alert('Nama dan Jabatan/Mapel guru wajib diisi!');
+    alert('Nama dan Mapel wajib diisi!');
     return;
   }
 
@@ -679,7 +706,7 @@ function tambahGuru() {
   fotoEl.value = '';
 
   renderGuruList();
-  alert('Data guru berhasil ditambahkan!');
+  alert('Guru berhasil ditambahkan!');
 }
 
 function hapusGuru(index) {
@@ -695,10 +722,7 @@ function renderGuruList() {
   if (adminEl) {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada guru.</p>' : list.map((item, idx) => `
       <div style="background: #f8fafc; padding: 10px 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <img src="${item.foto}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-          <div><strong>${item.nama}</strong><br><small style="color: var(--text-muted);">${item.mapel}</small></div>
-        </div>
+        <div><strong>${item.nama}</strong> (${item.mapel})</div>
         <button type="button" onclick="hapusGuru(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
       </div>
     `).join('');
@@ -706,10 +730,10 @@ function renderGuruList() {
 
   const publicEl = document.getElementById('display-guru-list');
   if (publicEl) {
-    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada daftar dewan guru yang ditampilkan.</p>' : list.map(item => `
+    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada daftar dewan guru.</p>' : list.map(item => `
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-        <img src="${item.foto}" alt="${item.nama}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 12px; border: none; background: transparent;">
-        <h4 style="color: var(--primary-color); margin-bottom: 5px; font-size: 1rem;">${item.nama}</h4>
+        <img src="${item.foto}" alt="${item.nama}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 12px;">
+        <h4 style="color: var(--primary-color); margin-bottom: 5px;">${item.nama}</h4>
         <p style="color: var(--text-muted); font-size: 0.85rem;">${item.mapel}</p>
       </div>
     `).join('');
@@ -734,7 +758,7 @@ function tambahPramuka() {
   const ket = ketEl.value.trim();
 
   if (!judul || !ket) {
-    alert('Judul dan Keterangan kegiatan pramuka wajib diisi!');
+    alert('Judul dan Keterangan wajib diisi!');
     return;
   }
 
@@ -747,7 +771,7 @@ function tambahPramuka() {
   ketEl.value = '';
 
   renderPramukaList();
-  alert('Kegiatan Pramuka berhasil ditambahkan!');
+  alert('Pramuka berhasil ditambahkan!');
 }
 
 function hapusPramuka(index) {
@@ -761,12 +785,9 @@ function renderPramukaList() {
   const list = getPramukaList();
   const adminEl = document.getElementById('admin-pramuka-list');
   if (adminEl) {
-    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada kegiatan.</p>' : list.map((item, idx) => `
+    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada.</p>' : list.map((item, idx) => `
       <div style="background: #f8fafc; padding: 10px 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: contain; background: #000;">
-          <div><strong>${item.judul}</strong><br><small style="color: var(--text-muted);">${item.ket}</small></div>
-        </div>
+        <div><strong>${item.judul}</strong></div>
         <button type="button" onclick="hapusPramuka(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
       </div>
     `).join('');
@@ -774,11 +795,11 @@ function renderPramukaList() {
 
   const publicEl = document.getElementById('display-pramuka-list');
   if (publicEl) {
-    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada dokumentasi kegiatan pramuka.</p>' : list.map(item => `
+    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada dokumentasi pramuka.</p>' : list.map(item => `
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
         <div style="width: 100%; height: 200px; background: #0f172a; overflow: hidden; display: flex; align-items: center; justify-content: center;"><img src="${item.foto}" alt="${item.judul}" style="width: 100%; height: 100%; object-fit: contain;"></div>
         <div style="padding: 20px;">
-          <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 1.05rem;">${item.judul}</h4>
+          <h4 style="color: var(--primary-color); margin-bottom: 8px;">${item.judul}</h4>
           <p style="color: var(--text-muted); font-size: 0.9rem;">${item.ket}</p>
         </div>
       </div>
@@ -804,7 +825,7 @@ function tambahSilat() {
   const ket = ketEl.value.trim();
 
   if (!judul || !ket) {
-    alert('Judul dan Keterangan kegiatan pencak silat wajib diisi!');
+    alert('Judul dan Keterangan wajib diisi!');
     return;
   }
 
@@ -817,7 +838,7 @@ function tambahSilat() {
   ketEl.value = '';
 
   renderSilatList();
-  alert('Kegiatan Pencak Silat berhasil ditambahkan!');
+  alert('Pencak Silat berhasil ditambahkan!');
 }
 
 function hapusSilat(index) {
@@ -831,12 +852,9 @@ function renderSilatList() {
   const list = getSilatList();
   const adminEl = document.getElementById('admin-silat-list');
   if (adminEl) {
-    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada kegiatan.</p>' : list.map((item, idx) => `
+    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada.</p>' : list.map((item, idx) => `
       <div style="background: #f8fafc; padding: 10px 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <img src="${item.foto}" style="width: 50px; height: 40px; border-radius: 4px; object-fit: contain; background: #000;">
-          <div><strong>${item.judul}</strong><br><small style="color: var(--text-muted);">${item.ket}</small></div>
-        </div>
+        <div><strong>${item.judul}</strong></div>
         <button type="button" onclick="hapusSilat(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
       </div>
     `).join('');
@@ -844,11 +862,11 @@ function renderSilatList() {
 
   const publicEl = document.getElementById('display-pencaksilat-list');
   if (publicEl) {
-    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada dokumentasi kegiatan pencak silat.</p>' : list.map(item => `
+    publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada dokumentasi pencak silat.</p>' : list.map(item => `
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
         <div style="width: 100%; height: 200px; background: #0f172a; overflow: hidden; display: flex; align-items: center; justify-content: center;"><img src="${item.foto}" alt="${item.judul}" style="width: 100%; height: 100%; object-fit: contain;"></div>
         <div style="padding: 20px;">
-          <h4 style="color: var(--primary-color); margin-bottom: 8px; font-size: 1.05rem;">${item.judul}</h4>
+          <h4 style="color: var(--primary-color); margin-bottom: 8px;">${item.judul}</h4>
           <p style="color: var(--text-muted); font-size: 0.9rem;">${item.ket}</p>
         </div>
       </div>
