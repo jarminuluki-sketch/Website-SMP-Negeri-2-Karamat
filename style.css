@@ -27,7 +27,7 @@ body {
 
 /* Header & Navbar 3D Aerodinamis */
 .header {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -160,27 +160,36 @@ body {
   padding-left: 22px;
 }
 
-/* Hero Section Video FULL & Tanpa Ter-crop */
-.hero-video-container {
+/* HERO SECTION FULL SCREEN / FULL LAYAR (SEPERTI WEBSITE BALI) */
+.hero-full-width {
   position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  max-height: 520px;
-  border-radius: 20px;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  height: 80vh;
+  min-height: 500px;
+  max-height: 750px;
   overflow: hidden;
-  margin-bottom: 35px;
-  box-shadow: var(--shadow-3d);
   background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 40px;
 }
 
 .hero-video-bg {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
 }
 
 .hero-overlay {
@@ -189,40 +198,42 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(6, 78, 59, 0.35) 0%, rgba(15, 23, 42, 0.65) 100%);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(6, 78, 59, 0.75) 100%);
   z-index: 2;
   pointer-events: none;
 }
 
 .hero-content {
-  position: absolute;
+  position: relative;
   z-index: 3;
   color: white;
   text-align: center;
-  padding: 0 25px;
-  max-width: 850px;
+  padding: 0 20px;
+  max-width: 900px;
 }
 
 .hero-title {
-  font-size: 2.2rem;
+  font-size: 2.8rem;
   font-weight: 800;
-  margin-bottom: 12px;
-  text-shadow: 0 4px 15px rgba(0,0,0,0.8);
-  line-height: 1.25;
+  margin-bottom: 15px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+  line-height: 1.2;
+  letter-spacing: -0.5px;
 }
 
 .hero-subtitle {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   opacity: 0.95;
-  margin-bottom: 22px;
+  margin-bottom: 30px;
   text-shadow: 0 2px 10px rgba(0,0,0,0.8);
   font-weight: 400;
+  line-height: 1.6;
 }
 
 /* Konten Utama & Efek 3D Kartu */
 .main-content {
   max-width: 1200px;
-  margin: 35px auto;
+  margin: 0 auto 35px auto;
   padding: 0 20px;
   min-height: 75vh;
 }
@@ -260,16 +271,16 @@ body {
     margin-top: 15px;
     gap: 8px;
   }
-  .hero-video-container {
-    aspect-ratio: 16 / 9;
-    max-height: 320px;
+  .hero-full-width {
+    height: 60vh;
+    min-height: 380px;
   }
   .hero-title {
-    font-size: 1.3rem;
+    font-size: 1.8rem;
   }
   .hero-subtitle {
-    font-size: 0.85rem;
-    margin-bottom: 12px;
+    font-size: 0.95rem;
+    margin-bottom: 18px;
   }
 }
 
