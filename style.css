@@ -160,11 +160,12 @@ body {
   padding-left: 22px;
 }
 
-/* Hero Section Video Background (Gaya Portal Pemprov Bali) */
+/* Hero Section Video FULL & Tanpa Ter-crop */
 .hero-video-container {
   position: relative;
   width: 100%;
-  height: 480px;
+  aspect-ratio: 16 / 9;
+  max-height: 520px;
   border-radius: 20px;
   overflow: hidden;
   margin-bottom: 35px;
@@ -176,16 +177,10 @@ body {
 }
 
 .hero-video-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: 1;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
 }
 
 .hero-overlay {
@@ -194,12 +189,13 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(6, 78, 59, 0.45) 0%, rgba(15, 23, 42, 0.75) 100%);
+  background: linear-gradient(180deg, rgba(6, 78, 59, 0.35) 0%, rgba(15, 23, 42, 0.65) 100%);
   z-index: 2;
+  pointer-events: none;
 }
 
 .hero-content {
-  position: relative;
+  position: absolute;
   z-index: 3;
   color: white;
   text-align: center;
@@ -208,18 +204,18 @@ body {
 }
 
 .hero-title {
-  font-size: 2.3rem;
+  font-size: 2.2rem;
   font-weight: 800;
   margin-bottom: 12px;
-  text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  text-shadow: 0 4px 15px rgba(0,0,0,0.8);
   line-height: 1.25;
 }
 
 .hero-subtitle {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   opacity: 0.95;
-  margin-bottom: 25px;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+  margin-bottom: 22px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
   font-weight: 400;
 }
 
@@ -265,13 +261,15 @@ body {
     gap: 8px;
   }
   .hero-video-container {
-    height: 380px;
+    aspect-ratio: 16 / 9;
+    max-height: 320px;
   }
   .hero-title {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
   }
   .hero-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
   }
 }
 
