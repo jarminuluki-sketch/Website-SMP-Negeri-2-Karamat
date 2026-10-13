@@ -25,7 +25,7 @@ body {
   min-height: 100vh;
 }
 
-/* Header & Navbar Full Width Layar */
+/* Header & Navbar Proporsional */
 .header {
   width: 100%;
   background: rgba(255, 255, 255, 0.95);
@@ -40,9 +40,9 @@ body {
 
 .navbar {
   width: 100%;
-  max-width: 100%;
+  max-width: 1450px; /* Menjaga batas lebar agar menu tetap rapi dan tidak terlalu renggang */
   margin: 0 auto;
-  padding: 15px 35px;
+  padding: 12px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
