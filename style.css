@@ -40,7 +40,7 @@ body {
 
 .navbar {
   width: 100%;
-  max-width: 1450px; /* Menjaga batas lebar agar menu tetap rapi dan tidak terlalu renggang */
+  max-width: 1450px;
   margin: 0 auto;
   padding: 12px 30px;
   display: flex;
@@ -232,11 +232,12 @@ body {
   line-height: 1.6;
 }
 
-/* Konten Utama & Efek 3D Kartu */
+/* KONTEN UTAMA FULL LAYAR UNTUK SEMUA MENU & SUB MENU */
 .main-content {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 96%; /* Membuat konten membentang memenuhi hampir seluruh layar */
   margin: 0 auto 35px auto;
-  padding: 0 20px;
+  padding: 0 15px;
   min-height: 75vh;
 }
 
@@ -284,6 +285,10 @@ body {
   .hero-subtitle {
     font-size: 0.95rem;
     margin-bottom: 18px;
+  }
+  .main-content {
+    max-width: 100%;
+    padding: 0 10px;
   }
 }
 
