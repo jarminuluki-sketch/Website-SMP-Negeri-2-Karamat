@@ -57,8 +57,21 @@
 
         <!-- 1. HALAMAN BERANDA -->
         <section id="view-beranda" class="page-view active-view">
-            <div class="hero-banner">
-                <img id="display-beranda-banner" src="https://i.postimg.cc/PJyqnvJX/Gemini-Generated-Image-tqris4tqris4tqri.jpg" alt="Banner Sekolah">
+            
+            <!-- Hero Video Background (Model Pemprov Bali) -->
+            <div class="hero-video-container">
+                <video id="display-beranda-video-bg" class="hero-video-bg" autoplay loop muted playsinline poster="https://i.postimg.cc/PJyqnvJX/Gemini-Generated-Image-tqris4tqris4tqri.jpg">
+                    <source id="display-beranda-video-src" src="https://assets.mixkit.co/videos/preview/mixkit-school-corridor-with-students-walking-42797-large.mp4" type="video/mp4">
+                    Browser Anda tidak mendukung pemutaran video background.
+                </video>
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1 class="hero-title">Selamat Datang di Portal Resmi SMP Negeri 2 Karamat</h1>
+                    <p class="hero-subtitle">Mewujudkan Generasi Berkarakter, Berakhlak Mulia, dan Unggul dalam Prestasi di Kabupaten Buol</p>
+                    <button onclick="showPage('view-ppdb')" style="background: linear-gradient(135deg, var(--accent-color) 0%, #0369a1 100%); color: white; border: none; padding: 14px 28px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 1.05rem; display: inline-flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-paper-plane"></i> Daftar PPDB Online Sekarang
+                    </button>
+                </div>
             </div>
 
             <!-- Banner Tombol Cepat PPDB -->
@@ -111,7 +124,6 @@
                     </a>
                 </div>
 
-                <!-- Informasi Singkat PPDB -->
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
                     <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px;">
                         <h4 style="color: var(--primary-color); margin-bottom: 8px;"><i class="fas fa-calendar-check"></i> 1. Pendaftaran Online</h4>
@@ -127,7 +139,6 @@
                     </div>
                 </div>
 
-                <!-- Embed Aplikasi PPDB Web Apps -->
                 <div style="width: 100%; height: 750px; border-radius: 12px; overflow: hidden; border: 2px solid #cbd5e1; background: #000; box-shadow: var(--shadow-3d);">
                     <iframe src="https://script.google.com/macros/s/AKfycbxg8l7jf8Y9iHxyH1TOUQSL7Znwx3-b8rMa42dWbdrnh3nEB7y54rYFwqP9lN8mxj1H/exec" title="Aplikasi PPDB Online SMPN 2 Karamat" width="100%" height="100%" style="border:0;" allowfullscreen></iframe>
                 </div>
@@ -405,17 +416,18 @@
                 </form>
             </div>
 
-            <!-- TAB 2: KELOLA BERANDA -->
+            <!-- TAB 2: KELOLA BERANDA (TERMASUK DENGAN VIDEO BACKGROUND HERO) -->
             <div id="tab-beranda" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.04);">
                 <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-home"></i> Kelola Halaman Beranda</h3>
                 <form onsubmit="saveBerandaData(event)">
                     <div style="margin-bottom: 20px;">
-                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Kata Sambutan Kepala Sekolah:</label>
-                        <textarea id="input-beranda-sambutan" rows="4" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;" required></textarea>
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Video Background Hero Depan (.mp4):</label>
+                        <input type="text" id="input-beranda-banner" placeholder="URL Video MP4..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;" required>
+                        <small style="color: var(--text-muted);">Masukkan URL file video .mp4 langsung yang akan diputar sebagai latar belakang utama.</small>
                     </div>
                     <div style="margin-bottom: 20px;">
-                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Foto Tampilan Depan (Banner Hero):</label>
-                        <input type="text" id="input-beranda-banner" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;" required>
+                        <label style="font-weight: 600; display: block; margin-bottom: 5px;">Teks Kata Sambutan Kepala Sekolah:</label>
+                        <textarea id="input-beranda-sambutan" rows="4" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;" required></textarea>
                     </div>
                     <div style="margin-bottom: 20px;">
                         <label style="font-weight: 600; display: block; margin-bottom: 5px;">URL Foto Kepala Sekolah:</label>
