@@ -9,6 +9,7 @@
   --border-color: rgba(203, 213, 225, 0.6);
   --shadow-3d: 0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
   --shadow-hover: 0 20px 40px -10px rgba(6, 78, 59, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.08);
+  --font-scale: 1;
 }
 
 * {
@@ -21,9 +22,207 @@
 body {
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   color: var(--text-dark);
-  font-size: 1.05rem;
+  font-size: calc(1.05rem * var(--font-scale));
   line-height: 1.75;
   min-height: 100vh;
+}
+
+/* KELAS AKSESIBILITAS */
+body.dyslexia-font * {
+  font-family: 'Comic Sans MS', 'Arial', sans-serif !important;
+}
+
+body.highlight-links a {
+  text-decoration: underline !important;
+  color: #1d4ed8 !important;
+  background-color: #fef08a !important;
+}
+
+body.highlight-headings h1, body.highlight-headings h2, body.highlight-headings h3, body.highlight-headings h4 {
+  background-color: #fed7aa !important;
+  border: 2px dashed #f97316 !important;
+  padding: 4px 8px !important;
+}
+
+body.bold-text * {
+  font-weight: 700 !important;
+}
+
+body.wide-line-height p, body.wide-line-height span, body.wide-line-height li {
+  line-height: 2.4 !important;
+}
+
+body.wide-letter-spacing * {
+  letter-spacing: 1.5px !important;
+}
+
+/* Tombol Floating Aksesibilitas */
+.accessibility-float-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--primary-color);
+  color: white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 9999;
+  transition: transform 0.3s ease;
+  font-size: 1.4rem;
+  border: none;
+}
+
+.accessibility-float-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Modal Aksesibilitas */
+.accessibility-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+}
+
+.accessibility-content {
+  background: white;
+  width: 90%;
+  max-width: 480px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  overflow: hidden;
+  animation: modalPop 0.3s ease;
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.accessibility-header {
+  background: #0284c7;
+  color: white;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accessibility-header h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.accessibility-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.accessibility-body {
+  padding: 20px;
+  max-height: 75vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.acc-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 15px;
+  background: #f8fafc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.acc-card-left {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.acc-icon {
+  width: 40px;
+  height: 40px;
+  background: #e0f2fe;
+  color: #0284c7;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.acc-info h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.acc-info p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+/* Switch Toggle Styling */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #cbd5e1;
+  transition: .3s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #0284c7;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
 }
 
 /* Header & Navbar Full Width */
@@ -302,18 +501,17 @@ body {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* PENGATURAN UKURAN FONT BESAR & JELAS UNTUK SEMUA ISI MENU & SUB-MENU */
 .card-content p, 
 .card-content li, 
 .card-content span {
-  font-size: 1.18rem !important; /* Ukuran font isi diperbesar jelas seperti gambar */
+  font-size: 1.18rem !important;
   line-height: 1.8 !important;
 }
 
 .card-content h2, 
 .card-content h3, 
 .card-content h4 {
-  font-size: 1.85rem !important; /* Ukuran judul/sub-menu diperbesar tegas */
+  font-size: 1.85rem !important;
   font-weight: 700 !important;
   margin-bottom: 18px;
   color: var(--primary-color);
