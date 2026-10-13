@@ -25,8 +25,9 @@ body {
   min-height: 100vh;
 }
 
-/* Header & Navbar 3D Aerodinamis */
+/* Header & Navbar Full Width Layar */
 .header {
+  width: 100%;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -38,9 +39,10 @@ body {
 }
 
 .navbar {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 15px 20px;
+  padding: 15px 35px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -160,7 +162,7 @@ body {
   padding-left: 22px;
 }
 
-/* HERO SECTION FULL SCREEN / FULL LAYAR (SEPERTI WEBSITE BALI) */
+/* HERO SECTION FULL SCREEN / FULL LAYAR */
 .hero-full-width {
   position: relative;
   width: 100vw;
@@ -264,6 +266,7 @@ body {
     grid-template-columns: 1fr;
   }
   .navbar {
+    padding: 15px 20px;
     flex-direction: column;
     align-items: flex-start;
   }
