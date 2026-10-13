@@ -119,13 +119,13 @@
         <section id="view-beranda" class="page-view active-view">
             <div class="hero-full-width">
                 <video id="display-beranda-video-bg" class="hero-video-bg" autoplay loop muted playsinline poster="https://i.postimg.cc/PJyqnvJX/Gemini-Generated-Image-tqris4tqris4tqri.jpg">
-                    <source src="images/WhatsApp Video 2026-10-13 at 12.31.10.mp4" type="video/mp4">
+                    <source id="display-beranda-video-src" src="images/WhatsApp Video 2026-10-13 at 12.31.10.mp4" type="video/mp4">
                 </video>
                 <div class="hero-overlay"></div>
                 <div class="hero-content">
                     <h1 class="hero-title">Selamat Datang di Portal Resmi SMP Negeri 2 Karamat</h1>
                     <p class="hero-subtitle">Mewujudkan Generasi Berkarakter, Berakhlak Mulia, dan Unggul dalam Prestasi di Kabupaten Buol</p>
-                    <button onclick="showPage('view-ppdb')" style="background: linear-gradient(135deg, var(--accent-color) 0%, #0369a1 100%); color: white; border: none; padding: 14px 28px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 1.05rem; display: inline-flex; align-items: center; gap: 10px;">
+                    <button onclick="showPage('view-ppdb')" style="background: linear-gradient(135deg, var(--accent-color) 0%, #0369a1 100%); color: white; border: none; padding: 14px 28px; border-radius: 10px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 10px;">
                         <i class="fas fa-paper-plane"></i> Daftar PPDB Online Sekarang
                     </button>
                 </div>
@@ -151,6 +151,20 @@
                     <h5 style="color: var(--primary-color); font-size: 1.1rem;">Kepala Sekolah</h5>
                 </div>
             </div>
+
+            <div class="card-content" style="margin-top: 35px;">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-bullhorn"></i> Informasi & Kegiatan Terbaru</h3>
+                <div id="display-beranda-kegiatan-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <p style="color: var(--text-muted);">Belum ada informasi kegiatan terbaru.</p>
+                </div>
+            </div>
+
+            <div class="card-content" style="margin-top: 35px;">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-video"></i> Video Edukasi dan Kegiatan</h3>
+                <div id="display-beranda-video-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+                    <p style="color: var(--text-muted);">Belum ada video yang ditambahkan.</p>
+                </div>
+            </div>
         </section>
 
         <!-- 2. PPDB ONLINE -->
@@ -168,48 +182,79 @@
 
         <!-- 3. SEJARAH -->
         <section id="view-sejarah" class="page-view" style="display: none;">
-            <div class="card-content"><h2 style="color: var(--primary-color); margin-bottom: 15px;">Sejarah Sekolah</h2><div id="display-sejarah"><p>Memuat sejarah sekolah...</p></div></div>
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-history"></i> Sejarah Sekolah</h2>
+                <div id="display-sejarah"><p>Memuat sejarah sekolah...</p></div>
+            </div>
         </section>
 
         <!-- 4. VISI & MISI -->
         <section id="view-visimisi" class="page-view" style="display: none;">
-            <div class="card-content"><h2 style="color: var(--primary-color); margin-bottom: 15px;">Visi & Misi</h2><p id="display-visi"></p></div>
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-eye"></i> Visi & Misi</h2>
+                <div style="background: #f0fdf4; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 8px;"><i class="fas fa-bullseye"></i> Visi Sekolah:</h4>
+                    <p id="display-visi" style="font-style: italic; font-weight: 600; color: #065f46;"></p>
+                </div>
+                <h4 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-list-ol"></i> Misi Sekolah:</h4>
+                <div id="display-misi-list" style="display: flex; flex-direction: column; gap: 12px;"></div>
+            </div>
         </section>
 
         <!-- 5. TUPOKSI -->
         <section id="view-tupoksi" class="page-view" style="display: none;">
-            <div class="card-content"><h2 style="color: var(--primary-color); margin-bottom: 15px;">Tupoksi</h2><div id="display-tupoksi"></div></div>
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 25px;"><i class="fas fa-tasks"></i> Tupoksi (Tugas Pokok & Fungsi)</h2>
+                <div id="display-tupoksi-list" style="display: flex; flex-direction: column; gap: 15px;"></div>
+            </div>
         </section>
 
-        <!-- 6. SARANA -->
+        <!-- 6. SARANA & PRASARANA -->
         <section id="view-sarana" class="page-view" style="display: none;">
-            <div class="card-content"><h2 style="color: var(--primary-color); margin-bottom: 15px;">Sarana & Prasarana</h2><div id="display-sarana"></div></div>
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-building"></i> Sarana & Prasarana Sekolah</h2>
+                <div id="display-sarana-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;"></div>
+            </div>
         </section>
 
-        <!-- 7. STRUKTUR -->
+        <!-- 7. STRUKTUR ORGANISASI -->
         <section id="view-struktur" class="page-view" style="display: none;">
-            <div class="card-content"><h2 style="color: var(--primary-color); margin-bottom: 15px;">Struktur Organisasi</h2><img id="display-struktur-img" src="" alt="Struktur" style="max-width:100%;"></div>
+            <div class="card-content" style="text-align: center;">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px; text-align: left;"><i class="fas fa-sitemap"></i> Struktur Organisasi</h2>
+                <div style="background: transparent; padding: 10px; display: inline-block; width: 100%;">
+                    <img id="display-struktur-img" src="https://via.placeholder.com/900x500?text=Struktur+Organisasi+Sekolah" alt="Struktur" style="max-width: 100%; height: auto;">
+                </div>
+            </div>
         </section>
 
         <!-- 8. GURU & STAF -->
         <section id="view-guru" class="page-view" style="display: none;">
-            <div class="card-content"><h2 style="color: var(--primary-color); margin-bottom: 15px;">Dewan Guru & Staf</h2><div id="display-guru"></div></div>
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-chalkboard-teacher"></i> Dewan Guru & Staf Pengajar</h2>
+                <div id="display-guru-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;"></div>
+            </div>
         </section>
 
         <!-- 9. PRAMUKA -->
         <section id="view-pramuka" class="page-view" style="display: none;">
-            <div class="card-content"><h2 style="color: var(--primary-color); margin-bottom: 15px;">Pramuka</h2><div id="display-pramuka"></div></div>
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-campground"></i> Ekstrakurikuler Pramuka</h2>
+                <div id="display-pramuka-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;"></div>
+            </div>
         </section>
 
         <!-- 10. PENCAK SILAT -->
         <section id="view-pencaksilat" class="page-view" style="display: none;">
-            <div class="card-content"><h2 style="color: var(--primary-color); margin-bottom: 15px;">Pencak Silat</h2><div id="display-pencaksilat"></div></div>
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-fist-raised"></i> Ekstrakurikuler Pencak Silat</h2>
+                <div id="display-pencaksilat-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;"></div>
+            </div>
         </section>
 
         <!-- 11. PESERTA DIDIK -->
         <section id="view-peserta-didik" class="page-view" style="display: none;">
             <div class="card-content">
-                <h2 style="color: var(--primary-color); margin-bottom: 20px;">Data Peserta Didik per Kelas</h2>
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-users"></i> Data Peserta Didik per Kelas</h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
                     <div style="border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #f8fafc;">
                         <h4 style="color: var(--primary-color);">Kelas 7A</h4>
@@ -222,7 +267,10 @@
 
         <!-- 12. KONTAK -->
         <section id="view-kontak" class="page-view" style="display: none;">
-            <div class="card-content"><h2 style="color: var(--primary-color);">Kontak Kami</h2><p id="display-kontak">Desa Karamat, Kab. Buol</p></div>
+            <div class="card-content">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-address-book"></i> Kontak Kami</h2>
+                <p id="display-kontak-alamat">Desa Karamat, Kab. Buol</p>
+            </div>
         </section>
 
         <!-- 13. LOGIN PETUGAS -->
@@ -237,7 +285,7 @@
             </div>
         </section>
 
-        <!-- 14. PANEL PETUGAS / ADMIN (LENGKAP SEMUA TAB) -->
+        <!-- 14. PANEL PETUGAS / ADMIN (LENGKAP SEMUA FORM TAB) -->
         <section id="view-panel-petugas" class="page-view" style="display: none;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px;">
                 <h2 style="color: var(--primary-color);"><i class="fas fa-cogs"></i> Panel Petugas / Admin Sekolah</h2>
@@ -260,13 +308,13 @@
                 <button id="btn-tab-kontak" onclick="switchTab('tab-kontak')" class="admin-tab-btn">Kontak</button>
             </div>
 
-            <!-- ISI KONTEN TAB ADMIN -->
+            <!-- ISI KONTEN TAB ADMIN LENGKAP -->
             <div id="tab-siswa" class="admin-tab-content" style="background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow-3d);">
                 <h3 style="color: var(--primary-color); margin-bottom: 20px;">Kelola Data Peserta Didik per Kelas</h3>
                 <form onsubmit="saveStudentData(event)">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-                        <div><label>Siswa Laki-laki 7A:</label><input type="number" id="input-7a-l" style="width:150px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;" required></div>
-                        <div><label>Siswa Perempuan 7A:</label><input type="number" id="input-7a-p" style="width:150px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;" required></div>
+                        <div><label>Siswa Laki-laki 7A:</label><input type="number" id="input-7a-l" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;" required></div>
+                        <div><label>Siswa Perempuan 7A:</label><input type="number" id="input-7a-p" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;" required></div>
                     </div>
                     <button type="submit" style="background: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">Simpan Data Siswa</button>
                 </form>
@@ -280,17 +328,23 @@
                 </form>
             </div>
 
-            <!-- Tab Admin Lainnya -->
-            <div id="tab-video" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px;"><h3 style="color: var(--primary-color);">Kelola Video Edukasi</h3><p>Form manajemen video kegiatan sekolah.</p></div>
-            <div id="tab-sarana" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px;"><h3 style="color: var(--primary-color);">Kelola Sarana & Prasarana</h3><p>Form manajemen sarana sekolah.</p></div>
-            <div id="tab-sejarah" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px;"><h3 style="color: var(--primary-color);">Kelola Sejarah Sekolah</h3><p>Form manajemen teks sejarah.</p></div>
-            <div id="tab-visimisi" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px;"><h3 style="color: var(--primary-color);">Kelola Visi & Misi</h3><p>Form manajemen visi misi.</p></div>
-            <div id="tab-tupoksi" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px;"><h3 style="color: var(--primary-color);">Kelola Tupoksi</h3><p>Form manajemen tugas pokok dan fungsi.</p></div>
-            <div id="tab-struktur" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px;"><h3 style="color: var(--primary-color);">Kelola Struktur Organisasi</h3><p>Form manajemen gambar struktur.</p></div>
-            <div id="tab-guru" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px;"><h3 style="color: var(--primary-color);">Kelola Dewan Guru & Staf</h3><p>Form manajemen guru dan staf.</p></div>
-            <div id="tab-pramuka" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px;"><h3 style="color: var(--primary-color);">Kelola Ekstrakurikuler Pramuka</h3><p>Form manajemen pramuka.</p></div>
-            <div id="tab-pencaksilat" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px;"><h3 style="color: var(--primary-color);">Kelola Ekstrakurikuler Pencak Silat</h3><p>Form manajemen pencak silat.</p></div>
-            <div id="tab-kontak" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px;"><h3 style="color: var(--primary-color);">Kelola Kontak</h3><p>Form manajemen kontak sekolah.</p></div>
+            <div id="tab-video" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow-3d);">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px;">Kelola Video Edukasi & Kegiatan</h3>
+                <p style="color: var(--text-muted); margin-bottom: 15px;">Tambahkan tautan video YouTube atau file MP4 untuk ditampilkan di beranda.</p>
+                <input type="text" id="input-video-judul" placeholder="Judul Video" style="width:100%; padding:8px; margin-bottom:10px; border:1px solid #cbd5e1; border-radius:6px;">
+                <input type="text" id="input-video-url" placeholder="URL Video YouTube / MP4" style="width:100%; padding:8px; margin-bottom:10px; border:1px solid #cbd5e1; border-radius:6px;">
+                <button type="button" onclick="tambahVideoAdmin()" style="background: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">Tambah Video</button>
+            </div>
+
+            <div id="tab-sarana" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow-3d);"><h3 style="color: var(--primary-color);">Kelola Sarana & Prasarana</h3><p>Modul pengelolaan fasilitas sarana sekolah.</p></div>
+            <div id="tab-sejarah" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow-3d);"><h3 style="color: var(--primary-color);">Kelola Sejarah Sekolah</h3><p>Modul pengelolaan teks sejarah.</p></div>
+            <div id="tab-visimisi" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow-3d);"><h3 style="color: var(--primary-color);">Kelola Visi & Misi</h3><p>Modul pengelolaan visi dan misi.</p></div>
+            <div id="tab-tupoksi" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow-3d);"><h3 style="color: var(--primary-color);">Kelola Tupoksi</h3><p>Modul pengelolaan tugas pokok dan fungsi.</p></div>
+            <div id="tab-struktur" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow-3d);"><h3 style="color: var(--primary-color);">Kelola Struktur Organisasi</h3><p>Modul pengelolaan gambar struktur organisasi.</p></div>
+            <div id="tab-guru" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow-3d);"><h3 style="color: var(--primary-color);">Kelola Dewan Guru & Staf</h3><p>Modul pengelolaan guru dan staf pengajar.</p></div>
+            <div id="tab-pramuka" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow-3d);"><h3 style="color: var(--primary-color);">Kelola Ekstrakurikuler Pramuka</h3><p>Modul pengelolaan pramuka.</p></div>
+            <div id="tab-pencaksilat" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow-3d);"><h3 style="color: var(--primary-color);">Kelola Ekstrakurikuler Pencak Silat</h3><p>Modul pengelolaan pencak silat.</p></div>
+            <div id="tab-kontak" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow-3d);"><h3 style="color: var(--primary-color);">Kelola Kontak</h3><p>Modul pengelolaan alamat dan kontak sekolah.</p></div>
         </section>
 
     </main>
