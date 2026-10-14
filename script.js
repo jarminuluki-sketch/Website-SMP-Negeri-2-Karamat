@@ -1,3 +1,53 @@
+// --- INISIALISASI SUPABASE ---
+const SUPABASE_URL = 'MASUKKAN_PROJECT_URL_ANDA_DI_SINI';
+const SUPABASE_ANON_KEY = 'MASUKKAN_ANON_KEY_ANDA_DI_SINI';
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Fungsi Umum Mengambil Data dari Supabase
+async function fetchFromSupabase(sectionKey, defaultValue) {
+  try {
+    let { data, error } = await supabaseClient
+      .from('site_content')
+      .select('data_json')
+      .eq('section_key', sectionKey)
+      .maybeSingle();
+    
+    if (error) throw error;
+    return data ? JSON.parse(data.data_json) : defaultValue;
+  } catch (err) {
+    console.error("Gagal mengambil data:", err);
+    return defaultValue;
+  }
+}
+
+// Fungsi Umum Menyimpan Data ke Supabase
+async function saveToSupabase(sectionKey, jsonData) {
+  try {
+    const jsonString = JSON.stringify(jsonData);
+    
+    let { data } = await supabaseClient
+      .from('site_content')
+      .select('section_key')
+      .eq('section_key', sectionKey)
+      .maybeSingle();
+
+    if (data) {
+      await supabaseClient
+        .from('site_content')
+        .update({ data_json: jsonString })
+        .eq('section_key', sectionKey);
+    } else {
+      await supabaseClient
+        .from('site_content')
+        .insert([{ section_key: sectionKey, data_json: jsonString }]);
+    }
+    
+    alert("Data berhasil disimpan ke Cloud Database Supabase!");
+  } catch (err) {
+    console.error("Gagal menyimpan data:", err);
+    alert("Gagal menyimpan data ke cloud.");
+  }
+}
 // --- 1. NAVIGASI HALAMAN (SHOW PAGE) ---
 function showPage(pageId) {
   const views = document.querySelectorAll('.page-view');
