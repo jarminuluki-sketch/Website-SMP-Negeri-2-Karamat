@@ -22,9 +22,26 @@
 body {
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   color: var(--text-dark);
-  font-size: calc(1.05rem * var(--font-scale));
+  font-size: calc(1.05rem * var(--font-scale, 1));
   line-height: 1.75;
   min-height: 100vh;
+}
+
+/* Memastikan tombol ukuran font berfungsi responsif ke seluruh teks */
+p, span, a, li, h1, h2, h3, h4, h5, h6, label, button, input, textarea {
+  font-size: calc(1em * var(--font-scale, 1)) !important;
+}
+
+.hero-title {
+  font-size: calc(2.8rem * var(--font-scale, 1)) !important;
+}
+
+.hero-subtitle {
+  font-size: calc(1.25rem * var(--font-scale, 1)) !important;
+}
+
+.logo-subtitle {
+  font-size: calc(1.15rem * var(--font-scale, 1)) !important;
 }
 
 /* KELAS AKSESIBILITAS */
@@ -81,7 +98,7 @@ body.wide-letter-spacing * {
   transform: scale(1.1);
 }
 
-/* MODAL AKSESIBILITAS - MODEL PANEL SIDEBAR KIRI (SEPERTI GAMBAR 2) */
+/* MODAL AKSESIBILITAS - MODEL PANEL SIDEBAR KIRI */
 .accessibility-modal {
   display: none;
   position: fixed;
@@ -92,7 +109,7 @@ body.wide-letter-spacing * {
   background: transparent;
   backdrop-filter: none;
   z-index: 10000;
-  pointer-events: none; /* Agar area di luar panel tetap bisa diklik */
+  pointer-events: none;
 }
 
 .accessibility-modal.active {
@@ -109,7 +126,7 @@ body.wide-letter-spacing * {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  pointer-events: auto; /* Mengaktifkan klik di dalam panel */
+  pointer-events: auto;
   animation: slideInLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   border-right: 1px solid var(--border-color);
 }
@@ -516,17 +533,9 @@ input:checked + .slider:before {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.card-content p, 
-.card-content li, 
-.card-content span {
-  font-size: 1.18rem !important;
-  line-height: 1.8 !important;
-}
-
 .card-content h2, 
 .card-content h3, 
 .card-content h4 {
-  font-size: 1.85rem !important;
   font-weight: 700 !important;
   margin-bottom: 18px;
   color: var(--primary-color);
@@ -538,7 +547,6 @@ input:checked + .slider:before {
   border-color: rgba(6, 78, 59, 0.2);
 }
 
-/* Tombol 3D */
 button, .btn-action {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -553,7 +561,6 @@ button:active, .btn-action:active {
   transform: translateY(0);
 }
 
-/* Footer 3D */
 footer {
   background: linear-gradient(135deg, var(--primary-color) 0%, #04382c 100%);
   color: white;
