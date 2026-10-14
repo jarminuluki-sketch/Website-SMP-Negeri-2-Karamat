@@ -14,7 +14,7 @@ function showPage(pageId) {
   }
 }
 
-// --- FUNGSI AKSESIBILITAS SIDEBAR ---
+// --- FUNGSI AKSESIBILITAS SIDEBAR & UKURAN FONT ---
 function toggleAccessibilityModal() {
   const modal = document.getElementById('accessibilityModal');
   if (modal) {
@@ -25,10 +25,13 @@ function toggleAccessibilityModal() {
 let currentFontScale = 1;
 function changeFontSize(amount) {
   currentFontScale += amount / 100;
+  
+  // Batasan ukuran min 80% dan max 160%
   if (currentFontScale < 0.8) currentFontScale = 0.8;
   if (currentFontScale > 1.6) currentFontScale = 1.6;
 
   document.documentElement.style.setProperty('--font-scale', currentFontScale);
+  
   const display = document.getElementById('fontSizeDisplay');
   if (display) {
     display.innerText = Math.round(currentFontScale * 100) + '%';
@@ -106,7 +109,6 @@ function hapusTautanItem(index) {
 function renderTautanList() {
   const list = getTautanList();
   
-  // Render di Panel Admin
   const adminEl = document.getElementById('admin-tautan-list');
   if (adminEl) {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada tautan.</p>' : list.map((item, idx) => `
@@ -117,7 +119,6 @@ function renderTautanList() {
     `).join('');
   }
 
-  // Render di Dropdown Navbar Publik
   const navbarEl = document.getElementById('display-navbar-tautan');
   if (navbarEl) {
     navbarEl.innerHTML = list.map(item => `
