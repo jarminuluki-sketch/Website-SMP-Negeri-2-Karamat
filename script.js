@@ -43,7 +43,6 @@ function toggleBodyClass(className, enable) {
   }
 }
 
-// Tutup modal jika klik di luar kotak
 window.addEventListener('click', (event) => {
   const modal = document.getElementById('accessibilityModal');
   if (event.target === modal) {
@@ -68,6 +67,72 @@ function parseYoutubeEmbedUrl(url) {
   return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
 }
 
+// --- KELOLA MENU TAUTAN EKSTERNAL DINAMIS ---
+const defaultTautanList = [
+  { nama: 'KEMENPAN-RB', url: 'https://www.menpan.go.id' },
+  { nama: 'KEMENDIKDASMEN', url: 'https://www.kemendikbud.go.id' },
+  { nama: 'Portal Kab. Buol', url: 'https://buolkab.go.id' },
+  { nama: 'Dapodikdasmen', url: 'https://dapo.kemdikbud.go.id' }
+];
+
+function getTautanList() {
+  const data = localStorage.getItem('smpn2_content_tautan_list');
+  return data ? JSON.parse(data) : defaultTautanList;
+}
+
+function tambahTautanItem() {
+  const namaEl = document.getElementById('input-tautan-nama');
+  const urlEl = document.getElementById('input-tautan-url');
+
+  if (!namaEl || !urlEl) return;
+  const nama = namaEl.value.trim();
+  const url = urlEl.value.trim();
+
+  if (!nama || !url) {
+    alert('Nama Tautan dan URL wajib diisi!');
+    return;
+  }
+
+  let list = getTautanList();
+  list.push({ nama, url });
+  localStorage.setItem('smpn2_content_tautan_list', JSON.stringify(list));
+
+  namaEl.value = '';
+  urlEl.value = '';
+  renderTautanList();
+  alert('Tautan berhasil ditambahkan!');
+}
+
+function hapusTautanItem(index) {
+  let list = getTautanList();
+  list.splice(index, 1);
+  localStorage.setItem('smpn2_content_tautan_list', JSON.stringify(list));
+  renderTautanList();
+}
+
+function renderTautanList() {
+  const list = getTautanList();
+  
+  // Render di Panel Admin
+  const adminEl = document.getElementById('admin-tautan-list');
+  if (adminEl) {
+    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada tautan.</p>' : list.map((item, idx) => `
+      <div style="background: #f8fafc; padding: 12px 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+        <div><strong>${idx + 1}. ${item.nama}</strong><br><small style="color: var(--text-muted);">${item.url}</small></div>
+        <button type="button" onclick="hapusTautanItem(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
+      </div>
+    `).join('');
+  }
+
+  // Render di Dropdown Navbar Publik
+  const navbarEl = document.getElementById('display-navbar-tautan');
+  if (navbarEl) {
+    navbarEl.innerHTML = list.map(item => `
+      <li><a href="${item.url}" target="_blank"><i class="fas fa-external-link-alt"></i> ${item.nama}</a></li>
+    `).join('');
+  }
+}
+
 // --- 2. FITUR DINAMIS DATA SISWA ---
 const defaultStudentData = {
   '7a': { l: 18, p: 17, wali: 'Dra. Hj. Nurain, M.Pd', foto: 'https://via.placeholder.com/150' },
@@ -89,7 +154,6 @@ function renderStudentData() {
 
   classes.forEach(cls => {
     const clsduta = data[cls] || { l: 0, p: 0, wali: '', foto: '' };
-
     const elL = document.getElementById(`display-${cls}-l`);
     const elP = document.getElementById(`display-${cls}-p`);
     const elTot = document.getElementById(`display-${cls}-total`);
@@ -285,7 +349,6 @@ function tambahTupoksiItem() {
   const deskripsiEl = document.getElementById('input-tupoksi-deskripsi');
 
   if (!judulEl || !deskripsiEl) return;
-
   const judul = judulEl.value.trim();
   const deskripsi = deskripsiEl.value.trim();
 
@@ -300,7 +363,6 @@ function tambahTupoksiItem() {
 
   judulEl.value = '';
   deskripsiEl.value = '';
-
   renderTupoksiList();
   alert('Tugas Pokok berhasil ditambahkan!');
 }
@@ -314,7 +376,6 @@ function hapusTupoksiItem(index) {
 
 function renderTupoksiList() {
   const list = getTupoksiList();
-
   const adminEl = document.getElementById('admin-tupoksi-list');
   if (adminEl) {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada tugas pokok.</p>' : list.map((item, idx) => `
@@ -343,11 +404,9 @@ function renderTupoksiList() {
 function savePageContent(event, pageKey) {
   event.preventDefault();
   let contentdata = {};
-
   if (pageKey === 'sejarah') {
     contentdata.text = document.getElementById('input-content-sejarah').value;
   }
-
   localStorage.setItem('smpn2_content_' + pageKey, JSON.stringify(contentdata));
   alert(`Data ${pageKey} berhasil diperbarui!`);
   renderPageContent();
@@ -407,7 +466,7 @@ function renderPageContent() {
 
 // --- 8. KELOLA BERANDA ---
 const defaultBerandaData = {
-  sambutan: "Puji dan syukur marilah kita panjatkan ke hadirat Allah SWT, Tuhan Yang Maha Esa, atas rahmat, hidayah, dan karunia-Nya...",
+  sambutan: "Puji dan syukur marilah kita panjatkan ke hadirat Allah SWT, Tuhan Yang Maha Esa...",
   banner: "images/WhatsApp Video 2026-10-13 at 12.31.10.mp4",
   kepsek: "https://i.postimg.cc/sxPCtknH/Gemini-Generated-Image-tnppjqtnppjqtnpp.jpg"
 };
@@ -470,7 +529,6 @@ function tambahKegiatan() {
   const deskripsiEl = document.getElementById('input-kegiatan-deskripsi');
 
   if (!judulEl || !deskripsiEl) return;
-
   const judul = judulEl.value.trim();
   const tanggal = tanggalEl.value.trim();
   const foto = fotoEl ? fotoEl.value.trim() : '';
@@ -489,7 +547,6 @@ function tambahKegiatan() {
   tanggalEl.value = '';
   if (fotoEl) fotoEl.value = '';
   deskripsiEl.value = '';
-
   renderKegiatanList();
   alert('Kegiatan berhasil ditambahkan!');
 }
@@ -543,7 +600,6 @@ function tambahVideo() {
   const ketEl = document.getElementById('input-video-ket');
 
   if (!judulEl || !urlEl || !ketEl) return;
-
   const judul = judulEl.value.trim();
   const rawUrl = urlEl.value.trim();
   const ket = ketEl.value.trim();
@@ -554,7 +610,6 @@ function tambahVideo() {
   }
 
   const url = parseYoutubeEmbedUrl(rawUrl);
-
   let list = getVideoList();
   list.push({ judul, url, ket });
   localStorage.setItem('smpn2_content_video_list', JSON.stringify(list));
@@ -562,7 +617,6 @@ function tambahVideo() {
   judulEl.value = '';
   urlEl.value = '';
   ketEl.value = '';
-
   renderVideoList();
   alert('Video berhasil ditambahkan!');
 }
@@ -620,7 +674,6 @@ function tambahSarana() {
   const ketEl = document.getElementById('input-sarana-ket');
 
   if (!namaEl || !ketEl) return;
-
   const nama = namaEl.value.trim();
   const foto = fotoEl.value.trim() || 'https://via.placeholder.com/300x200';
   const ket = ketEl.value.trim();
@@ -637,7 +690,6 @@ function tambahSarana() {
   namaEl.value = '';
   fotoEl.value = '';
   ketEl.value = '';
-
   renderSaranaList();
   alert('Sarana berhasil ditambahkan!');
 }
@@ -687,7 +739,6 @@ function tambahGuru() {
   const fotoEl = document.getElementById('input-guru-foto');
 
   if (!namaEl || !mapelEl) return;
-
   const nama = namaEl.value.trim();
   const mapel = mapelEl.value.trim();
   const foto = fotoEl.value.trim() || 'https://via.placeholder.com/150';
@@ -704,7 +755,6 @@ function tambahGuru() {
   namaEl.value = '';
   mapelEl.value = '';
   fotoEl.value = '';
-
   renderGuruList();
   alert('Guru berhasil ditambahkan!');
 }
@@ -752,7 +802,6 @@ function tambahPramuka() {
   const ketEl = document.getElementById('input-pramuka-ket');
 
   if (!judulEl || !ketEl) return;
-
   const judul = judulEl.value.trim();
   const foto = fotoEl.value.trim() || 'https://via.placeholder.com/300x200';
   const ket = ketEl.value.trim();
@@ -769,7 +818,6 @@ function tambahPramuka() {
   judulEl.value = '';
   fotoEl.value = '';
   ketEl.value = '';
-
   renderPramukaList();
   alert('Pramuka berhasil ditambahkan!');
 }
@@ -819,7 +867,6 @@ function tambahSilat() {
   const ketEl = document.getElementById('input-silat-ket');
 
   if (!judulEl || !ketEl) return;
-
   const judul = judulEl.value.trim();
   const foto = fotoEl.value.trim() || 'https://via.placeholder.com/300x200';
   const ket = ketEl.value.trim();
@@ -836,7 +883,6 @@ function tambahSilat() {
   judulEl.value = '';
   fotoEl.value = '';
   ketEl.value = '';
-
   renderSilatList();
   alert('Pencak Silat berhasil ditambahkan!');
 }
@@ -887,4 +933,5 @@ window.addEventListener('DOMContentLoaded', () => {
   renderSilatList();
   renderTupoksiList();
   renderVisiMisi();
+  renderTautanList();
 });
