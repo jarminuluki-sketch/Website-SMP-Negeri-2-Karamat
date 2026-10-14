@@ -45,14 +45,11 @@
                         <li><a onclick="showPage('view-peserta-didik')">Data Siswa per Kelas</a></li>
                     </ul>
                 </li>
-                <!-- Dropdown Link Tautan Terkait / Eksternal -->
+                <!-- Dropdown Link Tautan Terkait / Eksternal (Dikelola Dinamis dari Admin) -->
                 <li class="dropdown">
                     <a class="nav-link">Tautan <i class="fas fa-chevron-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="https://www.menpan.go.id" target="_blank"><i class="fas fa-external-link-alt"></i> KEMENPAN-RB</a></li>
-                        <li><a href="https://www.kemendikbud.go.id" target="_blank"><i class="fas fa-external-link-alt"></i> KEMENDIKDASMEN</a></li>
-                        <li><a href="https://buolkab.go.id" target="_blank"><i class="fas fa-external-link-alt"></i> Portal Kab. Buol</a></li>
-                        <li><a href="https://dapo.kemdikbud.go.id" target="_blank"><i class="fas fa-external-link-alt"></i> Dapodikdasmen</a></li>
+                    <ul class="dropdown-menu" id="display-navbar-tautan">
+                        <!-- Otomatis dirender oleh script.js -->
                     </ul>
                 </li>
                 <li><a class="nav-link" onclick="showPage('view-ppdb')" style="color: #0284c7; font-weight: 700;"><i class="fas fa-user-plus"></i> PPDB Online</a></li>
@@ -75,7 +72,6 @@
                 <button class="accessibility-close" onclick="toggleAccessibilityModal()"><i class="fas fa-times"></i></button>
             </div>
             <div class="accessibility-body">
-                <!-- Kontrol Ukuran Font -->
                 <div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; background: #f8fafc; text-align: center;">
                     <div style="font-size: 0.95rem; font-weight: 700; margin-bottom: 10px; color: var(--text-dark);">
                         <i class="fas fa-text-height"></i> Sesuaikan Ukuran Font
@@ -87,7 +83,6 @@
                     </div>
                 </div>
 
-                <!-- Font Disleksia -->
                 <div class="acc-card">
                     <div class="acc-card-left">
                         <div class="acc-icon"><i class="fas fa-font"></i></div>
@@ -102,7 +97,6 @@
                     </label>
                 </div>
 
-                <!-- Sorot Tautan -->
                 <div class="acc-card">
                     <div class="acc-card-left">
                         <div class="acc-icon"><i class="fas fa-link"></i></div>
@@ -117,7 +111,6 @@
                     </label>
                 </div>
 
-                <!-- Sorot Judul -->
                 <div class="acc-card">
                     <div class="acc-card-left">
                         <div class="acc-icon"><i class="fas fa-heading"></i></div>
@@ -132,7 +125,6 @@
                     </label>
                 </div>
 
-                <!-- Ketebalan Font -->
                 <div class="acc-card">
                     <div class="acc-card-left">
                         <div class="acc-icon"><i class="fas fa-bold"></i></div>
@@ -147,7 +139,6 @@
                     </label>
                 </div>
 
-                <!-- Tinggi Baris -->
                 <div class="acc-card">
                     <div class="acc-card-left">
                         <div class="acc-icon"><i class="fas fa-text-height"></i></div>
@@ -162,7 +153,6 @@
                     </label>
                 </div>
 
-                <!-- Jarak Huruf -->
                 <div class="acc-card">
                     <div class="acc-card-left">
                         <div class="acc-icon"><i class="fas fa-arrows-alt-h"></i></div>
@@ -185,7 +175,6 @@
 
         <!-- 1. HALAMAN BERANDA -->
         <section id="view-beranda" class="page-view active-view">
-            
             <div class="hero-full-width">
                 <video id="display-beranda-video-bg" class="hero-video-bg" autoplay loop muted playsinline poster="https://i.postimg.cc/PJyqnvJX/Gemini-Generated-Image-tqris4tqris4tqri.jpg">
                     <source id="display-beranda-video-src" src="images/WhatsApp Video 2026-10-13 at 12.31.10.mp4" type="video/mp4">
@@ -215,7 +204,7 @@
             <div class="beranda-grid">
                 <div class="card-content">
                     <h3 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-user-tie"></i> Sambutan Kepala Sekolah</h3>
-                    <p id="display-beranda-sambutan" style="line-height: 1.6; color: var(--text-dark);">Puji dan syukur marilah kita panjatkan ke hadirat Allah SWT, Tuhan Yang Maha Esa...</p>
+                    <p id="display-beranda-sambutan" style="line-height: 1.6; color: var(--text-dark);">Puji dan syukur marilah kita panjatkan ke hadirat Allah SWT...</p>
                 </div>
                 <div class="card-content" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
                     <img id="display-beranda-kepsek" src="https://i.postimg.cc/sxPCtknH/Gemini-Generated-Image-tnppjqtnppjqtnpp.jpg" alt="Kepala Sekolah" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; margin-bottom: 12px; border: none; background: transparent; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
@@ -346,54 +335,42 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
                     <div style="border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #f8fafc; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
                         <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 7A</h4>
-                        <div style="text-align: center; margin-bottom: 10px;">
-                            <img id="display-7a-foto" src="" alt="Wali Kelas 7A" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
-                        </div>
+                        <div style="text-align: center; margin-bottom: 10px;"><img id="display-7a-foto" src="" alt="Wali Kelas 7A" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
                         <p><strong>Wali Kelas:</strong> <span id="display-7a-wali">-</span></p>
                         <p>Laki-laki: <span id="display-7a-l">0</span> | Perempuan: <span id="display-7a-p">0</span></p>
                         <p><strong>Total Siswa:</strong> <span id="display-7a-total">0</span></p>
                     </div>
                     <div style="border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #f8fafc; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
                         <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 7B</h4>
-                        <div style="text-align: center; margin-bottom: 10px;">
-                            <img id="display-7b-foto" src="" alt="Wali Kelas 7B" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
-                        </div>
+                        <div style="text-align: center; margin-bottom: 10px;"><img id="display-7b-foto" src="" alt="Wali Kelas 7B" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
                         <p><strong>Wali Kelas:</strong> <span id="display-7b-wali">-</span></p>
                         <p>Laki-laki: <span id="display-7b-l">0</span> | Perempuan: <span id="display-7b-p">0</span></p>
                         <p><strong>Total Siswa:</strong> <span id="display-7b-total">0</span></p>
                     </div>
                     <div style="border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #f8fafc; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
                         <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 8A</h4>
-                        <div style="text-align: center; margin-bottom: 10px;">
-                            <img id="display-8a-foto" src="" alt="Wali Kelas 8A" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
-                        </div>
+                        <div style="text-align: center; margin-bottom: 10px;"><img id="display-8a-foto" src="" alt="Wali Kelas 8A" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
                         <p><strong>Wali Kelas:</strong> <span id="display-8a-wali">-</span></p>
                         <p>Laki-laki: <span id="display-8a-l">0</span> | Perempuan: <span id="display-8a-p">0</span></p>
                         <p><strong>Total Siswa:</strong> <span id="display-8a-total">0</span></p>
                     </div>
                     <div style="border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #f8fafc; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
                         <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 8B</h4>
-                        <div style="text-align: center; margin-bottom: 10px;">
-                            <img id="display-8b-foto" src="" alt="Wali Kelas 8B" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
-                        </div>
+                        <div style="text-align: center; margin-bottom: 10px;"><img id="display-8b-foto" src="" alt="Wali Kelas 8B" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
                         <p><strong>Wali Kelas:</strong> <span id="display-8b-wali">-</span></p>
                         <p>Laki-laki: <span id="display-8b-l">0</span> | Perempuan: <span id="display-8b-p">0</span></p>
                         <p><strong>Total Siswa:</strong> <span id="display-8b-total">0</span></p>
                     </div>
                     <div style="border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #f8fafc; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
                         <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 9A</h4>
-                        <div style="text-align: center; margin-bottom: 10px;">
-                            <img id="display-9a-foto" src="" alt="Wali Kelas 9A" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
-                        </div>
+                        <div style="text-align: center; margin-bottom: 10px;"><img id="display-9a-foto" src="" alt="Wali Kelas 9A" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
                         <p><strong>Wali Kelas:</strong> <span id="display-9a-wali">-</span></p>
                         <p>Laki-laki: <span id="display-9a-l">0</span> | Perempuan: <span id="display-9a-p">0</span></p>
                         <p><strong>Total Siswa:</strong> <span id="display-9a-total">0</span></p>
                     </div>
                     <div style="border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; background: #f8fafc; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
                         <h4 style="color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 10px;">Kelas 9B</h4>
-                        <div style="text-align: center; margin-bottom: 10px;">
-                            <img id="display-9b-foto" src="" alt="Wali Kelas 9B" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
-                        </div>
+                        <div style="text-align: center; margin-bottom: 10px;"><img id="display-9b-foto" src="" alt="Wali Kelas 9B" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;"></div>
                         <p><strong>Wali Kelas:</strong> <span id="display-9b-wali">-</span></p>
                         <p>Laki-laki: <span id="display-9b-l">0</span> | Perempuan: <span id="display-9b-p">0</span></p>
                         <p><strong>Total Siswa:</strong> <span id="display-9b-total">0</span></p>
@@ -447,10 +424,11 @@
                 <button onclick="handleLogout()" style="background: #dc2626; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600;"><i class="fas fa-sign-out-alt"></i> Keluar</button>
             </div>
 
-            <!-- Menu Navigasi Tab Admin -->
+            <!-- Menu Navigasi Tab Admin (Termasuk Tab Kelola Tautan) -->
             <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
                 <button id="btn-tab-siswa" onclick="switchTab('tab-siswa')" style="padding: 10px 18px; border: none; border-radius: 8px; background: var(--primary-color); color: white; cursor: pointer; font-weight: 600;">Data Siswa</button>
                 <button id="btn-tab-beranda" onclick="switchTab('tab-beranda')" style="padding: 10px 18px; border: none; border-radius: 8px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Kelola Beranda</button>
+                <button id="btn-tab-tautan" onclick="switchTab('tab-tautan')" style="padding: 10px 18px; border: none; border-radius: 8px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Kelola Tautan</button>
                 <button id="btn-tab-video" onclick="switchTab('tab-video')" style="padding: 10px 18px; border: none; border-radius: 8px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Video</button>
                 <button id="btn-tab-sarana" onclick="switchTab('tab-sarana')" style="padding: 10px 18px; border: none; border-radius: 8px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Sarana</button>
                 <button id="btn-tab-sejarah" onclick="switchTab('tab-sejarah')" style="padding: 10px 18px; border: none; border-radius: 8px; background: #cbd5e1; color: var(--text-dark); cursor: pointer; font-weight: 600;">Sejarah</button>
@@ -556,6 +534,18 @@
                     </div>
                     <button type="submit" style="margin-top: 25px; background-color: var(--primary-color); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 600;">Simpan Perubahan Beranda</button>
                 </form>
+            </div>
+
+            <!-- TAB BARU: KELOLA TAUTAN EKSTERNAL -->
+            <div id="tab-tautan" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.04);">
+                <h3 style="color: var(--primary-color); margin-bottom: 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;"><i class="fas fa-link"></i> Kelola Menu Tautan Eksternal</h3>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px;">Tambahkan atau ubah alamat URL tautan lembaga agar menu di atas tetap aktif dan mengarah ke laman yang valid.</p>
+                <div style="display: grid; grid-template-columns: 2fr 3fr; gap: 15px; margin-bottom: 12px;">
+                    <input type="text" id="input-tautan-nama" placeholder="Nama Tautan (Cth: KEMENDIKDASMEN)" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;">
+                    <input type="text" id="input-tautan-url" placeholder="URL Website (Cth: https://...)" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;">
+                </div>
+                <button type="button" onclick="tambahTautanItem()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;"><i class="fas fa-plus"></i> Tambah Tautan Baru</button>
+                <div id="admin-tautan-list" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;"></div>
             </div>
 
             <!-- TAB 3: VIDEO -->
