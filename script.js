@@ -14,11 +14,11 @@ function showPage(pageId) {
   }
 }
 
-// --- FUNGSI AKSESIBILITAS ---
+// --- FUNGSI AKSESIBILITAS SIDEBAR ---
 function toggleAccessibilityModal() {
   const modal = document.getElementById('accessibilityModal');
   if (modal) {
-    modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+    modal.classList.toggle('active');
   }
 }
 
@@ -42,13 +42,6 @@ function toggleBodyClass(className, enable) {
     document.body.classList.remove(className);
   }
 }
-
-window.addEventListener('click', (event) => {
-  const modal = document.getElementById('accessibilityModal');
-  if (event.target === modal) {
-    modal.style.display = 'none';
-  }
-});
 
 // --- FUNGSI BANTUAN: KONSISTENSI URL YOUTUBE EMBED ---
 function parseYoutubeEmbedUrl(url) {
