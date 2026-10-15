@@ -489,7 +489,15 @@ async function renderPageContent() {
     if (document.getElementById('display-kontak-alamat')) document.getElementById('display-kontak-alamat').innerText = kontakData.alamat;
     if (document.getElementById('display-kontak-telp')) document.getElementById('display-kontak-telp').innerText = kontakData.telp;
     if (document.getElementById('display-kontak-email')) document.getElementById('display-kontak-email').innerText = kontakData.email;
-    if (document.getElementById('display-kontak-maps')) document.getElementById('display-kontak-maps').src = kontakData.maps;
+    if (kontakData.maps) {
+  const iframeMaps = document.getElementById('display-kontak-maps');
+  const containerMaps = document.getElementById('display-kontak-maps-container');
+  if (kontakData.maps.includes('<iframe')) {
+    if (containerMaps) containerMaps.innerHTML = kontakData.maps;
+  } else if (iframeMaps) {
+    iframeMaps.src = kontakData.maps;
+  }
+}
 
     if (document.getElementById('input-kontak-alamat')) document.getElementById('input-kontak-alamat').value = kontakData.alamat;
     if (document.getElementById('input-kontak-telp')) document.getElementById('input-kontak-telp').value = kontakData.telp;
