@@ -1,6 +1,6 @@
-// --- INISIALISASI SUPABASE ---
-const SUPABASE_URL = 'MASUKKAN_PROJECT_URL_ANDA_DI_SINI';
-const SUPABASE_ANON_KEY = 'MASUKKAN_ANON_KEY_ANDA_DI_SINI';
+// --- INISIALISASI SUPABASE (DATABASE CLOUD) ---
+const SUPABASE_URL = 'https://lnspkgaiycmesydzxvaa.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxuc3BrZ2FpeWNtZXN5ZHp2eGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzMTE1NDgsImV4cCI6MjEwNjg4NzU0OH0.ZCC9Wp0zOKrU1Wn7R24IJGiHNM-IPwijMzjeDLG0rUM'; 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Fungsi Umum Mengambil Data dari Supabase
@@ -41,13 +41,12 @@ async function saveToSupabase(sectionKey, jsonData) {
         .from('site_content')
         .insert([{ section_key: sectionKey, data_json: jsonString }]);
     }
-    
-    alert("Data berhasil disimpan ke Cloud Database Supabase!");
   } catch (err) {
-    console.error("Gagal menyimpan data:", err);
-    alert("Gagal menyimpan data ke cloud.");
+    console.error("Gagal menyimpan ke cloud:", err);
   }
 }
+
+
 // --- 1. NAVIGASI HALAMAN (SHOW PAGE) ---
 function showPage(pageId) {
   const views = document.querySelectorAll('.page-view');
@@ -64,6 +63,7 @@ function showPage(pageId) {
   }
 }
 
+
 // --- FUNGSI AKSESIBILITAS SIDEBAR & UKURAN FONT ---
 function toggleAccessibilityModal() {
   const modal = document.getElementById('accessibilityModal');
@@ -76,7 +76,6 @@ let currentFontScale = 1;
 function changeFontSize(amount) {
   currentFontScale += amount / 100;
   
-  // Batasan ukuran min 80% dan max 160%
   if (currentFontScale < 0.8) currentFontScale = 0.8;
   if (currentFontScale > 1.6) currentFontScale = 1.6;
 
@@ -96,6 +95,7 @@ function toggleBodyClass(className, enable) {
   }
 }
 
+
 // --- FUNGSI BANTUAN: KONSISTENSI URL YOUTUBE EMBED ---
 function parseYoutubeEmbedUrl(url) {
   if (!url) return '';
@@ -113,6 +113,7 @@ function parseYoutubeEmbedUrl(url) {
   return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
 }
 
+
 // --- KELOLA MENU TAUTAN EKSTERNAL DINAMIS ---
 const defaultTautanList = [
   { nama: 'KEMENPAN-RB', url: 'https://www.menpan.go.id' },
@@ -121,43 +122,8 @@ const defaultTautanList = [
   { nama: 'Dapodikdasmen', url: 'https://dapo.kemdikbud.go.id' }
 ];
 
-function getTautanList() {
-  const data = localStorage.getItem('smpn2_content_tautan_list');
-  return data ? JSON.parse(data) : defaultTautanList;
-}
-
-function tambahTautanItem() {
-  const namaEl = document.getElementById('input-tautan-nama');
-  const urlEl = document.getElementById('input-tautan-url');
-
-  if (!namaEl || !urlEl) return;
-  const nama = namaEl.value.trim();
-  const url = urlEl.value.trim();
-
-  if (!nama || !url) {
-    alert('Nama Tautan dan URL wajib diisi!');
-    return;
-  }
-
-  let list = getTautanList();
-  list.push({ nama, url });
-  localStorage.setItem('smpn2_content_tautan_list', JSON.stringify(list));
-
-  namaEl.value = '';
-  urlEl.value = '';
-  renderTautanList();
-  alert('Tautan berhasil ditambahkan!');
-}
-
-function hapusTautanItem(index) {
-  let list = getTautanList();
-  list.splice(index, 1);
-  localStorage.setItem('smpn2_content_tautan_list', JSON.stringify(list));
-  renderTautanList();
-}
-
-function renderTautanList() {
-  const list = getTautanList();
+async function renderTautanList() {
+  let list = await fetchFromSupabase('tautan_list', defaultTautanList);
   
   const adminEl = document.getElementById('admin-tautan-list');
   if (adminEl) {
@@ -177,6 +143,41 @@ function renderTautanList() {
   }
 }
 
+async function tambahTautanItem() {
+  const namaEl = document.getElementById('input-tautan-nama');
+  const urlEl = document.getElementById('input-tautan-url');
+
+  if (!namaEl || !urlEl) return;
+  const nama = namaEl.value.trim();
+  const url = urlEl.value.trim();
+
+  if (!nama || !url) {
+    alert('Nama Tautan dan URL wajib diisi!');
+    return;
+  }
+
+  let list = await fetchFromSupabase('tautan_list', defaultTautanList);
+  list.push({ nama, url });
+  
+  localStorage.setItem('smpn2_content_tautan_list', JSON.stringify(list));
+  await saveToSupabase('tautan_list', list);
+
+  namaEl.value = '';
+  urlEl.value = '';
+  renderTautanList();
+  alert('Tautan berhasil ditambahkan!');
+}
+
+async function hapusTautanItem(index) {
+  let list = await fetchFromSupabase('tautan_list', defaultTautanList);
+  list.splice(index, 1);
+  
+  localStorage.setItem('smpn2_content_tautan_list', JSON.stringify(list));
+  await saveToSupabase('tautan_list', list);
+  renderTautanList();
+}
+
+
 // --- 2. FITUR DINAMIS DATA SISWA ---
 const defaultStudentData = {
   '7a': { l: 18, p: 17, wali: 'Dra. Hj. Nurain, M.Pd', foto: 'https://via.placeholder.com/150' },
@@ -187,13 +188,8 @@ const defaultStudentData = {
   '9b': { l: 15, p: 16, wali: 'Supratman, S.Pd', foto: 'https://via.placeholder.com/150' }
 };
 
-function getStudentData() {
-  const data = localStorage.getItem('smpn2_data_peserta_didik');
-  return data ? JSON.parse(data) : defaultStudentData;
-}
-
-function renderStudentData() {
-  const data = getStudentData();
+async function renderStudentData() {
+  let data = await fetchFromSupabase('student_data', defaultStudentData);
   const classes = ['7a', '7b', '8a', '8b', '9a', '9b'];
 
   classes.forEach(cls => {
@@ -222,7 +218,7 @@ function renderStudentData() {
   });
 }
 
-function saveStudentData(event) {
+async function saveStudentData(event) {
   event.preventDefault();
   const classes = ['7a', '7b', '8a', '8b', '9a', '9b'];
   let newdata = {};
@@ -237,9 +233,12 @@ function saveStudentData(event) {
   });
 
   localStorage.setItem('smpn2_data_peserta_didik', JSON.stringify(newdata));
+  await saveToSupabase('student_data', newdata);
+  
   renderStudentData();
   alert('Data peserta didik berhasil diperbarui!');
 }
+
 
 // --- 3. LOGIN & KONTROL PETUGAS ---
 function checkLoginAndOpenMenu() {
@@ -273,6 +272,7 @@ function handleLogout() {
   showPage('view-beranda');
 }
 
+
 // --- 4. TAB SWITCHING ---
 function switchTab(tabId) {
   const tabs = document.querySelectorAll('.admin-tab-content');
@@ -294,6 +294,7 @@ function switchTab(tabId) {
   }
 }
 
+
 // --- 5. KELOLA VISI & MISI DINAMIS ---
 const defaultVisi = "Mewujudkan Peserta Didik yang Berkarakter, Berakhlak Mulia dan Berbudaya berdasarkan Iman dan Taqwa, Berjiwa Kewargaan Serta Mampu Berkolaborasi dan Bertanggung Jawab";
 
@@ -305,47 +306,9 @@ const defaultMisiList = [
   "Mengembangkan Potensi, Bakat dan Kreativitas Peserta Didik Secara Optimal"
 ];
 
-function getVisi() {
-  return localStorage.getItem('smpn2_content_visi') || defaultVisi;
-}
-
-function getMisiList() {
-  const data = localStorage.getItem('smpn2_content_misi_list');
-  return data ? JSON.parse(data) : defaultMisiList;
-}
-
-function saveVisiOnly() {
-  const val = document.getElementById('input-content-visi').value.trim();
-  if (!val) return alert('Visi tidak boleh kosong!');
-  localStorage.setItem('smpn2_content_visi', val);
-  renderVisiMisi();
-  alert('Visi berhasil diperbarui!');
-}
-
-function tambahMisiPoin() {
-  const inputEl = document.getElementById('input-misi-poin');
-  if (!inputEl) return;
-  const text = inputEl.value.trim();
-  if (!text) return alert('Poin Misi tidak boleh kosong!');
-
-  let list = getMisiList();
-  list.push(text);
-  localStorage.setItem('smpn2_content_misi_list', JSON.stringify(list));
-  inputEl.value = '';
-  renderVisiMisi();
-  alert('Poin Misi berhasil ditambahkan!');
-}
-
-function hapusMisiPoin(index) {
-  let list = getMisiList();
-  list.splice(index, 1);
-  localStorage.setItem('smpn2_content_misi_list', JSON.stringify(list));
-  renderVisiMisi();
-}
-
-function renderVisiMisi() {
-  const visiText = getVisi();
-  const misiList = getMisiList();
+async function renderVisiMisi() {
+  let visiText = await fetchFromSupabase('visi_text', defaultVisi);
+  let misiList = await fetchFromSupabase('misi_list', defaultMisiList);
 
   const visiEl = document.getElementById('display-visi');
   if (visiEl) visiEl.innerText = visiText;
@@ -374,6 +337,44 @@ function renderVisiMisi() {
   }
 }
 
+async function saveVisiOnly() {
+  const val = document.getElementById('input-content-visi').value.trim();
+  if (!val) return alert('Visi tidak boleh kosong!');
+  
+  localStorage.setItem('smpn2_content_visi', val);
+  await saveToSupabase('visi_text', val);
+  
+  renderVisiMisi();
+  alert('Visi berhasil diperbarui!');
+}
+
+async function tambahMisiPoin() {
+  const inputEl = document.getElementById('input-misi-poin');
+  if (!inputEl) return;
+  const text = inputEl.value.trim();
+  if (!text) return alert('Poin Misi tidak boleh kosong!');
+
+  let list = await fetchFromSupabase('misi_list', defaultMisiList);
+  list.push(text);
+  
+  localStorage.setItem('smpn2_content_misi_list', JSON.stringify(list));
+  await saveToSupabase('misi_list', list);
+  
+  inputEl.value = '';
+  renderVisiMisi();
+  alert('Poin Misi berhasil ditambahkan!');
+}
+
+async function hapusMisiPoin(index) {
+  let list = await fetchFromSupabase('misi_list', defaultMisiList);
+  list.splice(index, 1);
+  
+  localStorage.setItem('smpn2_content_misi_list', JSON.stringify(list));
+  await saveToSupabase('misi_list', list);
+  renderVisiMisi();
+}
+
+
 // --- 6. KELOLA TUPOKSI DINAMIS ---
 const defaultTupoksiList = [
   { judul: 'Kepala Sekolah', deskripsi: 'Mengoperasikan fungsi kepemimpinan dan manajerial sekolah untuk meningkatkan mutu pendidikan.' },
@@ -383,43 +384,9 @@ const defaultTupoksiList = [
   { judul: 'Pengembangan SDM', deskripsi: 'Membina profesionalisme guru dan staf tata usaha secara berkelanjutan.' }
 ];
 
-function getTupoksiList() {
-  const data = localStorage.getItem('smpn2_content_tupoksi_list');
-  return data ? JSON.parse(data) : defaultTupoksiList;
-}
-
-function tambahTupoksiItem() {
-  const judulEl = document.getElementById('input-tupoksi-judul');
-  const deskripsiEl = document.getElementById('input-tupoksi-deskripsi');
-
-  if (!judulEl || !deskripsiEl) return;
-  const judul = judulEl.value.trim();
-  const deskripsi = deskripsiEl.value.trim();
-
-  if (!judul || !deskripsi) {
-    alert('Judul dan Rincian Tugas Pokok wajib diisi!');
-    return;
-  }
-
-  let list = getTupoksiList();
-  list.push({ judul, deskripsi });
-  localStorage.setItem('smpn2_content_tupoksi_list', JSON.stringify(list));
-
-  judulEl.value = '';
-  deskripsiEl.value = '';
-  renderTupoksiList();
-  alert('Tugas Pokok berhasil ditambahkan!');
-}
-
-function hapusTupoksiItem(index) {
-  let list = getTupoksiList();
-  list.splice(index, 1);
-  localStorage.setItem('smpn2_content_tupoksi_list', JSON.stringify(list));
-  renderTupoksiList();
-}
-
-function renderTupoksiList() {
-  const list = getTupoksiList();
+async function renderTupoksiList() {
+  let list = await fetchFromSupabase('tupoksi_list', defaultTupoksiList);
+  
   const adminEl = document.getElementById('admin-tupoksi-list');
   if (adminEl) {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada tugas pokok.</p>' : list.map((item, idx) => `
@@ -444,41 +411,44 @@ function renderTupoksiList() {
   }
 }
 
-// --- 7. KELOLA KONTEN HALAMAN LAINNYA ---
-function savePageContent(event, pageKey) {
-  event.preventDefault();
-  let contentdata = {};
-  if (pageKey === 'sejarah') {
-    contentdata.text = document.getElementById('input-content-sejarah').value;
+async function tambahTupoksiItem() {
+  const judulEl = document.getElementById('input-tupoksi-judul');
+  const deskripsiEl = document.getElementById('input-tupoksi-deskripsi');
+
+  if (!judulEl || !deskripsiEl) return;
+  const judul = judulEl.value.trim();
+  const deskripsi = deskripsiEl.value.trim();
+
+  if (!judul || !deskripsi) {
+    alert('Judul dan Rincian Tugas Pokok wajib diisi!');
+    return;
   }
-  localStorage.setItem('smpn2_content_' + pageKey, JSON.stringify(contentdata));
-  alert(`Data ${pageKey} berhasil diperbarui!`);
-  renderPageContent();
+
+  let list = await fetchFromSupabase('tupoksi_list', defaultTupoksiList);
+  list.push({ judul, deskripsi });
+  
+  localStorage.setItem('smpn2_content_tupoksi_list', JSON.stringify(list));
+  await saveToSupabase('tupoksi_list', list);
+
+  judulEl.value = '';
+  deskripsiEl.value = '';
+  renderTupoksiList();
+  alert('Tugas Pokok berhasil ditambahkan!');
 }
 
-function saveStrukturGambar(event) {
-  event.preventDefault();
-  const imgUrl = document.getElementById('input-struktur-img').value.trim();
-  localStorage.setItem('smpn2_content_struktur_img', imgUrl);
-  renderPageContent();
-  alert('Gambar Struktur Organisasi berhasil diperbarui!');
+async function hapusTupoksiItem(index) {
+  let list = await fetchFromSupabase('tupoksi_list', defaultTupoksiList);
+  list.splice(index, 1);
+  
+  localStorage.setItem('smpn2_content_tupoksi_list', JSON.stringify(list));
+  await saveToSupabase('tupoksi_list', list);
+  renderTupoksiList();
 }
 
-function saveKontakData(event) {
-  event.preventDefault();
-  const kontakData = {
-    alamat: document.getElementById('input-kontak-alamat').value.trim(),
-    telp: document.getElementById('input-kontak-telp').value.trim(),
-    email: document.getElementById('input-kontak-email').value.trim(),
-    maps: document.getElementById('input-kontak-maps').value.trim()
-  };
-  localStorage.setItem('smpn2_content_kontak', JSON.stringify(kontakData));
-  renderPageContent();
-  alert('Informasi Kontak berhasil diperbarui!');
-}
 
-function renderPageContent() {
-  const sejarahData = JSON.parse(localStorage.getItem('smpn2_content_sejarah'));
+// --- 7. KELOLA KONTEN HALAMAN LAINNYA ---
+async function renderPageContent() {
+  let sejarahData = await fetchFromSupabase('sejarah_data', { text: "Sejarah sekolah..." });
   if (sejarahData) {
     const el = document.getElementById('display-sejarah');
     if (el) el.innerHTML = `<p>${sejarahData.text}</p>`;
@@ -486,7 +456,7 @@ function renderPageContent() {
     if (input1) input1.value = sejarahData.text;
   }
 
-  const strukturImg = localStorage.getItem('smpn2_content_struktur_img');
+  let strukturImg = await fetchFromSupabase('struktur_img', 'https://via.placeholder.com/600x400');
   if (strukturImg) {
     const imgEl = document.getElementById('display-struktur-img');
     if (imgEl) imgEl.src = strukturImg;
@@ -494,7 +464,7 @@ function renderPageContent() {
     if (inputStruktur) inputStruktur.value = strukturImg;
   }
 
-  const kontakData = JSON.parse(localStorage.getItem('smpn2_content_kontak'));
+  let kontakData = await fetchFromSupabase('kontak_data', { alamat: '', telp: '', email: '', maps: '' });
   if (kontakData) {
     if (document.getElementById('display-kontak-alamat')) document.getElementById('display-kontak-alamat').innerText = kontakData.alamat;
     if (document.getElementById('display-kontak-telp')) document.getElementById('display-kontak-telp').innerText = kontakData.telp;
@@ -508,6 +478,45 @@ function renderPageContent() {
   }
 }
 
+async function savePageContent(event, pageKey) {
+  event.preventDefault();
+  let contentdata = {};
+  if (pageKey === 'sejarah') {
+    contentdata.text = document.getElementById('input-content-sejarah').value;
+  }
+  localStorage.setItem('smpn2_content_' + pageKey, JSON.stringify(contentdata));
+  await saveToSupabase(pageKey + '_data', contentdata);
+  
+  alert(`Data ${pageKey} berhasil diperbarui!`);
+  renderPageContent();
+}
+
+async function saveStrukturGambar(event) {
+  event.preventDefault();
+  const imgUrl = document.getElementById('input-struktur-img').value.trim();
+  localStorage.setItem('smpn2_content_struktur_img', imgUrl);
+  await saveToSupabase('struktur_img', imgUrl);
+  
+  renderPageContent();
+  alert('Gambar Struktur Organisasi berhasil diperbarui!');
+}
+
+async function saveKontakData(event) {
+  event.preventDefault();
+  const kontakData = {
+    alamat: document.getElementById('input-kontak-alamat').value.trim(),
+    telp: document.getElementById('input-kontak-telp').value.trim(),
+    email: document.getElementById('input-kontak-email').value.trim(),
+    maps: document.getElementById('input-kontak-maps').value.trim()
+  };
+  localStorage.setItem('smpn2_content_kontak', JSON.stringify(kontakData));
+  await saveToSupabase('kontak_data', kontakData);
+  
+  renderPageContent();
+  alert('Informasi Kontak berhasil diperbarui!');
+}
+
+
 // --- 8. KELOLA BERANDA ---
 const defaultBerandaData = {
   sambutan: "Puji dan syukur marilah kita panjatkan ke hadirat Allah SWT, Tuhan Yang Maha Esa...",
@@ -515,22 +524,8 @@ const defaultBerandaData = {
   kepsek: "https://i.postimg.cc/sxPCtknH/Gemini-Generated-Image-tnppjqtnppjqtnpp.jpg"
 };
 
-function saveBerandaData(event) {
-  event.preventDefault();
-  const berandaData = {
-    sambutan: document.getElementById('input-beranda-sambutan').value,
-    banner: document.getElementById('input-beranda-banner').value,
-    kepsek: document.getElementById('input-beranda-kepsek').value
-  };
-
-  localStorage.setItem('smpn2_content_beranda', JSON.stringify(berandaData));
-  renderBerandaData();
-  alert('Data Beranda berhasil diperbarui!');
-}
-
-function renderBerandaData() {
-  const localData = localStorage.getItem('smpn2_content_beranda');
-  const data = localData ? JSON.parse(localData) : defaultBerandaData;
+async function renderBerandaData() {
+  let data = await fetchFromSupabase('beranda_data', defaultBerandaData);
 
   if (document.getElementById('display-beranda-sambutan')) document.getElementById('display-beranda-sambutan').innerText = data.sambutan;
   
@@ -551,6 +546,22 @@ function renderBerandaData() {
   if (document.getElementById('input-beranda-kepsek')) document.getElementById('input-beranda-kepsek').value = data.kepsek;
 }
 
+async function saveBerandaData(event) {
+  event.preventDefault();
+  const berandaData = {
+    sambutan: document.getElementById('input-beranda-sambutan').value,
+    banner: document.getElementById('input-beranda-banner').value,
+    kepsek: document.getElementById('input-beranda-kepsek').value
+  };
+
+  localStorage.setItem('smpn2_content_beranda', JSON.stringify(berandaData));
+  await saveToSupabase('beranda_data', berandaData);
+  
+  renderBerandaData();
+  alert('Data Beranda berhasil diperbarui!');
+}
+
+
 // --- 9. KELOLA KEGIATAN ---
 const defaultKegiatanList = [
   {
@@ -561,49 +572,9 @@ const defaultKegiatanList = [
   }
 ];
 
-function getKegiatanList() {
-  const data = localStorage.getItem('smpn2_content_kegiatan_list');
-  return data ? JSON.parse(data) : defaultKegiatanList;
-}
-
-function tambahKegiatan() {
-  const judulEl = document.getElementById('input-kegiatan-judul');
-  const tanggalEl = document.getElementById('input-kegiatan-tanggal');
-  const fotoEl = document.getElementById('input-kegiatan-foto');
-  const deskripsiEl = document.getElementById('input-kegiatan-deskripsi');
-
-  if (!judulEl || !deskripsiEl) return;
-  const judul = judulEl.value.trim();
-  const tanggal = tanggalEl.value.trim();
-  const foto = fotoEl ? fotoEl.value.trim() : '';
-  const deskripsi = deskripsiEl.value.trim();
-
-  if (!judul || !deskripsi) {
-    alert('Judul dan Deskripsi wajib diisi!');
-    return;
-  }
-
-  let list = getKegiatanList();
-  list.push({ judul, tanggal, foto, deskripsi });
-  localStorage.setItem('smpn2_content_kegiatan_list', JSON.stringify(list));
-
-  judulEl.value = '';
-  tanggalEl.value = '';
-  if (fotoEl) fotoEl.value = '';
-  deskripsiEl.value = '';
-  renderKegiatanList();
-  alert('Kegiatan berhasil ditambahkan!');
-}
-
-function hapusKegiatan(index) {
-  let list = getKegiatanList();
-  list.splice(index, 1);
-  localStorage.setItem('smpn2_content_kegiatan_list', JSON.stringify(list));
-  renderKegiatanList();
-}
-
-function renderKegiatanList() {
-  const list = getKegiatanList();
+async function renderKegiatanList() {
+  let list = await fetchFromSupabase('kegiatan_list', defaultKegiatanList);
+  
   const adminListEl = document.getElementById('admin-kegiatan-list');
   if (adminListEl) {
     adminListEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada kegiatan.</p>' : list.map((item, idx) => `
@@ -632,48 +603,50 @@ function renderKegiatanList() {
   }
 }
 
-// --- 10. KELOLA VIDEO ---
-function getVideoList() {
-  const data = localStorage.getItem('smpn2_content_video_list');
-  return data ? JSON.parse(data) : [];
-}
+async function tambahKegiatan() {
+  const judulEl = document.getElementById('input-kegiatan-judul');
+  const tanggalEl = document.getElementById('input-kegiatan-tanggal');
+  const fotoEl = document.getElementById('input-kegiatan-foto');
+  const deskripsiEl = document.getElementById('input-kegiatan-deskripsi');
 
-function tambahVideo() {
-  const judulEl = document.getElementById('input-video-judul');
-  const urlEl = document.getElementById('input-video-url');
-  const ketEl = document.getElementById('input-video-ket');
-
-  if (!judulEl || !urlEl || !ketEl) return;
+  if (!judulEl || !deskripsiEl) return;
   const judul = judulEl.value.trim();
-  const rawUrl = urlEl.value.trim();
-  const ket = ketEl.value.trim();
+  const tanggal = tanggalEl.value.trim();
+  const foto = fotoEl ? fotoEl.value.trim() : '';
+  const deskripsi = deskripsiEl.value.trim();
 
-  if (!judul || !rawUrl) {
-    alert('Judul dan URL Video wajib diisi!');
+  if (!judul || !deskripsi) {
+    alert('Judul dan Deskripsi wajib diisi!');
     return;
   }
 
-  const url = parseYoutubeEmbedUrl(rawUrl);
-  let list = getVideoList();
-  list.push({ judul, url, ket });
-  localStorage.setItem('smpn2_content_video_list', JSON.stringify(list));
+  let list = await fetchFromSupabase('kegiatan_list', defaultKegiatanList);
+  list.push({ judul, tanggal, foto, deskripsi });
+  
+  localStorage.setItem('smpn2_content_kegiatan_list', JSON.stringify(list));
+  await saveToSupabase('kegiatan_list', list);
 
   judulEl.value = '';
-  urlEl.value = '';
-  ketEl.value = '';
-  renderVideoList();
-  alert('Video berhasil ditambahkan!');
+  tanggalEl.value = '';
+  if (fotoEl) fotoEl.value = '';
+  deskripsiEl.value = '';
+  renderKegiatanList();
+  alert('Kegiatan berhasil ditambahkan!');
 }
 
-function hapusVideo(index) {
-  let list = getVideoList();
+async function hapusKegiatan(index) {
+  let list = await fetchFromSupabase('kegiatan_list', defaultKegiatanList);
   list.splice(index, 1);
-  localStorage.setItem('smpn2_content_video_list', JSON.stringify(list));
-  renderVideoList();
+  
+  localStorage.setItem('smpn2_content_kegiatan_list', JSON.stringify(list));
+  await saveToSupabase('kegiatan_list', list);
+  renderKegiatanList();
 }
 
-function renderVideoList() {
-  const list = getVideoList();
+
+// --- 10. KELOLA VIDEO ---
+async function renderVideoList() {
+  let list = await fetchFromSupabase('video_list', []);
   const adminEl = document.getElementById('admin-video-list');
   if (adminEl) {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada video.</p>' : list.map((item, idx) => `
@@ -706,47 +679,48 @@ function renderVideoList() {
   }
 }
 
-// --- 11. KELOLA SARANA ---
-function getSaranaList() {
-  const data = localStorage.getItem('smpn2_content_sarana_list');
-  return data ? JSON.parse(data) : [];
-}
+async function tambahVideo() {
+  const judulEl = document.getElementById('input-video-judul');
+  const urlEl = document.getElementById('input-video-url');
+  const ketEl = document.getElementById('input-video-ket');
 
-function tambahSarana() {
-  const namaEl = document.getElementById('input-sarana-nama');
-  const fotoEl = document.getElementById('input-sarana-foto');
-  const ketEl = document.getElementById('input-sarana-ket');
-
-  if (!namaEl || !ketEl) return;
-  const nama = namaEl.value.trim();
-  const foto = fotoEl.value.trim() || 'https://via.placeholder.com/300x200';
+  if (!judulEl || !urlEl || !ketEl) return;
+  const judul = judulEl.value.trim();
+  const rawUrl = urlEl.value.trim();
   const ket = ketEl.value.trim();
 
-  if (!nama || !ket) {
-    alert('Nama dan Keterangan wajib diisi!');
+  if (!judul || !rawUrl) {
+    alert('Judul dan URL Video wajib diisi!');
     return;
   }
 
-  let list = getSaranaList();
-  list.push({ nama, foto, ket });
-  localStorage.setItem('smpn2_content_sarana_list', JSON.stringify(list));
+  const url = parseYoutubeEmbedUrl(rawUrl);
+  let list = await fetchFromSupabase('video_list', []);
+  list.push({ judul, url, ket });
+  
+  localStorage.setItem('smpn2_content_video_list', JSON.stringify(list));
+  await saveToSupabase('video_list', list);
 
-  namaEl.value = '';
-  fotoEl.value = '';
+  judulEl.value = '';
+  urlEl.value = '';
   ketEl.value = '';
-  renderSaranaList();
-  alert('Sarana berhasil ditambahkan!');
+  renderVideoList();
+  alert('Video berhasil ditambahkan!');
 }
 
-function hapusSarana(index) {
-  let list = getSaranaList();
+async function hapusVideo(index) {
+  let list = await fetchFromSupabase('video_list', []);
   list.splice(index, 1);
-  localStorage.setItem('smpn2_content_sarana_list', JSON.stringify(list));
-  renderSaranaList();
+  
+  localStorage.setItem('smpn2_content_video_list', JSON.stringify(list));
+  await saveToSupabase('video_list', list);
+  renderVideoList();
 }
 
-function renderSaranaList() {
-  const list = getSaranaList();
+
+// --- 11. KELOLA SARANA ---
+async function renderSaranaList() {
+  let list = await fetchFromSupabase('sarana_list', []);
   const adminEl = document.getElementById('admin-sarana-list');
   if (adminEl) {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada sarana.</p>' : list.map((item, idx) => `
@@ -771,47 +745,47 @@ function renderSaranaList() {
   }
 }
 
-// --- 12. KELOLA GURU ---
-function getGuruList() {
-  const data = localStorage.getItem('smpn2_content_guru_list');
-  return data ? JSON.parse(data) : [];
-}
+async function tambahSarana() {
+  const namaEl = document.getElementById('input-sarana-nama');
+  const fotoEl = document.getElementById('input-sarana-foto');
+  const ketEl = document.getElementById('input-sarana-ket');
 
-function tambahGuru() {
-  const namaEl = document.getElementById('input-guru-nama');
-  const mapelEl = document.getElementById('input-guru-mapel');
-  const fotoEl = document.getElementById('input-guru-foto');
-
-  if (!namaEl || !mapelEl) return;
+  if (!namaEl || !ketEl) return;
   const nama = namaEl.value.trim();
-  const mapel = mapelEl.value.trim();
-  const foto = fotoEl.value.trim() || 'https://via.placeholder.com/150';
+  const foto = fotoEl.value.trim() || 'https://via.placeholder.com/300x200';
+  const ket = ketEl.value.trim();
 
-  if (!nama || !mapel) {
-    alert('Nama dan Mapel wajib diisi!');
+  if (!nama || !ket) {
+    alert('Nama dan Keterangan wajib diisi!');
     return;
   }
 
-  let list = getGuruList();
-  list.push({ nama, mapel, foto });
-  localStorage.setItem('smpn2_content_guru_list', JSON.stringify(list));
+  let list = await fetchFromSupabase('sarana_list', []);
+  list.push({ nama, foto, ket });
+  
+  localStorage.setItem('smpn2_content_sarana_list', JSON.stringify(list));
+  await saveToSupabase('sarana_list', list);
 
   namaEl.value = '';
-  mapelEl.value = '';
   fotoEl.value = '';
-  renderGuruList();
-  alert('Guru berhasil ditambahkan!');
+  ketEl.value = '';
+  renderSaranaList();
+  alert('Sarana berhasil ditambahkan!');
 }
 
-function hapusGuru(index) {
-  let list = getGuruList();
+async function hapusSarana(index) {
+  let list = await fetchFromSupabase('sarana_list', []);
   list.splice(index, 1);
-  localStorage.setItem('smpn2_content_guru_list', JSON.stringify(list));
-  renderGuruList();
+  
+  localStorage.setItem('smpn2_content_sarana_list', JSON.stringify(list));
+  await saveToSupabase('sarana_list', list);
+  renderSaranaList();
 }
 
-function renderGuruList() {
-  const list = getGuruList();
+
+// --- 12. KELOLA GURU ---
+async function renderGuruList() {
+  let list = await fetchFromSupabase('guru_list', []);
   const adminEl = document.getElementById('admin-guru-list');
   if (adminEl) {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada guru.</p>' : list.map((item, idx) => `
@@ -834,47 +808,47 @@ function renderGuruList() {
   }
 }
 
-// --- 13. KELOLA PRAMUKA ---
-function getPramukaList() {
-  const data = localStorage.getItem('smpn2_content_pramuka_list');
-  return data ? JSON.parse(data) : [];
-}
+async function tambahGuru() {
+  const namaEl = document.getElementById('input-guru-nama');
+  const mapelEl = document.getElementById('input-guru-mapel');
+  const fotoEl = document.getElementById('input-guru-foto');
 
-function tambahPramuka() {
-  const judulEl = document.getElementById('input-pramuka-judul');
-  const fotoEl = document.getElementById('input-pramuka-foto');
-  const ketEl = document.getElementById('input-pramuka-ket');
+  if (!namaEl || !mapelEl) return;
+  const nama = namaEl.value.trim();
+  const mapel = mapelEl.value.trim();
+  const foto = fotoEl.value.trim() || 'https://via.placeholder.com/150';
 
-  if (!judulEl || !ketEl) return;
-  const judul = judulEl.value.trim();
-  const foto = fotoEl.value.trim() || 'https://via.placeholder.com/300x200';
-  const ket = ketEl.value.trim();
-
-  if (!judul || !ket) {
-    alert('Judul dan Keterangan wajib diisi!');
+  if (!nama || !mapel) {
+    alert('Nama dan Mapel wajib diisi!');
     return;
   }
 
-  let list = getPramukaList();
-  list.push({ judul, foto, ket });
-  localStorage.setItem('smpn2_content_pramuka_list', JSON.stringify(list));
+  let list = await fetchFromSupabase('guru_list', []);
+  list.push({ nama, mapel, foto });
+  
+  localStorage.setItem('smpn2_content_guru_list', JSON.stringify(list));
+  await saveToSupabase('guru_list', list);
 
-  judulEl.value = '';
+  namaEl.value = '';
+  mapelEl.value = '';
   fotoEl.value = '';
-  ketEl.value = '';
-  renderPramukaList();
-  alert('Pramuka berhasil ditambahkan!');
+  renderGuruList();
+  alert('Guru berhasil ditambahkan!');
 }
 
-function hapusPramuka(index) {
-  let list = getPramukaList();
+async function hapusGuru(index) {
+  let list = await fetchFromSupabase('guru_list', []);
   list.splice(index, 1);
-  localStorage.setItem('smpn2_content_pramuka_list', JSON.stringify(list));
-  renderPramukaList();
+  
+  localStorage.setItem('smpn2_content_guru_list', JSON.stringify(list));
+  await saveToSupabase('guru_list', list);
+  renderGuruList();
 }
 
-function renderPramukaList() {
-  const list = getPramukaList();
+
+// --- 13. KELOLA PRAMUKA ---
+async function renderPramukaList() {
+  let list = await fetchFromSupabase('pramuka_list', []);
   const adminEl = document.getElementById('admin-pramuka-list');
   if (adminEl) {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada.</p>' : list.map((item, idx) => `
@@ -899,16 +873,10 @@ function renderPramukaList() {
   }
 }
 
-// --- 14. KELOLA SILAT ---
-function getSilatList() {
-  const data = localStorage.getItem('smpn2_content_silat_list');
-  return data ? JSON.parse(data) : [];
-}
-
-function tambahSilat() {
-  const judulEl = document.getElementById('input-silat-judul');
-  const fotoEl = document.getElementById('input-silat-foto');
-  const ketEl = document.getElementById('input-silat-ket');
+async function tambahPramuka() {
+  const judulEl = document.getElementById('input-pramuka-judul');
+  const fotoEl = document.getElementById('input-pramuka-foto');
+  const ketEl = document.getElementById('input-pramuka-ket');
 
   if (!judulEl || !ketEl) return;
   const judul = judulEl.value.trim();
@@ -920,26 +888,32 @@ function tambahSilat() {
     return;
   }
 
-  let list = getSilatList();
+  let list = await fetchFromSupabase('pramuka_list', []);
   list.push({ judul, foto, ket });
-  localStorage.setItem('smpn2_content_silat_list', JSON.stringify(list));
+  
+  localStorage.setItem('smpn2_content_pramuka_list', JSON.stringify(list));
+  await saveToSupabase('pramuka_list', list);
 
   judulEl.value = '';
   fotoEl.value = '';
   ketEl.value = '';
-  renderSilatList();
-  alert('Pencak Silat berhasil ditambahkan!');
+  renderPramukaList();
+  alert('Pramuka berhasil ditambahkan!');
 }
 
-function hapusSilat(index) {
-  let list = getSilatList();
+async function hapusPramuka(index) {
+  let list = await fetchFromSupabase('pramuka_list', []);
   list.splice(index, 1);
-  localStorage.setItem('smpn2_content_silat_list', JSON.stringify(list));
-  renderSilatList();
+  
+  localStorage.setItem('smpn2_content_pramuka_list', JSON.stringify(list));
+  await saveToSupabase('pramuka_list', list);
+  renderPramukaList();
 }
 
-function renderSilatList() {
-  const list = getSilatList();
+
+// --- 14. KELOLA SILAT ---
+async function renderSilatList() {
+  let list = await fetchFromSupabase('silat_list', []);
   const adminEl = document.getElementById('admin-silat-list');
   if (adminEl) {
     adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada.</p>' : list.map((item, idx) => `
@@ -963,6 +937,44 @@ function renderSilatList() {
     `).join('');
   }
 }
+
+async function tambahSilat() {
+  const judulEl = document.getElementById('input-silat-judul');
+  const fotoEl = document.getElementById('input-silat-foto');
+  const ketEl = document.getElementById('input-silat-ket');
+
+  if (!judulEl || !ketEl) return;
+  const judul = judulEl.value.trim();
+  const foto = fotoEl.value.trim() || 'https://via.placeholder.com/300x200';
+  const ket = ketEl.value.trim();
+
+  if (!judul || !ket) {
+    alert('Judul dan Keterangan wajib diisi!');
+    return;
+  }
+
+  let list = await fetchFromSupabase('silat_list', []);
+  list.push({ judul, foto, ket });
+  
+  localStorage.setItem('smpn2_content_silat_list', JSON.stringify(list));
+  await saveToSupabase('silat_list', list);
+
+  judulEl.value = '';
+  fotoEl.value = '';
+  ketEl.value = '';
+  renderSilatList();
+  alert('Pencak Silat berhasil ditambahkan!');
+}
+
+async function hapusSilat(index) {
+  let list = await fetchFromSupabase('silat_list', []);
+  list.splice(index, 1);
+  
+  localStorage.setItem('smpn2_content_silat_list', JSON.stringify(list));
+  await saveToSupabase('silat_list', list);
+  renderSilatList();
+}
+
 
 // --- 15. INITIAL LOAD ---
 window.addEventListener('DOMContentLoaded', () => {
