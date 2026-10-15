@@ -1,6 +1,6 @@
 // --- INISIALISASI SUPABASE (DATABASE CLOUD) ---
 const SUPABASE_URL = 'https://lnspkgaiycmesydzxvaa.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxuc3BrZ2FpeWNtZXN5ZHp2eGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzMTE1NDgsImV4cCI6MjEwNjg4NzU0OH0.ZCC9Wp0zOKrU1Wn7R24IJGiHNM-IPwijMzjeDLG0rUM'; 
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imluc3BrZ2FpeWNtZXN5ZHp4dmFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMx...'; // Ganti dengan anon key Anda
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Fungsi Umum Mengambil Data dari Supabase
@@ -20,7 +20,7 @@ async function fetchFromSupabase(sectionKey, defaultValue) {
   }
 }
 
-// Fungsi Umum Menyimpan Data ke Supabase
+// Fungsi Umum Menyimpan Data ke Supabase (Tanpa Alert Mengganggu)
 async function saveToSupabase(sectionKey, jsonData) {
   try {
     const jsonString = JSON.stringify(jsonData);
@@ -175,8 +175,8 @@ async function hapusTautanItem(index) {
   localStorage.setItem('smpn2_content_tautan_list', JSON.stringify(list));
   await saveToSupabase('tautan_list', list);
   renderTautanList();
-  alert('Tautan berhasil dihapus!');
 }
+
 
 // --- 2. FITUR DINAMIS DATA SISWA ---
 const defaultStudentData = {
@@ -372,7 +372,6 @@ async function hapusMisiPoin(index) {
   localStorage.setItem('smpn2_content_misi_list', JSON.stringify(list));
   await saveToSupabase('misi_list', list);
   renderVisiMisi();
-  alert('Poin Misi berhasil dihapus!');
 }
 
 
@@ -444,7 +443,6 @@ async function hapusTupoksiItem(index) {
   localStorage.setItem('smpn2_content_tupoksi_list', JSON.stringify(list));
   await saveToSupabase('tupoksi_list', list);
   renderTupoksiList();
-  alert('Tugas Pokok berhasil dihapus!');
 }
 
 
@@ -643,7 +641,6 @@ async function hapusKegiatan(index) {
   localStorage.setItem('smpn2_content_kegiatan_list', JSON.stringify(list));
   await saveToSupabase('kegiatan_list', list);
   renderKegiatanList();
-  alert('Kegiatan berhasil dihapus!');
 }
 
 
@@ -718,7 +715,6 @@ async function hapusVideo(index) {
   localStorage.setItem('smpn2_content_video_list', JSON.stringify(list));
   await saveToSupabase('video_list', list);
   renderVideoList();
-  alert('Video berhasil dihapus!');
 }
 
 
@@ -784,7 +780,6 @@ async function hapusSarana(index) {
   localStorage.setItem('smpn2_content_sarana_list', JSON.stringify(list));
   await saveToSupabase('sarana_list', list);
   renderSaranaList();
-  alert('Sarana berhasil dihapus!');
 }
 
 
@@ -848,7 +843,6 @@ async function hapusGuru(index) {
   localStorage.setItem('smpn2_content_guru_list', JSON.stringify(list));
   await saveToSupabase('guru_list', list);
   renderGuruList();
-  alert('Guru berhasil dihapus!');
 }
 
 
@@ -914,7 +908,6 @@ async function hapusPramuka(index) {
   localStorage.setItem('smpn2_content_pramuka_list', JSON.stringify(list));
   await saveToSupabase('pramuka_list', list);
   renderPramukaList();
-  alert('Dokumentasi Pramuka berhasil dihapus!');
 }
 
 
@@ -980,24 +973,21 @@ async function hapusSilat(index) {
   localStorage.setItem('smpn2_content_silat_list', JSON.stringify(list));
   await saveToSupabase('silat_list', list);
   renderSilatList();
-  alert('Dokumentasi Pencak Silat berhasil dihapus!');
 }
 
 
 // --- 15. INITIAL LOAD ---
-window.addEventListener('DOMContentLoaded', async () => {
-  await Promise.all([
-    renderStudentData(),
-    renderPageContent(),
-    renderBerandaData(),
-    renderKegiatanList(),
-    renderVideoList(),
-    renderSaranaList(),
-    renderGuruList(),
-    renderPramukaList(),
-    renderSilatList(),
-    renderTupoksiList(),
-    renderVisiMisi(),
-    renderTautanList()
-  ]);
+window.addEventListener('DOMContentLoaded', () => {
+  renderStudentData();
+  renderPageContent();
+  renderBerandaData();
+  renderKegiatanList();
+  renderVideoList();
+  renderSaranaList();
+  renderGuruList();
+  renderPramukaList();
+  renderSilatList();
+  renderTupoksiList();
+  renderVisiMisi();
+  renderTautanList();
 });
