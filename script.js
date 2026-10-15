@@ -173,10 +173,12 @@ async function hapusTautanItem(index) {
   list.splice(index, 1);
   
   localStorage.setItem('smpn2_content_tautan_list', JSON.stringify(list));
+  
+  // WAJIB PAKAI AWAIT AGAR TUNTAS TERSIMPAN KE SUPABASE SEBELUM RENDER ULANG
   await saveToSupabase('tautan_list', list);
+  
   renderTautanList();
 }
-
 
 // --- 2. FITUR DINAMIS DATA SISWA ---
 const defaultStudentData = {
@@ -370,7 +372,7 @@ async function hapusMisiPoin(index) {
   list.splice(index, 1);
   
   localStorage.setItem('smpn2_content_misi_list', JSON.stringify(list));
-  await saveToSupabase('misi_list', list);
+  await saveToSupabase('misi_list', list); // Pakai await
   renderVisiMisi();
 }
 
@@ -441,7 +443,7 @@ async function hapusTupoksiItem(index) {
   list.splice(index, 1);
   
   localStorage.setItem('smpn2_content_tupoksi_list', JSON.stringify(list));
-  await saveToSupabase('tupoksi_list', list);
+  await saveToSupabase('tupoksi_list', list); // Pakai await
   renderTupoksiList();
 }
 
@@ -639,7 +641,7 @@ async function hapusKegiatan(index) {
   list.splice(index, 1);
   
   localStorage.setItem('smpn2_content_kegiatan_list', JSON.stringify(list));
-  await saveToSupabase('kegiatan_list', list);
+  await saveToSupabase('kegiatan_list', list); // Pakai await
   renderKegiatanList();
 }
 
@@ -713,7 +715,7 @@ async function hapusVideo(index) {
   list.splice(index, 1);
   
   localStorage.setItem('smpn2_content_video_list', JSON.stringify(list));
-  await saveToSupabase('video_list', list);
+  await saveToSupabase('video_list', list); // Pakai await
   renderVideoList();
 }
 
@@ -778,10 +780,9 @@ async function hapusSarana(index) {
   list.splice(index, 1);
   
   localStorage.setItem('smpn2_content_sarana_list', JSON.stringify(list));
-  await saveToSupabase('sarana_list', list);
+  await saveToSupabase('sarana_list', list); // Pakai await
   renderSaranaList();
 }
-
 
 // --- 12. KELOLA GURU ---
 async function renderGuruList() {
@@ -841,7 +842,7 @@ async function hapusGuru(index) {
   list.splice(index, 1);
   
   localStorage.setItem('smpn2_content_guru_list', JSON.stringify(list));
-  await saveToSupabase('guru_list', list);
+  await saveToSupabase('guru_list', list); // Pakai await
   renderGuruList();
 }
 
@@ -906,7 +907,7 @@ async function hapusPramuka(index) {
   list.splice(index, 1);
   
   localStorage.setItem('smpn2_content_pramuka_list', JSON.stringify(list));
-  await saveToSupabase('pramuka_list', list);
+  await saveToSupabase('pramuka_list', list); // Pakai await
   renderPramukaList();
 }
 
@@ -971,7 +972,7 @@ async function hapusSilat(index) {
   list.splice(index, 1);
   
   localStorage.setItem('smpn2_content_silat_list', JSON.stringify(list));
-  await saveToSupabase('silat_list', list);
+  await saveToSupabase('silat_list', list); // Pakai await
   renderSilatList();
 }
 
