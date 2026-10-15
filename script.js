@@ -21,29 +21,47 @@ async function fetchFromSupabase(sectionKey, defaultValue) {
 }
 
 // Fungsi Umum Menyimpan Data ke Supabase (Tanpa Alert Mengganggu)
-async function saveToSupabase(sectionKey, jsonData) {
-  try {
-    const jsonString = JSON.stringify(jsonData);
-    
-    let { data } = await supabaseClient
-      .from('site_content')
-      .select('section_key')
-      .eq('section_key', sectionKey)
-      .maybeSingle();
+async function saveToSupabase(sectionKey, jsondata) {
+    try {
+        const jsonstring = JSON.stringify(jsondata);
 
-    if (data) {
-      await supabaseClient
-        .from('site_content')
-        .update({ data_json: jsonString })
-        .eq('section_key', sectionKey);
-    } else {
-      await supabaseClient
-        .from('site_content')
-        .insert([{ section_key: sectionKey, data_json: jsonString }]);
+        // 1. Cek apakah section_key sudah ada di tabel
+        let { data, error: fetchError } = await supabaseClient
+            .from('site_content')
+            .select('section_key')
+            .eq('section_key', sectionKey)
+            .maybeSingle();
+
+        if (fetchError) {
+            console.error("Gagal mengecek data:", fetchError.message);
+            alert("Gagal terhubung ke database: " + fetchError.message);
+            return;
+        }
+
+        let saveError = null;
+
+        if (data) {
+            // 2. Jika sudah ada, lakukan Update
+            let { error } = await supabaseClient
+                .from('site_content')
+                .update({ data_json: jsonstring })
+                .eq('section_key', sectionKey);
+            saveError = error;
+        } else {
+            // 3. Jika belum ada, lakukan Insert
+            let { error } = await supabaseClient
+                .from('site_content')
+                .insert([{ section_key: sectionKey, data_json: jsonstring }]);
+            saveError = error;
+        }
+
+        if (saveError) {
+            console.error("Gagal menyimpan ke Supabase:", saveError.message);
+            alert("Gagal menyimpan ke database: " + saveError.message);
+        }
+    } catch (err) {
+        console.error("Terjadi kesalahan sistem:", err);
     }
-  } catch (err) {
-    console.error("Gagal menyimpan ke cloud:", err);
-  }
 }
 
 
