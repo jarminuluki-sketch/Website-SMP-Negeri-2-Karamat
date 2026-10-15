@@ -1,6 +1,6 @@
 // --- INISIALISASI SUPABASE (DATABASE CLOUD) ---
-const SUPABASE_URL = 'https://lnspkgaiycmesydzxvaa.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imluc3BrZ2FpeWNtZXN5ZHp4dmFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMx...'; // Ganti dengan anon key Anda
+const SUPABASE_URL = 'https://lnspkgaiycmesydzvxaa.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_gElw9qSKdwqNXHezAiwvLw_61Tk1li4'; // Ganti dengan anon key Anda
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Fungsi Umum Mengambil Data dari Supabase
