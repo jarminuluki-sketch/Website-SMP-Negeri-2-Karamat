@@ -977,17 +977,19 @@ async function hapusSilat(index) {
 
 
 // --- 15. INITIAL LOAD ---
-window.addEventListener('DOMContentLoaded', () => {
-  renderStudentData();
-  renderPageContent();
-  renderBerandaData();
-  renderKegiatanList();
-  renderVideoList();
-  renderSaranaList();
-  renderGuruList();
-  renderPramukaList();
-  renderSilatList();
-  renderTupoksiList();
-  renderVisiMisi();
-  renderTautanList();
+window.addEventListener('DOMContentLoaded', async () => {
+  await Promise.all([
+    renderStudentData(),
+    renderPageContent(),
+    renderBerandaData(),
+    renderKegiatanList(),
+    renderVideoList(),
+    renderSaranaList(),
+    renderGuruList(),
+    renderPramukaList(),
+    renderSilatList(),
+    renderTupoksiList(),
+    renderVisiMisi(),
+    renderTautanList()
+  ]);
 });
