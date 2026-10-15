@@ -175,8 +175,8 @@ async function hapusTautanItem(index) {
   localStorage.setItem('smpn2_content_tautan_list', JSON.stringify(list));
   await saveToSupabase('tautan_list', list);
   renderTautanList();
+  alert('Tautan berhasil dihapus!');
 }
-
 
 // --- 2. FITUR DINAMIS DATA SISWA ---
 const defaultStudentData = {
@@ -372,6 +372,7 @@ async function hapusMisiPoin(index) {
   localStorage.setItem('smpn2_content_misi_list', JSON.stringify(list));
   await saveToSupabase('misi_list', list);
   renderVisiMisi();
+  alert('Poin Misi berhasil dihapus!');
 }
 
 
@@ -443,6 +444,7 @@ async function hapusTupoksiItem(index) {
   localStorage.setItem('smpn2_content_tupoksi_list', JSON.stringify(list));
   await saveToSupabase('tupoksi_list', list);
   renderTupoksiList();
+  alert('Tugas Pokok berhasil dihapus!');
 }
 
 
@@ -641,6 +643,7 @@ async function hapusKegiatan(index) {
   localStorage.setItem('smpn2_content_kegiatan_list', JSON.stringify(list));
   await saveToSupabase('kegiatan_list', list);
   renderKegiatanList();
+  alert('Kegiatan berhasil dihapus!');
 }
 
 
@@ -715,6 +718,7 @@ async function hapusVideo(index) {
   localStorage.setItem('smpn2_content_video_list', JSON.stringify(list));
   await saveToSupabase('video_list', list);
   renderVideoList();
+  alert('Video berhasil dihapus!');
 }
 
 
@@ -780,6 +784,7 @@ async function hapusSarana(index) {
   localStorage.setItem('smpn2_content_sarana_list', JSON.stringify(list));
   await saveToSupabase('sarana_list', list);
   renderSaranaList();
+  alert('Sarana berhasil dihapus!');
 }
 
 
@@ -843,6 +848,7 @@ async function hapusGuru(index) {
   localStorage.setItem('smpn2_content_guru_list', JSON.stringify(list));
   await saveToSupabase('guru_list', list);
   renderGuruList();
+  alert('Guru berhasil dihapus!');
 }
 
 
@@ -908,6 +914,7 @@ async function hapusPramuka(index) {
   localStorage.setItem('smpn2_content_pramuka_list', JSON.stringify(list));
   await saveToSupabase('pramuka_list', list);
   renderPramukaList();
+  alert('Dokumentasi Pramuka berhasil dihapus!');
 }
 
 
@@ -973,6 +980,7 @@ async function hapusSilat(index) {
   localStorage.setItem('smpn2_content_silat_list', JSON.stringify(list));
   await saveToSupabase('silat_list', list);
   renderSilatList();
+  alert('Dokumentasi Pencak Silat berhasil dihapus!');
 }
 
 
