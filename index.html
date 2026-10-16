@@ -604,11 +604,11 @@
             <!-- TAB 7: TUPOKSI -->
             <div id="tab-tupoksi" class="admin-tab-content" style="display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.04);">
                 <h3 style="color: var(--primary-color); margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">Kelola Tupoksi</h3>
-                <div style="display: grid; grid-template-columns: 2fr 3fr; gap: 15px; margin-bottom: 12px;">
-                    <input type="text" id="input-tupoksi-judul" placeholder="Judul / Bidang Tugas" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;">
-                    <input type="text" id="input-tupoksi-deskripsi" placeholder="Rincian Tugas..." style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;">
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 12px;">
+                    <textarea id="input-tupoksi-tugaspokok" rows="3" placeholder="Rincian Tugas Pokok..." style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%;"></textarea>
+                    <textarea id="input-tupoksi-fungsi" rows="4" placeholder="Fungsi (Tekan Enter untuk membuat poin baru 1, 2, dst.)" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%;"></textarea>
                 </div>
-                <button type="button" onclick="tambahTupoksiItem()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;">Tambah Tupoksi</button>
+                <button type="button" onclick="tambahTupoksiItem()" style="background-color: var(--accent-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;">+ Tambah Tugas Pokok & Fungsi</button>
                 <div id="admin-tupoksi-list" style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;"></div>
             </div>
 
