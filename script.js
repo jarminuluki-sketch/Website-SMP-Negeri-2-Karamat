@@ -395,36 +395,69 @@ async function hapusMisiPoin(index) {
 }
 
 
-// --- 6. KELOLA TUPOKSI DINAMIS ---
+// --- 6. KELOLA TUPOKSI DINAMIS (FORMAT: JABATAN -> TUGAS POKOK & FUNGSI BER-NOMOR) ---
 const defaultTupoksiList = [
-  { judul: 'Kepala Sekolah', deskripsi: 'Mengoperasikan fungsi kepemimpinan dan manajerial sekolah untuk meningkatkan mutu pendidikan.' },
-  { judul: 'Manajerial', deskripsi: 'Menyusun perencanaan sekolah (RKT/RKAS), mengelola kurikulum, kesiswaan, sarana prasarana, serta keuangan sekolah.' },
-  { judul: 'Supervisi & Evaluasi', deskripsi: 'Melakukan supervisi akademis terhadap guru, mengevaluasi kinerja tenaga kependidikan, serta memantau program sekolah.' },
-  { judul: 'Kewirausahaan', deskripsi: 'Mengembangkan inovasi, kemitraan, dan kreativitas untuk kemajuan dan kemandirian sekolah.' },
-  { judul: 'Pengembangan SDM', deskripsi: 'Membina profesionalisme guru dan staf tata usaha secara berkelanjutan.' }
+  { 
+    jabatan: 'KEPALA SEKOLAH', 
+    tugasPokok: 'Merencanakan, mengelola, mengawasi, dan mengevaluasi seluruh program, anggaran, serta sarana-prasarana sekolah.', 
+    fungsi: [
+      'Educator (Pendidik): Membimbing dan membina warga sekolah.',
+      'Manager (Pengelola): Mengatur seluruh sumber daya sekolah.',
+      'Administrator: Mengelola administrasi dan tata kelola sekolah.',
+      'Supervisor (Pengawas): Meningkatkan mutu pembelajaran dan kinerja staf.'
+    ]
+  }
 ];
 
 async function renderTupoksiList() {
   let list = await fetchFromSupabase('tupoksi_list', defaultTupoksiList);
   
+  // Render tampilan di Menu Petugas (Admin)
   const adminEl = document.getElementById('admin-tupoksi-list');
   if (adminEl) {
-    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada tugas pokok.</p>' : list.map((item, idx) => `
-      <div style="background: #f8fafc; padding: 12px 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-        <div><strong>${idx + 1}. ${item.judul}</strong>: <span style="color: var(--text-muted);">${item.deskripsi}</span></div>
-        <button type="button" onclick="hapusTupoksiItem(${idx})" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Hapus</button>
+    adminEl.innerHTML = list.length === 0 ? '<p style="font-size: 0.85rem; color: var(--text-muted);">Belum ada data tupoksi.</p>' : list.map((item, idx) => `
+      <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+          <div><strong>${idx + 1}. ${item.jabatan}</strong></div>
+          <button type="button" onclick="hapusTupoksiItem(${idx})" style="background: #dc2626; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Hapus</button>
+        </div>
+        <p style="font-size: 0.9rem; margin: 4px 0;"><strong>Tugas Pokok:</strong> ${item.tugasPokok}</p>
+        <p style="font-size: 0.9rem; margin: 4px 0;"><strong>Fungsi (${(item.fungsi || []).length} poin):</strong></p>
+        <ul style="margin: 0; padding-left: 20px; font-size: 0.85rem; color: var(--text-muted);">
+          ${(item.fungsi || []).map(f => `<li>${f}</li>`).join('')}
+        </ul>
       </div>
     `).join('');
   }
 
+  // Render tampilan publik website sesuai format dokumen resmi
   const publicEl = document.getElementById('display-tupoksi-list');
   if (publicEl) {
     publicEl.innerHTML = list.length === 0 ? '<p style="color: var(--text-muted);">Belum ada informasi tupoksi.</p>' : list.map((item, idx) => `
-      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; gap: 15px; align-items: flex-start;">
-        <div style="background: var(--primary-color); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">${idx + 1}</div>
-        <div>
-          <h4 style="color: var(--primary-color); margin-bottom: 6px; font-size: 1.05rem;">${item.judul}</h4>
-          <p style="color: var(--text-dark); line-height: 1.6; font-size: 0.95rem;">${item.deskripsi}</p>
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">
+          <div style="background: var(--primary-color); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 0.95rem;">${idx + 1}</div>
+          <h4 style="color: var(--primary-color); margin: 0; font-size: 1.1rem; text-transform: uppercase;">${item.jabatan}</h4>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 140px 1fr; gap: 15px; margin-bottom: 12px; align-items: start;">
+          <strong style="color: var(--text-dark);">TUGAS POKOK</strong>
+          <div style="color: var(--text-dark); line-height: 1.6;">: ${item.tugasPokok}</div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 140px 1fr; gap: 15px; align-items: start;">
+          <strong style="color: var(--text-dark);">FUNGSI</strong>
+          <div>
+            <div style="margin-bottom: 4px; color: var(--text-dark);">:</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              ${(item.fungsi || []).map((f, fIdx) => `
+                <div style="display: flex; gap: 8px; line-height: 1.5; color: var(--text-dark);">
+                  <span style="font-weight: 600; min-width: 20px;">${fIdx + 1}.</span>
+                  <span>${f}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
         </div>
       </div>
     `).join('');
@@ -432,28 +465,34 @@ async function renderTupoksiList() {
 }
 
 async function tambahTupoksiItem() {
-  const judulEl = document.getElementById('input-tupoksi-judul');
-  const deskripsiEl = document.getElementById('input-tupoksi-deskripsi');
+  const jabatanEl = document.getElementById('input-tupoksi-jabatan');
+  const tugasPokokEl = document.getElementById('input-tupoksi-tugaspokok');
+  const fungsiEl = document.getElementById('input-tupoksi-fungsi');
 
-  if (!judulEl || !deskripsiEl) return;
-  const judul = judulEl.value.trim();
-  const deskripsi = deskripsiEl.value.trim();
+  if (!jabatanEl || !tugasPokokEl || !fungsiEl) return;
+  const jabatan = jabatanEl.value.trim();
+  const tugasPokok = tugasPokokEl.value.trim();
+  const fungsiRaw = fungsiEl.value.trim();
 
-  if (!judul || !deskripsi) {
-    alert('Judul dan Rincian Tugas Pokok wajib diisi!');
+  if (!jabatan || !tugasPokok || !fungsiRaw) {
+    alert('Jabatan, Tugas Pokok, dan Fungsi wajib diisi!');
     return;
   }
 
+  // Pecah fungsi berdasarkan baris baru (enter) agar otomatis bernomor
+  const fungsiArray = fungsiRaw.split('\n').filter(item => item.trim() !== '');
+
   let list = await fetchFromSupabase('tupoksi_list', defaultTupoksiList);
-  list.push({ judul, deskripsi });
+  list.push({ jabatan, tugasPokok, fungsi: fungsiArray });
   
   localStorage.setItem('smpn2_content_tupoksi_list', JSON.stringify(list));
   await saveToSupabase('tupoksi_list', list);
 
-  judulEl.value = '';
-  deskripsiEl.value = '';
+  jabatanEl.value = '';
+  tugasPokokEl.value = '';
+  fungsiEl.value = '';
   renderTupoksiList();
-  alert('Tugas Pokok berhasil ditambahkan!');
+  alert('Tugas Pokok & Fungsi berhasil ditambahkan!');
 }
 
 async function hapusTupoksiItem(index) {
@@ -461,7 +500,7 @@ async function hapusTupoksiItem(index) {
   list.splice(index, 1);
   
   localStorage.setItem('smpn2_content_tupoksi_list', JSON.stringify(list));
-  await saveToSupabase('tupoksi_list', list); // Pakai await
+  await saveToSupabase('tupoksi_list', list);
   renderTupoksiList();
 }
 
